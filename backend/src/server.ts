@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import { createClient } from 'redis';
 import RedisStore from 'connect-redis';
 import session from 'express-session';
-import * as db from './db';
+import * as db from './services/db';
 
 const app: Express = express();
 
@@ -54,7 +54,7 @@ db.query('SELECT NOW() AS "theTime"', [], (err, result) => {
   if (err) {
     console.log('[Postgres] Could not connect to database on startup');
   } else {
-    console.log('[Postgres] connection successful', result.rows);
+    console.log(`[Postgres] connection successful: ${ result.rows[0]?.theTime }`);
   }
 });
 
