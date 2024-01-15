@@ -6,6 +6,8 @@ import { createClient } from 'redis';
 import RedisStore from 'connect-redis';
 import session from 'express-session';
 import * as db from './services/db';
+import fs from 'fs';
+import path from 'path';
 
 const app: Express = express();
 
@@ -60,8 +62,25 @@ db.query('SELECT NOW() AS "theTime"', [], (err, result) => {
 
 
 //-------------
+// Configure static files pages for each separate VueJS app served
+//-------
+
+const ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
+
+app.use(`/assets`, express.static(path.join(`${ __dirname }/../../frontend/admin/dist/assets`), {maxAge: `${ ONE_WEEK }`}));
+app.use(`/assets`, express.static(path.join(`${ __dirname }/../../frontend/website/dist/assets`), {maxAge: `${ ONE_WEEK }`}));
+
+
+//-------------
 // Routes
 //-------
+const getAdminPage = (req: Request, res: Response) => {
+  // res.send('Welcome to Dakar in Senegal, the city of typescript!')
+  res.send(fs.readFileSync(path.join(`${ __dirname }/../../frontend/admin/dist/index.html`), 'utf8'));
+};
+app.get('/admin', getAdminPage);
+app.get('/admin/*', getAdminPage);
+
 app.get('/', (req: Request, res: Response) => {
   res.send('Welcome to Dakar in Senegal, the city of typescript!')
 });
