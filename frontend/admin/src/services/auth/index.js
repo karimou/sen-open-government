@@ -1,4 +1,4 @@
-import http from '../api';
+import http from '../https';
 
 const logUserIn = async ({email, password}) => {
     console.log('logUserIn');

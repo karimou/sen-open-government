@@ -1,4 +1,4 @@
-import './assets/main.css'
+// import './assets/main.css'
 
 import { createApp } from 'vue';
 import App from './App.vue';
@@ -7,6 +7,7 @@ import PrimeVue from 'primevue/config';
 import { createPinia } from 'pinia';
 
 import 'primevue/resources/themes/md-light-deeppurple/theme.css';
+import 'primeflex/primeflex.css';
 
 const app = createApp(App);
 

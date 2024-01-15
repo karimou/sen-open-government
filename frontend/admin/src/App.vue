@@ -1,5 +1,12 @@
 <script setup>
   import { RouterLink, RouterView } from 'vue-router';
+
+  import { API } from '@/services';
+
+  const logUserOut = () => {
+    API.auth.logUserOut();
+  }
+
 </script>
 
 <template>
@@ -8,6 +15,7 @@
     <nav>
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/login">Login</RouterLink>
+      <button @click="logUserOut()">Logout</button>
     </nav>
   </header>
 
