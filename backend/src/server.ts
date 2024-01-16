@@ -6,8 +6,9 @@ import { createClient } from 'redis';
 import RedisStore from 'connect-redis';
 import session from 'express-session';
 import * as db from './services/db';
-import fs from 'fs';
+import { readFileSync } from 'node:fs';
 import path from 'path';
+import apiRoutes from './routes';
 
 const app: Express = express();
 
@@ -72,12 +73,16 @@ app.use(`/assets`, express.static(path.join(`${ __dirname }/../../frontend/websi
 
 
 //-------------
-// Routes
+// Api
 //-------
-const getAdminPage = (req: Request, res: Response) => {
-  // res.send('Welcome to Dakar in Senegal, the city of typescript!')
-  res.send(fs.readFileSync(path.join(`${ __dirname }/../../frontend/admin/dist/index.html`), 'utf8'));
-};
+apiRoutes(app);
+
+//-------------
+// Main Routes
+//-------
+const adminHtml = readFileSync(path.join(`${ __dirname }/../../frontend/admin/dist/index.html`), 'utf8');
+const getAdminPage = (req: Request, res: Response) => res.send(adminHtml);
+
 app.get('/admin', getAdminPage);
 app.get('/admin/*', getAdminPage);
 
