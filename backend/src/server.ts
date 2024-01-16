@@ -20,8 +20,12 @@ import apiRoutes from './routes';
 const app: Express = express();
 app.use(express.json())
 
+//-------------
+// Vars
+//-------
 const isLocal = (process.env.NODE_END == 'local');
 const ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
+
 //-------------
 // Load env variables
 //-------
@@ -105,7 +109,6 @@ const getAdminPage = (req: Request, res: Response) => res.send(adminHtml);
 
 app.get('/admin', getAdminPage);
 app.get('/admin/*', getAdminPage);
-
 app.get('/', (req: Request, res: Response) => {
   console.log(req.session);
   res.send('Welcome to Dakar in Senegal, the city of typescript!')
