@@ -6,7 +6,8 @@
   import Card from 'primevue/card';
   import Password from 'primevue/password';
   import InputText from 'primevue/inputtext';
-  import Button from 'primevue/button'
+  import Button from 'primevue/button';
+  import { API } from '@/services';
 
   const schema = yup.object({
     email: yup
@@ -28,7 +29,7 @@
   
 
   const onSubmit = handleSubmit((values) => {
-    alert(JSON.stringify(values, null, 2));
+    API.auth.logUserIn(values);
   });
 
 </script>
