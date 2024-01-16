@@ -110,7 +110,6 @@ const getAdminPage = (req: Request, res: Response) => res.send(adminHtml);
 app.get('/admin', getAdminPage);
 app.get('/admin/*', getAdminPage);
 app.get('/', (req: Request, res: Response) => {
-  console.log(req.session);
   res.send('Welcome to Dakar in Senegal, the city of typescript!')
 });
 

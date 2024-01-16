@@ -20,11 +20,11 @@
       .required()
   });
 
-  const { handleSubmit, resetForm, errors, defineField } = useForm({validationSchema: schema})
+  const { handleSubmit, errors, defineField } = useForm({validationSchema: schema})
   
-  const [email, emailAttrs] = defineField('email');
+  const [email, _emailAttrs] = defineField('email');
 
-  const [password, passwordAttrs] = defineField('password');
+  const [password, _passwordAttrs] = defineField('password');
 
   
 
@@ -47,7 +47,12 @@
       >
         <div class="field">
           <span class="p-float-label">
-            <InputText id="email" type="email" v-model="email" class="w-full"/>
+            <InputText 
+              id="email" 
+              type="email" 
+              v-model="email" 
+              class="w-full"
+            />
             <label for="email">Email</label>
           </span>
           </div>
@@ -55,7 +60,14 @@
         
         <div class="field">
           <span class="p-float-label">
-            <InputText id="password" type="password" v-model="password" class="w-full"/>
+            <Password 
+              id="password" 
+              type="password" 
+              v-model="password" 
+              inputClass="w-full" 
+              class="w-full"
+              :toggleMask="true"
+            />
             <label for="password">Password</label>
           </span>
         </div>
