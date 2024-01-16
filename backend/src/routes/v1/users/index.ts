@@ -12,15 +12,20 @@ securityRouter
 
 securityRouter
     .post('/login', async (req: Request, res: Response) => {
-        console.log(req.session)
-        let userData = await User.login(req.body)
+        let user = await User.login(req.body)
             .catch(e => console.log(e));
-        if (!userData) return res.status(401).send();
-        req.session.user = userData;
+        if (!user) return res.status(401).send();
+        req.session.user = user;
         req.session.save();
-        console.log(req.session)
-        return res.status(200).send(userData);
-
+        return res.status(200).send(user);
     });
+
+securityRouter
+    .get('/logout', async (req: Request, res: Response) => {
+        req.session.destroy((err) => {});
+        res.status(200).send();
+    });
+
+
 
 export default securityRouter;

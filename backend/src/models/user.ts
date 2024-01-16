@@ -10,8 +10,16 @@ interface Credentials {
 };
 
 class User {
-    constructor() {
+    id: number;
+    username: string;
+    email: string;
+    phone: string;
 
+    constructor(userData: { [key:string] : any}) {
+        this.id = userData.id;
+        this.username = userData.username;
+        this.email = userData.email;
+        this.phone = userData.phone;
     }
     static async login({email, password}: Credentials) {
         return new Promise(async (resolve: (value: any) => void, reject: (reason?: any) => void) => {
@@ -24,7 +32,7 @@ class User {
             client.query(query)
                 .then(res => {
                     if (res.rows[0]) {
-                        resolve(res.rows[0])
+                        resolve(new User(res.rows[0]))
                     } else {
                         reject(new Error('incorrect credentials'))
                     }
