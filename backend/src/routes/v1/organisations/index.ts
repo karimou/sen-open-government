@@ -1,19 +1,19 @@
 
 import { Router, Request, Response } from 'express';
 
-import { Election, User } from '../../../models';
+import { Organisation, User } from '../../../models';
 
 import { isUserSigned } from '../../../middleware';
 
 const router = Router();
 
 router
-    .get('/:electionId', isUserSigned, async (req: Request, res: Response) => {
+    .get('/:organisationId', isUserSigned, async (req: Request, res: Response) => {
         try {
             
-            let election = await Election
-                .getById(req.params.electionId);
-            res.status(200).send(election);
+            let organisation = await Organisation
+                .getById(req.params.organisationId);
+            res.status(200).send(organisation);
 
         } catch (e) {
 
@@ -29,9 +29,9 @@ router.route('')
 
         try {
             
-            let elections = await Election
+            let organisations = await Organisation
                 .list();
-            res.status(200).send(elections);
+            res.status(200).send(organisations);
 
         } catch (e) {
 
@@ -44,9 +44,9 @@ router.route('')
 
         try {
             
-            let election = new Election(req.body, req.session?.user as User);
-            await election.add();
-            res.status(200).send(election);
+            let organisation = new Organisation(req.body, req.session?.user as User);
+            await organisation.add();
+            res.status(200).send(organisation);
 
         } catch (e) {
 
@@ -58,9 +58,9 @@ router.route('')
 
         try {
 
-            let election = new Election(req.body, req.session?.user as User);
-            await election.update();
-            res.status(200).send(election);
+            let organisation = new Organisation(req.body, req.session?.user as User);
+            await organisation.update();
+            res.status(200).send(organisation);
 
         } catch (e) {
 
@@ -73,7 +73,7 @@ router.route('')
 
         try {
 
-            await Election
+            await Organisation
                 .delete(req.body.ids);
 
         } catch (e) {
