@@ -14,7 +14,7 @@ const logUserIn = async ({email, password}) => {
         .then(res => {
             if (res.status == 200) {
                 const authStore = useAuthStore();
-                authStore.storeUser(res.data);
+                authStore.saveUser(res.data);
                 router.push('/admin');
             }
         });

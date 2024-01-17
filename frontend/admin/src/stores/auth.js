@@ -13,7 +13,7 @@ export const useAuthStore = defineStore('auth', () => {
         user.value = localStorage.getItem('user');
     };
 
-    const storeUser = (userData) => {
+    const saveUser = (userData) => {
         user.value = userData;
         localStorage.setItem('user', userData);
     };
@@ -23,5 +23,5 @@ export const useAuthStore = defineStore('auth', () => {
         localStorage.removeItem('user');
     }
 
-    return { user, isAuthenticated, storeUser, loadUser, removeUser }
+    return { user, isAuthenticated, saveUser, loadUser, removeUser }
 })
