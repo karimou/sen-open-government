@@ -16,7 +16,7 @@ class Election {
     last_modified_by: User | undefined
 
     constructor(params: { [key: string]: any } , user?: User) {
-        Object.assign(params);
+        Object.assign(this, params);
         this.last_modified_by = user;
 
     }
