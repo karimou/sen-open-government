@@ -1,9 +1,9 @@
 import { getClient, loadQueries } from '../services/db';
 import { User } from '../types';
 
-const opinionQueries = loadQueries('opinions');
+const articleQueries = loadQueries('articles');
 
-class Opinion {
+class Article {
     id: number
     name: string
     type: 'party' | 'association' | 'coalition'
@@ -21,8 +21,9 @@ class Opinion {
     last_modified_by: User | undefined
 
     constructor(params: { [key: string]: any }, user?: User) {
-
+        Object.assign(this, params);
+        this.last_modified_by = user;
     }
 }
 
-export default Opinion;
+export default Article;

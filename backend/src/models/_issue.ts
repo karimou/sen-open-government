@@ -5,23 +5,15 @@ const issueQueries = loadQueries('issues');
 
 class Issue {
     id: number
-    name: string
-    type: 'party' | 'association' | 'coalition'
+    title: string
     description: string
-    twitter: string
-    facebook: string
-    instagram: string
-    website: string
-    address: string
-    contact_phone: string
-    contact_email: string
-    parent_organisation_id: number
     created_on: Date
     last_modified_on: Date
     last_modified_by: User | undefined
 
     constructor(params: { [key: string]: any }, user?: User) {
-
+        Object.assign(this, params);
+        this.last_modified_by = user;
     }
 }
 

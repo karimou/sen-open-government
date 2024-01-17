@@ -3,7 +3,6 @@ SELECT
     person.firstname,
     person.lastname,
     person.description,
-    person.article_url,
     person.facebook,
     person.instagram,
     person.twitter,

@@ -48,9 +48,6 @@ exports.up = function(db, callback) {
     description: {
       type: 'string'
     },
-    article_url: {
-      type: 'string'
-    },
 		created_on: {
 			type: 'timestamp',
 			notNull: true,

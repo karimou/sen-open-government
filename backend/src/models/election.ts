@@ -10,7 +10,6 @@ class Election {
     title: string
     type: 'president' | 'parliament'
     description: string
-    article_url: string
     created_on: Date
     last_modified_on: Date
     last_modified_by: User | undefined
@@ -25,7 +24,7 @@ class Election {
 
         let query = {
             text: electionQueries.INSERT_ELECTION,
-            values: [this.date, this.title, this.type, this.description, this.article_url, this.last_modified_by?.id]
+            values: [this.date, this.title, this.type, this.description, this.last_modified_by?.id]
         }
 
         let election = await client.query(query)
@@ -44,7 +43,7 @@ class Election {
 
         let query = {
             text: electionQueries.UPDATE_ELECTION,
-            values: [this.id, this.date, this.title, this.type, this.description, this.article_url, this.last_modified_by?.id]
+            values: [this.id, this.date, this.title, this.type, this.description, this.last_modified_by?.id]
         }
 
         let election = await client.query(query)

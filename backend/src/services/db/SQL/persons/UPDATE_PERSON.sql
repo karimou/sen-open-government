@@ -5,7 +5,6 @@ SET
     gender = $4,
     date_of_birth = $5,
     description = $6,
-    article_url = $7,
     facebook = $8,
     instagram = $9,
     twitter = $10,

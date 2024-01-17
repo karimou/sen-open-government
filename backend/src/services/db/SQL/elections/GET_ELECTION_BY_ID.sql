@@ -4,7 +4,6 @@ SELECT
     election.title,
     election.type, 
     election.description, 
-    election.article_url, 
     election.created_on, 
     election.last_modified_on, 
     json_build_object('id', "user".id, 'username', "user".username) as user
