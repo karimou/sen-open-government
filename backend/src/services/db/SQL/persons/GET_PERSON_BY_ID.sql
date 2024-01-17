@@ -7,6 +7,7 @@ SELECT
     person.instagram,
     person.twitter,
     person.website,
+    person.photo,
     person.created_on, 
     person.last_modified_on, 
     json_build_object('id', "user".id, 'username', "user".username) as user

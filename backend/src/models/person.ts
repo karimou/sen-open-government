@@ -12,8 +12,9 @@ class Person {
     description: string
     facebook: string
     instagram: string
-    website: string
     twitter: string
+    website: string
+    photo: string
     created_on: Date
     last_modified_on: Date
     last_modified_by: User | undefined
@@ -28,7 +29,7 @@ class Person {
 
         let query = {
             text: personQueries.INSERT_PERSON,
-            values: [this.firstname, this.lastname,this. gender, this.date_of_birth, this.description, this.facebook, this.instagram, this.twitter, this.website, this.last_modified_by?.id]
+            values: [this.firstname, this.lastname,this. gender, this.date_of_birth, this.description, this.facebook, this.instagram, this.twitter, this.website, this.photo, this.last_modified_by?.id]
         }
 
         let person = await client.query(query)
@@ -47,7 +48,7 @@ class Person {
 
         let query = {
             text: personQueries.UPDATE_PERSON,
-            values: [this.id, this.firstname, this.lastname,this. gender, this.date_of_birth, this.description, this.facebook, this.instagram, this.twitter, this.website, this.last_modified_by?.id]
+            values: [this.id, this.firstname, this.lastname,this. gender, this.date_of_birth, this.description, this.facebook, this.instagram, this.twitter, this.website, this.photo, this.last_modified_by?.id]
         }
 
         let person = await client.query(query)

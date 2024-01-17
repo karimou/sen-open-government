@@ -52,7 +52,6 @@
                     <Column field="type" header="Type"></Column>
                     <Column field="date" header="Date"></Column>
                     <Column field="description" header="Description"></Column>
-                    <Column field="article" header="Lien Article"></Column>
 
                 </DataTable>
             </div>

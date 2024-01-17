@@ -9,7 +9,8 @@ SET
     instagram = $9,
     twitter = $10,
     website = $11,
+    photo = $12,
     last_modified_on = NOW(),
-    last_modified_by = $12
+    last_modified_by = $13
 WHERE
     id = $1;

@@ -28,7 +28,19 @@ exports.up = function(db, callback) {
         table: 'person',
         mapping: 'id',
         rules: {
-          onDelete: 'SET NULL',
+          onDelete: 'CASCADE',
+          onUpdate: 'RESTRICT'
+        }
+      }
+		},
+		issue_id: {
+			type: 'int',
+      foreignkey: {
+        name: 'opinion_issue_fk',
+        table: 'issue',
+        mapping: 'id',
+        rules: {
+          onDelete: 'CASCADE',
           onUpdate: 'RESTRICT'
         }
       }

@@ -21,6 +21,9 @@ exports.up = function(db, callback) {
       primaryKey: true,
       autoIncrement: true
     },
+    photo: {
+      type: 'string'
+    },
     firstname: {
       type: 'string'
     },
