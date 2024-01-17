@@ -15,31 +15,47 @@ exports.setup = function(options, seedLink) {
 };
 
 exports.up = function(db, callback) {
-  db.createTable('article', {
+  db.createTable('organisation', {
     id: {
       type: 'int',
       primaryKey: true,
       autoIncrement: true
     },
-    title: {
+    name: {
+      type: 'string'
+    },
+    type: {
       type: 'string'
     },
     description: {
       type: 'string'
     },
-    content: {
+    twitter: {
       type: 'string'
     },
-		created_on: {
-			type: 'timestamp',
-			notNull: true,
-			defaultValue: new String('CURRENT_TIMESTAMP')
-		},
-		created_by: {
+    facebook: {
+      type: 'string'
+    },
+    instagram: {
+      type: 'string'
+    },
+    website: {
+      type: 'string'
+    },
+    address: {
+      type: 'string'
+    },
+    contact_phone: {
+      type: 'string'
+    },
+    contact_email: {
+      type: 'string'
+    },
+		parent_organisation_id: {
 			type: 'int',
       foreignkey: {
-        name: 'election_user_fk',
-        table: 'user',
+        name: 'parent_organisation_id_fk',
+        table: 'organisation',
         mapping: 'id',
         rules: {
           onDelete: 'SET NULL',
@@ -47,13 +63,18 @@ exports.up = function(db, callback) {
         }
       }
 		},
+		created_on: {
+			type: 'timestamp',
+			notNull: true,
+			defaultValue: new String('CURRENT_TIMESTAMP')
+		},
 		last_modified_on: {
 			type: 'timestamp'
 		},
 		last_modified_by: {
 			type: 'int',
       foreignkey: {
-        name: 'article_user_fk',
+        name: 'election_user_fk',
         table: 'user',
         mapping: 'id',
         rules: {
@@ -65,14 +86,14 @@ exports.up = function(db, callback) {
   }, function(err) {
       
       if (err) {console.log(err);return callback(err);}
-      db.runSql('ALTER TABLE article ADD tags text[]', callback);
+      return callback();
 
     }
   )
 };
 
 exports.down = function(db, callback) {
-  db.dropTable('article', callback)
+  db.dropTable('organisation', callback)
 };
 
 exports._meta = {

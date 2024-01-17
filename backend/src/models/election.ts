@@ -1,11 +1,8 @@
 import { getClient, loadQueries } from "../services/db";
+import { User } from '../types';
 
 const electionQueries = loadQueries('elections');
 
-interface User {
-    id: number;
-    username: string;
-}
 
 class Election {
     id: number
@@ -18,13 +15,13 @@ class Election {
     last_modified_on: Date
     last_modified_by: User | undefined
 
-    constructor({id, date, title, type, description, article, created_on, last_modified_on}: { [key: string]: any } , user?: User) {
+    constructor({id, date, title, type, description, article_url, created_on, last_modified_on}: { [key: string]: any } , user?: User) {
         this.id = id;
         this.date = date;
         this.title = title;
         this.type = type;
         this.description = description;
-        this.article_url = article;
+        this.article_url = article_url;
         this.created_on = created_on;
         this.last_modified_on = last_modified_on;
         this.last_modified_by = user;
