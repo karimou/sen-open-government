@@ -16,11 +16,12 @@ class Organisation {
     contact_phone: string
     contact_email: string
     parent_organisation_id: number
+    parent_organisation: Organisation
     created_on: Date
     last_modified_on: Date
     last_modified_by: User | undefined
 
-    constructor({id, name, type, description, twitter, facebook, instagram, website, address, contact_phone, contact_email, parent_organisation_id, created_on, last_modified_on}: { [key: string]: any }, user?: User) {
+    constructor({id, name, type, description, twitter, facebook, instagram, website, address, contact_phone, contact_email, parent_organisation, parent_organisation_id, created_on, last_modified_on}: { [key: string]: any }, user?: User) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -32,6 +33,7 @@ class Organisation {
         this.address = address;
         this.contact_phone = contact_phone;
         this.contact_email = contact_email;
+        this.parent_organisation = parent_organisation;
         this.parent_organisation_id = parent_organisation_id;
         this.created_on = created_on;
         this.last_modified_on = last_modified_on;
