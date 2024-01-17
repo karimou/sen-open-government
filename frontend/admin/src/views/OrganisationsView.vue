@@ -1,5 +1,5 @@
 <template>
     <div>
-        HomeView
+        OrganisationsView
     </div>
 </template>

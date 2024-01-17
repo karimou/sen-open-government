@@ -3,31 +3,38 @@
     import { ref } from 'vue';
     import { RouterLink } from 'vue-router';
     import { API } from '@/services';
+    import TheNavigationDrawerMenuItem from '@/components/TheNavigationDrawerMenuItem.vue';
 
     const logUserOut = () => {
         API.auth.logUserOut();
     };
 
     const menu = ref([
-        {route: '/admin', label: 'Home'}
+        {
+            label: 'Home', 
+            items: [
+                {label: 'Home', to: '/admin'}
+            ]
+        },
+        {
+            label: 'Data', items: [
+                {to: '/admin/elections', label: 'Elections'},
+                {to: '/admin/organisations', label: 'Organisations'},
+                {to: '/admin/persons', label: 'Persons'},
+                {to: '/admin/issues', label: 'Issues'},
+                {to: '/admin/opinions', label: 'Opinions'}
+            ]
+        }
     ]);
 </script>
 
 <template>
     <button @click="logUserOut()">Logout</button>
-    <MegaMenu :model="menu" orientation="vertical">
-        <template #item="{ item }">
-            <RouterLink v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-                <a v-ripple :href="href" @click="navigate">
-                    <span :class="item.icon" />
-                    <span class="ml-2">{{ item.label }}</span>
-                </a>
-            </RouterLink>
-            <a v-else v-ripple :href="item.url" :target="item.target">
-                <span :class="item.icon" />
-                <span class="ml-2">{{ item.label }}</span>
-            </a>
+    <ul class="layout-menu">
+        <template v-for="(item, i) in menu" :key="item">
+            <TheNavigationDrawerMenuItem v-if="!item.separator" :item="item" :index="i"></TheNavigationDrawerMenuItem>
+            <li v-if="item.separator" class="menu-separator"></li>
         </template>
-    </MegaMenu>
+    </ul>
 
 </template>

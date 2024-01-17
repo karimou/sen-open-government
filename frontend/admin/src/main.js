@@ -6,8 +6,8 @@ import router from './router';
 import PrimeVue from 'primevue/config';
 import { createPinia } from 'pinia';
 
-import 'primevue/resources/themes/md-light-deeppurple/theme.css';
-import 'primeflex/primeflex.css';
+
+import '@/assets/styles.scss';
 
 const app = createApp(App);
 

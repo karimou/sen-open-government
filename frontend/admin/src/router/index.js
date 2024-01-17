@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue';
+import MainView from '@/views/MainView.vue';
 import { useAuthStore } from '@/stores/auth';
 
 const router = createRouter({
@@ -7,8 +7,41 @@ const router = createRouter({
   routes: [
     {
       path: '/admin',
-      name: 'home',
-      component: HomeView
+      name: 'main',
+      component: MainView,
+      children: [
+        {
+          path: '/admin',
+          name: 'home',
+          component: () => import('@/views/HomeView.vue')
+        },
+        {
+          path: '/admin/elections',
+          name: 'elections',
+          component: () => import('@/views/ElectionsView.vue')
+        },
+        {
+          path: '/admin/persons',
+          name: 'persons',
+          component: () => import('@/views/PersonsView.vue')
+        },
+        {
+          path: '/admin/organisations',
+          name: 'organisations',
+          component: () => import('@/views/OrganisationsView.vue')
+        },
+        {
+          path: '/admin/issues',
+          name: 'issues',
+          component: () => import('@/views/IssuesView.vue')
+        },
+        {
+          path: '/admin/opinions',
+          name: 'opinions',
+          component: () => import('@/views/OpinionsView.vue')
+        },
+
+      ]
     },
     {
       path: '/admin/login',

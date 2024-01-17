@@ -1,5 +1,5 @@
 <template>
     <div>
-        HomeView
+        PersonsView
     </div>
 </template>
