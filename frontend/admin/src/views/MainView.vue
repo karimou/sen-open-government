@@ -1,6 +1,7 @@
 <script setup>
   import { RouterView } from 'vue-router';
-  import TheNavigationDrawer from '@/components/TheNavigationDrawer.vue';
+  import AppMenu from '@/components/AppMenu.vue';
+  import AppTopBar from '@/components/AppTopBar.vue';
   import { ref, computed, watch } from 'vue';
   import { useLayout } from '@/composables/layout';
   
@@ -58,8 +59,9 @@
 
 <template>
   <div class="layout-wrapper" :class="containerClass">
+      <AppTopBar></AppTopBar>
       <div class="layout-sidebar">
-        <TheNavigationDrawer/>
+        <AppMenu/>
       </div>
       <div class="layout-main-container">
           <div class="layout-main">
