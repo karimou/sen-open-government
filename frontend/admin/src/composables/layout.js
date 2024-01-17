@@ -1,3 +1,5 @@
+/* DISCLAIMER: made by primedev: https://primevue.org/templates/ */
+
 import { toRefs, reactive, computed } from 'vue';
 
 const layoutConfig = reactive({

@@ -1,7 +1,7 @@
 <script setup>
+    /* DISCLAIMER: made by primedev: https://primevue.org/templates/ */
     import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
     import { useLayout } from '@/composables/layout';
-    import router from '@/router';
     import { API } from '@/services';
 
     const { layoutConfig, onMenuToggle } = useLayout();
