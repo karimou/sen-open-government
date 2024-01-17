@@ -3,14 +3,14 @@ import { Router, Request, Response } from 'express';
 
 import { User } from '../../../models';
 
-const securityRouter = Router();
+const usersRouter = Router();
 
-securityRouter
+usersRouter
     .get('/test', (req: Request, res: Response) => {
         res.status(200).send('Bravo cousin!')
     });
 
-securityRouter
+usersRouter
     .post('/login', async (req: Request, res: Response) => {
         let user = await User.login(req.body)
             .catch(e => console.log(e));
@@ -20,7 +20,7 @@ securityRouter
         return res.status(200).send(user);
     });
 
-securityRouter
+usersRouter
     .get('/logout', async (req: Request, res: Response) => {
         req.session.destroy((err) => {});
         res.status(200).send();
@@ -28,4 +28,4 @@ securityRouter
 
 
 
-export default securityRouter;
+export default usersRouter;

@@ -1,0 +1,1 @@
+DELETE FROM election WHERE id = ANY($1) RETURNING id;
