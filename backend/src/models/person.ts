@@ -19,20 +19,8 @@ class Person {
     last_modified_on: Date
     last_modified_by: User | undefined
 
-    constructor({id, firstname, lastname, gender, date_of_birth, description, article_url, facebook, instagram, twitter, website, created_on, last_modified_on}: { [key: string]: any }, user?: User) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.description = gender;
-        this.article_url = article_url;
-        this.facebook = description;
-        this.instagram = instagram;
-        this.twitter = date_of_birth;
-        this.website = facebook;
-        this.twitter = twitter;
-        this.website = website;
-        this.created_on = created_on;
-        this.last_modified_on = last_modified_on;
+    constructor(params: { [key: string]: any }, user?: User) {
+        Object.assign(params);
         this.last_modified_by = user;
     }
     async add(): Promise<void> {
