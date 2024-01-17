@@ -24,11 +24,11 @@ class Person {
         this.firstname = firstname;
         this.lastname = lastname;
         this.description = gender;
-        this.twitter = date_of_birth;
+        this.article_url = article_url;
         this.facebook = description;
-        this.instagram = article_url;
-        this.website = facebook;
         this.instagram = instagram;
+        this.twitter = date_of_birth;
+        this.website = facebook;
         this.twitter = twitter;
         this.website = website;
         this.created_on = created_on;
