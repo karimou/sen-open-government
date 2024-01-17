@@ -10,6 +10,7 @@ interface User {
 class Election {
     id: number
     date: Date
+    title: string
     type: 'president' | 'parliament'
     description: string
     article_url: string
@@ -17,9 +18,10 @@ class Election {
     last_modified_on: Date
     last_modified_by: User | undefined
 
-    constructor({id, date, type, description, article, created_on, last_modified_on}: { [key: string]: any } , user?: User) {
+    constructor({id, date, title, type, description, article, created_on, last_modified_on}: { [key: string]: any } , user?: User) {
         this.id = id;
         this.date = date;
+        this.title = title;
         this.type = type;
         this.description = description;
         this.article_url = article;
@@ -33,7 +35,7 @@ class Election {
 
         let query = {
             text: electionQueries.INSERT_ELECTION,
-            values: [this.date, this.type, this.description, this.article_url, this.last_modified_by?.id]
+            values: [this.date, this.title, this.type, this.description, this.article_url, this.last_modified_by?.id]
         }
 
         let election = await client.query(query)
@@ -52,7 +54,7 @@ class Election {
 
         let query = {
             text: electionQueries.UPDATE_ELECTION,
-            values: [this.id, this.date, this.type, this.description, this.article_url, this.last_modified_by?.id]
+            values: [this.id, this.date, this.title, this.type, this.description, this.article_url, this.last_modified_by?.id]
         }
 
         let election = await client.query(query)

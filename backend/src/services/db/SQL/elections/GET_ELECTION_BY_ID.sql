@@ -1,6 +1,7 @@
 SELECT
     election.id, 
     election.date,
+    election.title,
     election.type, 
     election.description, 
     election.article_url as article, 

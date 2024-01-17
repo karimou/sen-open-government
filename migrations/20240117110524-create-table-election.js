@@ -24,6 +24,9 @@ exports.up = function(db, callback) {
     date: {
       type: 'date'
     },
+    title: {
+      type: 'string'
+    },
     type: {
       type: 'string'
     },
