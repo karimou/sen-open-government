@@ -14,12 +14,74 @@ exports.setup = function(options, seedLink) {
   seed = seedLink;
 };
 
-exports.up = function(db) {
-  return null;
+exports.up = function(db, callback) {
+  db.createTable('person', {
+    id: {
+      type: 'int',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    firstname: {
+      type: 'string'
+    },
+    lastname: {
+      type: 'string'
+    },
+    gender: {
+      type: 'string'
+    },
+    date_of_birth: {
+      type: 'date'
+    },
+    facebook: {
+      type: 'string'
+    },
+    instagram: {
+      type: 'string'
+    },
+    twitter: {
+      type: 'string'
+    },
+    website: {
+      type: 'string'
+    },
+    description: {
+      type: 'string'
+    },
+    article_url: {
+      type: 'string'
+    },
+		created_on: {
+			type: 'timestamp',
+			notNull: true,
+			defaultValue: new String('CURRENT_TIMESTAMP')
+		},
+		last_modified_on: {
+			type: 'timestamp'
+		},
+		last_modified_by: {
+			type: 'int',
+      foreignkey: {
+        name: 'person_user_fk',
+        table: 'user',
+        mapping: 'id',
+        rules: {
+          onDelete: 'SET NULL',
+          onUpdate: 'RESTRICT'
+        }
+      }
+		}
+  }, function(err) {
+      
+      if (err) {console.log(err);return callback(err);}
+      return callback();
+
+    }
+  )
 };
 
-exports.down = function(db) {
-  return null;
+exports.down = function(db, callback) {
+  db.dropTable('person', callback)
 };
 
 exports._meta = {
