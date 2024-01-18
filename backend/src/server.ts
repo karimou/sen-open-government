@@ -4,6 +4,7 @@ import express, { Express, Request, Response} from 'express';
 import dotenv from 'dotenv';
 import { createClient } from 'redis';
 import RedisStore from 'connect-redis';
+import bodyParser from 'body-parser';
 
 import session from 'express-session';
 declare module 'express-session' {
@@ -74,6 +75,11 @@ db.query('SELECT NOW() AS "theTime"', [], (err, result) => {
   }
 });
 
+//-------------
+// Update size limit of incoming requests 
+app.use(bodyParser.json({ limit: '50mb', extended: true  }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+//-------
 
 //-------------
 // Configure static files pages for each separate VueJS app served

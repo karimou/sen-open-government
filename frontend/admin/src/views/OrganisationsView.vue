@@ -33,7 +33,10 @@
     const openOrganisationUpsertForm = (organisation = {}) => {
         dialog.open(OrganisationsUpsertForm, { 
             data: organisation,
-            onClose: organisationsStore.refreshOrganisations
+            onClose: organisationsStore.refreshOrganisations,
+            props: {
+                modal: true
+            }
         });
     };
     

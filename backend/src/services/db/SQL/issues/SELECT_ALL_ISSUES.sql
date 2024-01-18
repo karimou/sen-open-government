@@ -3,8 +3,8 @@ SELECT
     issue.title,
     issue.short_description,
     issue.long_description,
-    person.created_on, 
-    person.last_modified_on, 
+    issue.created_on, 
+    issue.last_modified_on, 
     json_build_object('id', "user".id, 'username', "user".username) as user
 FROM issue
-LEFT JOIN "user" ON person.last_modified_by = "user".id;
+LEFT JOIN "user" ON issue.last_modified_by = "user".id;

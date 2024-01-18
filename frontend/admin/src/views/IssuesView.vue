@@ -1,5 +1,117 @@
+<script setup>
+    import DataTable from 'primevue/datatable';
+    import Column from 'primevue/column';
+    import Toolbar from 'primevue/toolbar';
+    import Button from 'primevue/button';
+    import { ref, onMounted, defineAsyncComponent } from 'vue';
+    import { API } from '@/services/api';
+    import { useDialog } from 'primevue/usedialog';
+    import { useIssuesStore } from '@/stores/issues';
+    
+
+    const issuesStore = useIssuesStore();
+
+    onMounted(issuesStore.refreshIssues);
+
+    const selectedIssues = ref(null);
+
+    const loading = ref(false);
+    const deleteSelectedIssues = () => {
+        let ids = selectedIssues.value?.map(issue => issue.id);
+        loading.value = true;
+        API.issues.deleteIssues(ids)
+            .then(() => {
+                issuesStore.refreshIssues();
+                selectedIssues.value = null;
+            })
+            .finally(() => loading.value = false);
+    };
+
+    const dialog = useDialog();
+    const IssuesUpsertForm = defineAsyncComponent(() => import('@/components/IssuesUpsertForm.vue'));
+
+    const openIssueUpsertForm = (issue = {}) => {
+        dialog.open(IssuesUpsertForm, { 
+            data: issue,
+            onClose: issuesStore.refreshIssues,
+            props: {
+                modal: true
+            }
+        });
+    };
+    
+</script>
+
 <template>
-    <div>
-        IssuesView
+    <div class="grid">
+        <div class="col-12">
+            <div class="card" v-if="issuesStore.issues?.length > 0">
+                <Toolbar class="mb-4">
+                    <template v-slot:start>
+                        <div class="my-2">
+                            <Button 
+                                label="Ajouter un sujet politique" 
+                                icon="pi pi-plus" 
+                                class="p-button-success mr-2" 
+                                @click="openIssueUpsertForm"
+                            ></Button>
+                            <Button 
+                                label="Supprimer la sélection" 
+                                icon="pi pi-trash" 
+                                class="p-button-danger" 
+                                @click="deleteSelectedIssues" 
+                                :disabled="!selectedIssues || !selectedIssues.length" 
+                                :loading="loading"
+                            ></Button>
+                        </div>
+                    </template>
+                </Toolbar>
+                <DataTable 
+                    :value="issuesStore.issues"
+                    v-model:selection="selectedIssues"
+                >
+                    <template #header>
+                        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                            <h5 class="m-0">Sujets politiques</h5>
+                        </div>
+                    </template>
+                    <Column selectionMode="multiple" headerStyle="width: 3rem" />
+                    <Column field="id" header="#"></Column>
+                    <Column headerStyle="min-width: 100px">
+                        <template #body="{ data }">
+                            <Button class="p-button-text p-button-rounded" icon="pi pi-pencil" @click="openIssueUpsertForm(data)"></Button>
+                        </template>
+                    </Column>
+                    <Column field="title" header="Titre"></Column>
+                    <Column field="short_description" header="Description"></Column>
+
+                </DataTable>
+            </div>
+
+            <div
+                class="px-4 py-5 shadow-1 flex flex-column md:flex-row md:align-items-center justify-content-between mb-3"
+                style="width: 600px; background-color: white;"
+                v-else
+            >
+                <div>
+                    <div class="font-medium text-xl mt-2 mb-3">Aucune issue</div>
+                    <div class="font-medium">Cliquer sur le bouton suivant pour rajouter une première élection à la base de données</div>
+                </div>
+                <div class="mt-4 mr-auto md:mt-0 md:mr-0">
+                    <Button 
+                        class="p-button font-bold px-5 py-3 p-button-success p-button-rounded p-button-raised"
+                        @click="openIssueUpsertForm"
+                    >Ajouter</Button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
+
+<style scoped>
+.blue-box {
+    width: 500px; 
+    border-radius: 1rem; 
+    background: linear-gradient(0deg, rgba(0, 123, 255, 0.5), rgba(0, 123, 255, 0.5)), linear-gradient(92.54deg, #1c80cf 47.88%, #ffffff 100.01%)
+}
+</style>

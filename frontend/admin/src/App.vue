@@ -10,5 +10,5 @@
 
 <template>
   <RouterView />
-  <DynamicDialog />
+  <DynamicDialog/>
 </template>

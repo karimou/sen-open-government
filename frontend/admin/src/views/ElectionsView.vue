@@ -33,7 +33,10 @@
     const openElectionUpsertForm = (election = {}) => {
         dialog.open(ElectionsUpsertForm, { 
             data: election,
-            onClose: electionsStore.refreshElections
+            onClose: electionsStore.refreshElections,
+            props: {
+                modal: true
+            }
         });
     };
     
