@@ -56,7 +56,7 @@
 
 </script>
 <template>
-    <div style="width: 450px">
+    <div style="width: 650px">
         <h5>{{ id ? 'Modifier' : 'Ajouter' }} un sujet politique</h5>
         <form @submit="onSubmit" :initial-values="initialValues.value">
             <div class="field">
