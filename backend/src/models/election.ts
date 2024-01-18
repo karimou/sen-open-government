@@ -59,7 +59,6 @@ class Election {
     static async delete(ids: Array<number>): Promise<void> {
         let client = await getClient();
 
-        console.log('delete', ids)
         let query = {
             text: electionQueries.DELETE_ELECTIONS_BY_IDS,
             values: [ids]
