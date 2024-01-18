@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-x3n3nnut.js";import{c as n,o}from"./index-v6tMztMt.js";const r={};function t(c,s){return o(),n("div",null," OrganisationsView ")}const _=e(r,[["render",t]]);export{_ as default};
