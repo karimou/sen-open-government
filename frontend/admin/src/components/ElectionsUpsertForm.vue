@@ -5,8 +5,9 @@
     import Textarea from 'primevue/textarea';
     import Button from 'primevue/button';
     import RadioButton from 'primevue/radiobutton';
+    import Message from 'primevue/message';
     import { inject, onMounted, ref } from 'vue';
-    import { API } from '@/services';
+    import { API } from '@/services/api';
     import { format } from 'date-fns';
 
     const schema = yup.object({
@@ -35,7 +36,7 @@
     onMounted(() => {
         if (dialogRef.value.data?.date) setFieldValue('date', format(dialogRef.value.data?.date, 'yyyy-MM-dd'));
         setFieldValue('type', (dialogRef.value.data?.type == 'click') ? 'presidential' : dialogRef.value.data?.type);
-        ['title', 'description'].forEach(field => setFieldValue(field, dialogRef.value.data[field]));
+        ['title', 'description'].forEach(field => { if (dialogRef.value.data[field]) setFieldValue(field, dialogRef.value.data[field]) });
         id.value = dialogRef.value.data?.id;
     });
 
@@ -102,11 +103,7 @@
             </div>
             <Button type="submit" label="Soumettre" class="w-full" :loading="loading"></Button>
         </form>
-        <ul v-if="Object.keys(errors)?.length > 0">
-            <li v-for="errorMessage in errors" >
-                <span class="p-error" id="text-error">{{ errorMessage || '&nbsp;' }}</span>
-            </li>
-        </ul>
+        <Message v-for="(errorMessage, index) of errors" severity="error" :key="index">{{ errorMessage }}</Message>
         
     </div>
     

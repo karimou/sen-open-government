@@ -2,7 +2,7 @@
     /* DISCLAIMER: made by primedev: https://primevue.org/templates/ */
     import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
     import { useLayout } from '@/composables/layout';
-    import { API } from '@/services';
+    import { API } from '@/services/api';
 
     const { layoutConfig, onMenuToggle } = useLayout();
 

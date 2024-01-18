@@ -8,7 +8,7 @@
   import InputText from 'primevue/inputtext';
   import Button from 'primevue/button';
   
-  import { API } from '@/services';
+  import { API } from '@/services/api';
 
   const schema = yup.object({
     email: yup

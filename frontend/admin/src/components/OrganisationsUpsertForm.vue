@@ -6,8 +6,10 @@
     import Button from 'primevue/button';
     import RadioButton from 'primevue/radiobutton';
     import Dropdown from 'primevue/dropdown';
+    import InputMask from 'primevue/inputMask';
+    import Message from 'primevue/message';
     import { inject, onMounted, ref } from 'vue';
-    import { API } from '@/services';
+    import { API } from '@/services/api';
     import { useOrganisationsStore } from '@/stores/organisations';
 
     const schema = yup.object({
@@ -50,14 +52,16 @@
     const [contact_email, _contact_emailAttrs ] = defineField('contact_email');
     const [parent_organisation_id, _parent_organisation_idAttrs ] = defineField('parent_organisation_id');
     
+    const organisationsStore = useOrganisationsStore();
     const id = ref(null);
+    const filteredOrganisations = ref([]);
     const initialValues = ref({});
-
     const dialogRef = inject('dialogRef');
     onMounted(() => {
-        ['name', 'type', 'description', 'twitter', 'facebook', 'instagram', 'website', 'address', 'contact_phone', 'contact_email', 'parent_organisation_id'].forEach(field => setFieldValue(field, dialogRef.value.data[field] || ''));
+        ['name', 'type', 'description', 'twitter', 'facebook', 'instagram', 'website', 'address', 'contact_phone', 'contact_email', 'parent_organisation_id'].forEach(field => { if (dialogRef.value.data[field]) setFieldValue(field, dialogRef.value.data[field]) });
         setFieldValue('type', (dialogRef.value.data?.type == 'click') ? 'party' : dialogRef.value.data?.type);
         id.value = dialogRef.value.data?.id;
+        filteredOrganisations.value = id.value ? organisationsStore.organisations.filter(organisation => (organisation.id != id.value)) : organisationsStore.organisations;
     });
 
 
@@ -87,8 +91,6 @@
         {label: 'Think Tank', value: 'think_tank'},
     ]);
 
-    const organisationsStore = useOrganisationsStore();
-    console.log(organisationsStore.organisations)
 
 </script>
 <template>
@@ -124,11 +126,12 @@
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="title">Téléphone</label>
-                    <InputText
+                    <InputMask
                         id="contact_phone"
-                        type="number"
                         v-model="contact_phone"
                         class="w-full"
+                        mask="221 999 99 99"
+                        placeholder="221 999 99 99"
                     />
                 </div>
                 <div class="field col">
@@ -146,7 +149,7 @@
                     <label for="title">Website</label>
                     <InputText
                         id="website"
-                        type="text"
+                        type="url"
                         v-model="website"
                         class="w-full"
                     />
@@ -183,7 +186,7 @@
                 <label for="title">Organisation parent</label>
                 <Dropdown
                     v-model="parent_organisation_id"
-                    :options="organisationsStore.organisations"
+                    :options="filteredOrganisations"
                     optionLabel="name"
                     optionValue="id"
                     placeholder="Choisir une organisation"
@@ -192,11 +195,7 @@
             </div>
             <Button type="submit" label="Soumettre" class="w-full" :loading="loading"></Button>
         </form>
-        <ul v-if="Object.keys(errors)?.length > 0">
-            <li v-for="errorMessage in errors" >
-                <span class="p-error" id="text-error">{{ errorMessage || '&nbsp;' }}</span>
-            </li>
-        </ul>
+        <Message v-for="(errorMessage, index) of errors" severity="error" :key="index">{{ errorMessage }}</Message>
         
     </div>
     

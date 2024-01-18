@@ -4,7 +4,7 @@
     import Toolbar from 'primevue/toolbar';
     import Button from 'primevue/button';
     import { ref, onMounted, defineAsyncComponent } from 'vue';
-    import { API } from '@/services';
+    import { API } from '@/services/api';
     import { useDialog } from 'primevue/usedialog';
     import { useElectionsStore } from '@/stores/elections';
     

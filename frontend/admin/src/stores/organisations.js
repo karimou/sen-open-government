@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from 'vue';
-import { API } from '@/services';
+import { API } from '@/services/api';
 
 export const useOrganisationsStore = defineStore('organisations', () => {
 

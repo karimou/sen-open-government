@@ -4,12 +4,6 @@
 
     const menu = ref([
         {
-            label: 'Accueil', 
-            items: [
-                {label: 'Accueil', to: '/admin'}
-            ]
-        },
-        {
             label: 'Données du site', items: [
                 {to: '/admin/elections', label: 'Elections'},
                 {to: '/admin/organisations', label: 'Organisations'},
