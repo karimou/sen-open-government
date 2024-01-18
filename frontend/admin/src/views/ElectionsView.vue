@@ -3,15 +3,18 @@
     import Column from 'primevue/column';
     import Toolbar from 'primevue/toolbar';
     import Button from 'primevue/button';
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, defineAsyncComponent } from 'vue';
     import { API } from '@/services';
+    import { useDialog } from 'primevue/usedialog';
+    
 
     const elections = ref([]);
-
-    onMounted(() => {
+    const fetchData = () => {
         API.elections.listElections()
             .then(data => elections.value = data);
-    });
+    };
+
+    onMounted(fetchData);
 
     const selectedElections = ref(null);
 
@@ -19,8 +22,14 @@
         alert('deleteSelectedProducts')
     };
 
-    const openElectionUpsertForm = () => {
-        alert('openElectionUpsertForm')
+    const dialog = useDialog();
+    const ElectionsUpsertForm = defineAsyncComponent(() => import('@/components/ElectionsUpsertForm.vue'));
+
+    const openElectionUpsertForm = (election = {}) => {
+        dialog.open(ElectionsUpsertForm, { 
+            data: election,
+            onClose: fetchData
+        });
     };
     
 </script>
@@ -52,6 +61,11 @@
                     <Column field="type" header="Type"></Column>
                     <Column field="date" header="Date"></Column>
                     <Column field="description" header="Description"></Column>
+                    <Column headerStyle="min-width: 100px">
+                        <template #body="{ data }">
+                            <Button icon="pi pi-pencil" @click="openElectionUpsertForm(data)"></Button>
+                        </template>
+                    </Column>
 
                 </DataTable>
             </div>

@@ -26,11 +26,12 @@
   const [email, _emailAttrs] = defineField('email');
 
   const [password, _passwordAttrs] = defineField('password');
-
   
 
+  const loading = ref(false);
   const onSubmit = handleSubmit((values) => {
-    API.auth.logUserIn(values);
+    loading.value = true;
+    API.auth.logUserIn(values).finally(() => loading.value = false);
   });
 
 </script>
@@ -73,10 +74,14 @@
           </span>
         </div>
 
-        <Button type="submit" label="Submit"  class="w-full"></Button>
+        <Button type="submit" label="Submit"  class="w-full" :loading="loading"></Button>
       </form>
 
-      <small v-for="errorMessage in errors" class="p-error" id="text-error">{{ errorMessage || '&nbsp;' }}</small>
+      <ul v-if="Object.keys(errors)?.length > 0">
+        <li v-for="errorMessage in errors" >
+          <small class="p-error" id="text-error">{{ errorMessage || '&nbsp;' }}</small>
+        </li>
+      </ul>
     </template>
       
   </Card>

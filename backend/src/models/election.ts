@@ -40,7 +40,6 @@ class Election {
     }
     async update(): Promise<void> {
         let client = await getClient();
-
         let query = {
             text: electionQueries.UPDATE_ELECTION,
             values: [this.id, this.date, this.title, this.type, this.description, this.last_modified_by?.id]

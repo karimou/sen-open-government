@@ -1,10 +1,11 @@
 UPDATE election
 SET
     date = $2, 
-    type = $3, 
-    description = $4, 
+    title = $3, 
+    type = $4, 
+    description = $5, 
     last_modified_on = NOW(), 
-    last_modified_by = $5
+    last_modified_by = $6
 WHERE 
     id = $1
 RETURNING *;
