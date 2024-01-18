@@ -27,8 +27,18 @@ const updateElection = async ({id, date, type, title, description}) => {
         })
 };
 
+const deleteElections = async (ids) => {
+    return http.delete('/api/v1/elections', { data: { ids } })
+        .then(res => {
+            if (res.status == 200) {
+                return res.data;
+            }
+        })
+};
+
 export default {
     listElections,
     addElection,
-    updateElection
+    updateElection,
+    deleteElections
 }

@@ -35,8 +35,8 @@
     onMounted(() => {
         if (dialogRef.value.data?.date) setFieldValue('date', format(dialogRef.value.data?.date, 'yyyy-MM-dd'));
         setFieldValue('title', dialogRef.value.data?.title);
-        setFieldValue('description', dialogRef.value.data?.description);
-        setFieldValue('type', dialogRef.value.data?.type);
+        setFieldValue('description', dialogRef.value.data?.description || '');
+        setFieldValue('type', (dialogRef.value.data?.type == 'click') ? 'presidential' : dialogRef.value.data?.type);
         id.value = dialogRef.value.data?.id;
     });
 
@@ -62,7 +62,7 @@
 </script>
 <template>
     <div style="width: 450px">
-        <h5>ElectionsUpsertForm</h5>
+        <h5>{{ id ? 'Modifier' : 'Ajouter' }} une élection</h5>
         <form @submit="onSubmit" :initial-values="initialValues.value">
             <div class="field">
                 <div class="field-radiobutton">
@@ -70,7 +70,7 @@
                     <label for="type1">Présidentielle</label>
                 </div>
                 <div class="field-radiobutton">
-                    <RadioButton id="tytype2pe1" name="type" v-model="type" value="parliament" />
+                    <RadioButton id="type2" name="type" v-model="type" value="parliament" />
                     <label for="type2">Législatives</label>
                 </div>
             </div>

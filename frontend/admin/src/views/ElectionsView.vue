@@ -6,20 +6,25 @@
     import { ref, onMounted, defineAsyncComponent } from 'vue';
     import { API } from '@/services';
     import { useDialog } from 'primevue/usedialog';
+    import { useElectionsStore } from '@/stores/elections';
     
 
-    const elections = ref([]);
-    const fetchData = () => {
-        API.elections.listElections()
-            .then(data => elections.value = data);
-    };
+    const electionsStore = useElectionsStore();
 
-    onMounted(fetchData);
+    onMounted(electionsStore.refreshElections);
 
     const selectedElections = ref(null);
 
+    const loading = ref(false);
     const deleteSelectedProducts = () => {
-        alert('deleteSelectedProducts')
+        let ids = selectedElections.value?.map(election => election.id);
+        loading.value = true;
+        API.elections.deleteElections(ids)
+            .then(() => {
+                electionsStore.refreshElections();
+                selectedElections.value = null;
+            })
+            .finally(() => loading.value = false);
     };
 
     const dialog = useDialog();
@@ -28,7 +33,7 @@
     const openElectionUpsertForm = (election = {}) => {
         dialog.open(ElectionsUpsertForm, { 
             data: election,
-            onClose: fetchData
+            onClose: electionsStore.refreshElections
         });
     };
     
@@ -37,27 +42,39 @@
 <template>
     <div class="grid">
         <div class="col-12">
-            <div class="card">
+            <div class="card" v-if="electionsStore.elections?.length > 0">
                 <Toolbar class="mb-4">
                     <template v-slot:start>
                         <div class="my-2">
-                            <Button label="New" icon="pi pi-plus" class="p-button-success mr-2" @click="openElectionUpsertForm" />
-                            <Button label="Delete" icon="pi pi-trash" class="p-button-danger" @click="deleteSelectedProducts" :disabled="!selectedElections || !selectedElections.length" />
+                            <Button 
+                                label="Ajouter une élection" 
+                                icon="pi pi-plus" 
+                                class="p-button-success mr-2" 
+                                @click="openElectionUpsertForm"
+                            ></Button>
+                            <Button 
+                                label="Supprimer la sélection" 
+                                icon="pi pi-trash" 
+                                class="p-button-danger" 
+                                @click="deleteSelectedProducts" 
+                                :disabled="!selectedElections || !selectedElections.length" 
+                                :loading="loading"
+                            ></Button>
                         </div>
                     </template>
                 </Toolbar>
                 <DataTable 
-                    :value="elections"
+                    :value="electionsStore.elections"
                     v-model:selection="selectedElections"
                 >
                     <template #header>
                         <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                            <h5 class="m-0">Elections</h5>
+                            <h5 class="m-0">Élections</h5>
                         </div>
                     </template>
                     <Column selectionMode="multiple" headerStyle="width: 3rem" />
                     <Column field="id" header="#"></Column>
-                    <Column field="title" header="Title"></Column>
+                    <Column field="title" header="Titre"></Column>
                     <Column field="type" header="Type"></Column>
                     <Column field="date" header="Date"></Column>
                     <Column field="description" header="Description"></Column>
@@ -69,6 +86,31 @@
 
                 </DataTable>
             </div>
+
+            <div
+                class="px-4 py-5 shadow-1 flex flex-column md:flex-row md:align-items-center justify-content-between mb-3"
+                style="width: 600px; background-color: white;"
+                v-else
+            >
+                <div>
+                    <div class="font-medium text-xl mt-2 mb-3">Aucune élection</div>
+                    <div class="font-medium">Cliquer sur le bouton suivant pour rajouter une première élection à la base de données</div>
+                </div>
+                <div class="mt-4 mr-auto md:mt-0 md:mr-0">
+                    <Button 
+                        class="p-button font-bold px-5 py-3 p-button-success p-button-rounded p-button-raised"
+                        @click="openElectionUpsertForm"
+                    >Ajouter</Button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
+
+<style scoped>
+.blue-box {
+    width: 500px; 
+    border-radius: 1rem; 
+    background: linear-gradient(0deg, rgba(0, 123, 255, 0.5), rgba(0, 123, 255, 0.5)), linear-gradient(92.54deg, #1c80cf 47.88%, #ffffff 100.01%)
+}
+</style>

@@ -73,8 +73,8 @@ router.route('')
 
         try {
 
-            await Issue
-                .delete(req.body.ids);
+            await Issue.delete(req.body.ids);
+            res.status(200).send();
 
         } catch (e) {
             return res.status(500).send(e);
