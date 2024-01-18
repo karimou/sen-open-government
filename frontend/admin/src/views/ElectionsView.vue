@@ -16,7 +16,7 @@
     const selectedElections = ref(null);
 
     const loading = ref(false);
-    const deleteSelectedProducts = () => {
+    const deleteSelectedElections = () => {
         let ids = selectedElections.value?.map(election => election.id);
         loading.value = true;
         API.elections.deleteElections(ids)
@@ -56,7 +56,7 @@
                                 label="Supprimer la sélection" 
                                 icon="pi pi-trash" 
                                 class="p-button-danger" 
-                                @click="deleteSelectedProducts" 
+                                @click="deleteSelectedElections" 
                                 :disabled="!selectedElections || !selectedElections.length" 
                                 :loading="loading"
                             ></Button>
@@ -74,15 +74,15 @@
                     </template>
                     <Column selectionMode="multiple" headerStyle="width: 3rem" />
                     <Column field="id" header="#"></Column>
+                    <Column headerStyle="min-width: 100px">
+                        <template #body="{ data }">
+                            <Button class="p-button-text p-button-rounded" icon="pi pi-pencil" @click="openElectionUpsertForm(data)"></Button>
+                        </template>
+                    </Column>
                     <Column field="title" header="Titre"></Column>
                     <Column field="type" header="Type"></Column>
                     <Column field="date" header="Date"></Column>
                     <Column field="description" header="Description"></Column>
-                    <Column headerStyle="min-width: 100px">
-                        <template #body="{ data }">
-                            <Button icon="pi pi-pencil" @click="openElectionUpsertForm(data)"></Button>
-                        </template>
-                    </Column>
 
                 </DataTable>
             </div>

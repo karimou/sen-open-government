@@ -13,4 +13,5 @@ SET
 	parent_organisation_id = $12,
 	last_modified_on = NOW(),
 	last_modified_by = $13
-WHERE id = $1;
+WHERE id = $1
+RETURNING *;

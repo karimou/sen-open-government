@@ -7,4 +7,5 @@ SET
     last_modified_on = NOW(),
     last_modified_by = $6
 WHERE
-    id = $1;
+    id = $1
+RETURNING *;

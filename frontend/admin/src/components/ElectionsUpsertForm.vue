@@ -34,9 +34,8 @@
     const dialogRef = inject('dialogRef');
     onMounted(() => {
         if (dialogRef.value.data?.date) setFieldValue('date', format(dialogRef.value.data?.date, 'yyyy-MM-dd'));
-        setFieldValue('title', dialogRef.value.data?.title);
-        setFieldValue('description', dialogRef.value.data?.description || '');
         setFieldValue('type', (dialogRef.value.data?.type == 'click') ? 'presidential' : dialogRef.value.data?.type);
+        ['title', 'description'].forEach(field => setFieldValue(field, dialogRef.value.data[field]));
         id.value = dialogRef.value.data?.id;
     });
 
