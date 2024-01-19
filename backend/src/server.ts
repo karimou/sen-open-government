@@ -37,13 +37,14 @@ const ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
 // Load env variables
 //-------
 dotenv.config();
+console.log(process.env)
 
 //-------------
 // Session management
 //-------
 let tlsSettings = isLocal ? null : {tls: {rejectUnauthorized: false}};
 let redisClient = createClient({
-  url: process.env.REDIS_TLS_URL,
+  url: process.env.REDIS_URL,
   ...tlsSettings
 });
 
