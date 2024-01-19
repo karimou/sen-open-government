@@ -50,7 +50,7 @@
                     <template v-slot:start>
                         <div class="my-2">
                             <Button 
-                                label="Ajouter un sujet politique" 
+                                label="Ajouter un thème politique" 
                                 icon="pi pi-plus" 
                                 class="p-button-success mr-2" 
                                 @click="openIssueUpsertForm"
@@ -72,7 +72,7 @@
                 >
                     <template #header>
                         <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                            <h5 class="m-0">Sujets politiques</h5>
+                            <h5 class="m-0">Thèmes</h5>
                         </div>
                     </template>
                     <Column selectionMode="multiple" headerStyle="width: 3rem" />
@@ -93,7 +93,7 @@
                 v-else
             >
                 <div>
-                    <div class="font-medium text-xl mt-2 mb-3">Aucun sujet</div>
+                    <div class="font-medium text-xl mt-2 mb-3">Aucun thème</div>
                     <div class="font-medium">Cliquer sur le bouton suivant pour rajouter une première élection à la base de données</div>
                 </div>
                 <div class="mt-4 mr-auto md:mt-0 md:mr-0">

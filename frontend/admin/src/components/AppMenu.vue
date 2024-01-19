@@ -8,7 +8,7 @@
                 {to: '/admin/elections', label: 'Élections'},
                 {to: '/admin/organisations', label: 'Organisations'},
                 {to: '/admin/persons', label: 'Personnes'},
-                {to: '/admin/issues', label: 'Sujets politiques'},
+                {to: '/admin/issues', label: 'Thèmes'},
                 {to: '/admin/opinions', label: 'Opinions'}
             ]
         }

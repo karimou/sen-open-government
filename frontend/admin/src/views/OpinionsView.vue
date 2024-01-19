@@ -3,18 +3,23 @@
     import Column from 'primevue/column';
     import Toolbar from 'primevue/toolbar';
     import Button from 'primevue/button';
-    import { ref, onMounted, defineAsyncComponent } from 'vue';
+    import Dropdown from 'primevue/dropdown';
+    import { ref, computed, onMounted, defineAsyncComponent } from 'vue';
     import { API } from '@/services/api';
     import { useDialog } from 'primevue/usedialog';
     import { useOpinionsStore } from '@/stores/opinions';
     
 
+    /* -----------
+    Data init
+    ----------- */
     const opinionsStore = useOpinionsStore();
-
     onMounted(opinionsStore.refreshOpinions);
 
+    /* -----------
+    Opinions deletion handling
+    ----------- */
     const selectedOpinions = ref(null);
-
     const loading = ref(false);
     const deleteSelectedOpinions = () => {
         let ids = selectedOpinions.value?.map(opinion => opinion.id);
@@ -27,9 +32,11 @@
             .finally(() => loading.value = false);
     };
 
+    /* ----------- 
+    Opinions upsert handling
+    ----------- */
     const dialog = useDialog();
     const OpinionsUpsertForm = defineAsyncComponent(() => import('@/components/OpinionsUpsertForm.vue'));
-
     const openOpinionUpsertForm = (opinion = {}) => {
         dialog.open(OpinionsUpsertForm, { 
             data: opinion,
@@ -39,6 +46,31 @@
             }
         });
     };
+
+    
+    /* -----------
+    Data reformatting
+    ----------- */
+    const formatName = (author) => `${ author.firstname } ${ author.lastname }`;
+    const formattedOpinions = computed(() => opinionsStore.opinions.map(opinion => ({
+        ...opinion,
+        author: {
+            ...opinion.author,
+            name: formatName(opinion.author)
+        }
+    })));
+
+    /* -----------
+    Data grouping
+    ----------- */
+    const expandedRowGroups = ref();
+
+    const groupingHeader = ref('author.name');
+
+    const groupingHeaders = [
+        {field: 'author.name', label: 'Auteur'},
+        {field: 'issue.title', label: 'Thème'}
+    ];
     
 </script>
 
@@ -65,14 +97,35 @@
                             ></Button>
                         </div>
                     </template>
+                    <template v-slot:end>
+                        <div class="p-float-label">
+                            <Dropdown
+                                :options="groupingHeaders"
+                                v-model="groupingHeader"
+                                optionLabel="label"
+                                optionValue="field"
+                            />
+                            <label>Grouper par:</label>
+                        </div>
+
+                    </template>
                 </Toolbar>
                 <DataTable 
-                    :value="opinionsStore.opinions"
+                    :key="groupingHeader"
+                    :value="formattedOpinions"
+                    tableStyle="min-width: 50rem"
                     v-model:selection="selectedOpinions"
+                    v-model:expandedRowGroups="expandedRowGroups"
+                    expandableRowGroups
+                    rowGroupMode="subheader"
+                    :groupRowsBy="groupingHeader" 
+                    sortMode="single" 
+                    :sortField="groupingHeader" 
+                    :sortOrder="1"
                 >
                     <template #header>
                         <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                            <h5 class="m-0">Sujets politiques</h5>
+                            <h5 class="m-0">Opinions</h5>
                         </div>
                     </template>
                     <Column selectionMode="multiple" headerStyle="width: 3rem" />
@@ -81,8 +134,19 @@
                             <Button class="p-button-text p-button-rounded" icon="pi pi-pencil" @click="openOpinionUpsertForm(data)"></Button>
                         </template>
                     </Column>
-                    <Column field="title" header="Titre"></Column>
-                    <Column field="short_description" header="Description"></Column>
+                    <template #groupheader="slotProps">
+                        <template v-if="groupingHeader == 'author.name'">
+                            <img v-if="slotProps.data.author.photo" :alt="slotProps.data.author.name" :src="slotProps.data.author.photo" width="32" style="vertical-align: middle" class="ml-2" />
+                            <span class="vertical-align-middle ml-2 font-bold line-height-3">{{ slotProps.data.author.name }}</span>
+                        </template>
+
+                        <template v-else-if="groupingHeader == 'issue.title'">
+                            <span class="vertical-align-middle ml-2 font-bold line-height-3">{{ slotProps.data.issue.title }}</span>
+                        </template>
+                    </template>
+                    <Column field="author.name" header="Auteur" />
+                    <Column field="issue.title" header="Sujet" />
+                    <Column field="summary" header="Résumé"></Column>
 
                 </DataTable>
             </div>

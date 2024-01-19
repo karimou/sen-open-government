@@ -131,7 +131,7 @@
                         :options="issuesStore.issues"
                         optionLabel="title"
                         optionValue="id"
-                        placeholder="Choisir un sujet"
+                        placeholder="Choisir un thème"
                         class="w-full"
                     />
                 </div>
