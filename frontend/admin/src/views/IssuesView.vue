@@ -10,13 +10,17 @@
     import { useOpinionsStore } from '@/stores/opinions';
     
 
+    /* -----------
+    Data init
+    ----------- */
     const issuesStore = useIssuesStore();
     const opinionsStore = useOpinionsStore();
-
     onMounted(issuesStore.refreshIssues);
 
+    /* -----------
+    Issues deletion handling
+    ----------- */
     const selectedIssues = ref(null);
-
     const loading = ref(false);
     const deleteSelectedIssues = () => {
         let ids = selectedIssues.value?.map(issue => issue.id);
@@ -116,7 +120,7 @@
             >
                 <div>
                     <div class="font-medium text-xl mt-2 mb-3">Aucun thème</div>
-                    <div class="font-medium">Cliquer sur le bouton suivant pour rajouter une première élection à la base de données</div>
+                    <div class="font-medium">Cliquer sur le bouton suivant pour rajouter un premier thème à la base de données</div>
                 </div>
                 <div class="mt-4 mr-auto md:mt-0 md:mr-0">
                     <Button 

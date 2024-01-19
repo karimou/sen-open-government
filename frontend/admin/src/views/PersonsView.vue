@@ -18,7 +18,7 @@
     onMounted(personsStore.refreshPersons);
 
     /* -----------
-    Opinions deletion handling
+    Persons deletion handling
     ----------- */
     const selectedPersons = ref(null);
     const loading = ref(false);
@@ -123,7 +123,7 @@
             >
                 <div>
                     <div class="font-medium text-xl mt-2 mb-3">Aucune persone</div>
-                    <div class="font-medium">Cliquer sur le bouton suivant pour rajouter une première élection à la base de données</div>
+                    <div class="font-medium">Cliquer sur le bouton suivant pour rajouter une première personne à la base de données</div>
                 </div>
                 <div class="mt-4 mr-auto md:mt-0 md:mr-0">
                     <Button 

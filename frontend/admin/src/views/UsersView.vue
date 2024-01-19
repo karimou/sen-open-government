@@ -9,12 +9,16 @@
     import { useUsersStore } from '@/stores/users';
     
 
+    /* -----------
+    Data init
+    ----------- */
     const usersStore = useUsersStore();
-
     onMounted(usersStore.refreshUsers);
 
+    /* -----------
+    Users deletion handling
+    ----------- */
     const selectedUsers = ref(null);
-
     const loading = ref(false);
     const deleteSelectedUsers = () => {
         let ids = selectedUsers.value?.map(user => user.id);
@@ -99,7 +103,7 @@
             >
                 <div>
                     <div class="font-medium text-xl mt-2 mb-3">Aucun utilisateur</div>
-                    <div class="font-medium">Cliquer sur le bouton suivant pour rajouter une première élection à la base de données</div>
+                    <div class="font-medium">Cliquer sur le bouton suivant pour rajouter un premier utilisateur à la base de données</div>
                 </div>
                 <div class="mt-4 mr-auto md:mt-0 md:mr-0">
                     <Button 

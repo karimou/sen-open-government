@@ -7,6 +7,7 @@
   import Password from 'primevue/password';
   import InputText from 'primevue/inputtext';
   import Button from 'primevue/button';
+  import Message from 'primevue/message';
   
   import { API } from '@/services/api';
 
@@ -77,11 +78,7 @@
         <Button type="submit" label="Submit"  class="w-full" :loading="loading"></Button>
       </form>
 
-      <ul v-if="Object.keys(errors)?.length > 0">
-        <li v-for="errorMessage in errors" >
-          <small class="p-error" id="text-error">{{ errorMessage || '&nbsp;' }}</small>
-        </li>
-      </ul>
+      <Message v-for="(errorMessage, index) of errors" severity="error" :key="index">{{ errorMessage }}</Message>
     </template>
       
   </Card>

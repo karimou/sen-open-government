@@ -9,12 +9,16 @@
     import { useOrganisationsStore } from '@/stores/organisations';
     
 
+    /* -----------
+    Data init
+    ----------- */
     const organisationsStore = useOrganisationsStore();
-
     onMounted(organisationsStore.refreshOrganisations);
 
+    /* -----------
+    Organisations deletion handling
+    ----------- */
     const selectedOrganisations = ref(null);
-
     const loading = ref(false);
     const deleteSelectedOrganisations = () => {
         let ids = selectedOrganisations.value?.map(organisation => organisation.id);
@@ -27,9 +31,11 @@
             .finally(() => loading.value = false);
     };
 
+    /* -----------
+    Organisations upsert handling
+    ----------- */
     const dialog = useDialog();
     const OrganisationsUpsertForm = defineAsyncComponent(() => import('@/components/OrganisationsUpsertForm.vue'));
-
     const openOrganisationUpsertForm = (organisation = {}) => {
         dialog.open(OrganisationsUpsertForm, { 
             data: organisation,
@@ -103,7 +109,7 @@
             >
                 <div>
                     <div class="font-medium text-xl mt-2 mb-3">Aucune organisation</div>
-                    <div class="font-medium">Cliquer sur le bouton suivant pour rajouter une première élection à la base de données</div>
+                    <div class="font-medium">Cliquer sur le bouton suivant pour rajouter une organisation élection à la base de données</div>
                 </div>
                 <div class="mt-4 mr-auto md:mt-0 md:mr-0">
                     <Button 
