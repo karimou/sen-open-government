@@ -5,13 +5,13 @@ SET
     gender = $4,
     date_of_birth = $5,
     description = $6,
-    facebook = $8,
-    instagram = $9,
-    twitter = $10,
-    website = $11,
-    photo = $12,
+    facebook = $7,
+    instagram = $8,
+    twitter = $9,
+    website = $10,
+    photo = $11,
     last_modified_on = NOW(),
-    last_modified_by = $13
+    last_modified_by = $12
 WHERE
     id = $1
 RETURNING *;

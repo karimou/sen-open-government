@@ -5,10 +5,10 @@
     const menu = ref([
         {
             label: 'Données du site', items: [
-                {to: '/admin/elections', label: 'Elections'},
+                {to: '/admin/elections', label: 'Élections'},
                 {to: '/admin/organisations', label: 'Organisations'},
-                {to: '/admin/persons', label: 'Persons'},
-                {to: '/admin/issues', label: 'Issues'},
+                {to: '/admin/persons', label: 'Personnes'},
+                {to: '/admin/issues', label: 'Sujets politiques'},
                 {to: '/admin/opinions', label: 'Opinions'}
             ]
         }
