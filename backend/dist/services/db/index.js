@@ -51,7 +51,7 @@ const getClient = () => __awaiter(void 0, void 0, void 0, function* () {
 exports.getClient = getClient;
 const loadQueries = (folderName) => {
     const Queries = {};
-    const folderPath = `${__dirname}/SQL/${folderName}/`;
+    const folderPath = `${__dirname}/../../../sql/${folderName}/`;
     node_fs_1.default.readdirSync(folderPath).forEach(fileName => {
         let queryName;
         if (fileName.endsWith(".sql")) {

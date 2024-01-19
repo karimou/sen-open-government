@@ -43,7 +43,7 @@ export const loadQueries = (folderName: string) => {
 
 	const Queries: { [key: string]: string } = {};
 
-	const folderPath = `${__dirname}/SQL/${ folderName }/`;
+	const folderPath = `${__dirname}/../../../sql/${ folderName }/`;
 
 	fs.readdirSync(folderPath).forEach(fileName => {
 
