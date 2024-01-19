@@ -4,6 +4,7 @@ import organisations from './organisations';
 import issues from './issues';
 import persons from './persons';
 import opinions from './opinions';
+import users from './users';
 
 export const API = {
     auth,
@@ -11,5 +12,6 @@ export const API = {
     organisations,
     issues,
     persons,
-    opinions
+    opinions,
+    users
 }
