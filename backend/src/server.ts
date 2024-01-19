@@ -75,7 +75,7 @@ app.use(session({
 
 db.query('SELECT NOW() AS "theTime"', [], (err, result) => {
   if (err) {
-    console.log('[Postgres] Could not connect to database on startup');
+    console.log('[Postgres] Could not connect to database on startup', err);
   } else {
     console.log(`[Postgres] connection successful: ${ result.rows[0]?.theTime }`);
   }
