@@ -15,7 +15,7 @@ class User {
     password: string | null;
     email: string;
     phone: string;
-    created_on: Date;
+    joined_on: Date;
     last_modified_on: Date;
     last_modified_by: User | undefined;
 
