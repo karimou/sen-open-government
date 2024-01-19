@@ -43,7 +43,7 @@ dotenv.config();
 //-------
 let tlsSettings = isLocal ? null : {tls: {rejectUnauthorized: false}};
 let redisClient = createClient({
-  url: process.env.REDIS_URL,
+  url: process.env.REDIS_TLS_URL,
   ...tlsSettings
 });
 
