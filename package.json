@@ -5,7 +5,7 @@
   "main": "backend/src/server.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "NODE backend/dist/server.js",
+    "start": "node backend/dist/server.js",
     "dev": "NODE_ENV=local nodemon backend/src/server.ts"
   },
   "keywords": [],
