@@ -109,7 +109,7 @@
             >
                 <div>
                     <div class="font-medium text-xl mt-2 mb-3">Aucune organisation</div>
-                    <div class="font-medium">Cliquer sur le bouton suivant pour rajouter une organisation élection à la base de données</div>
+                    <div class="font-medium">Cliquer sur le bouton suivant pour rajouter une première organisation à la base de données</div>
                 </div>
                 <div class="mt-4 mr-auto md:mt-0 md:mr-0">
                     <Button 
