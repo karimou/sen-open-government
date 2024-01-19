@@ -62,7 +62,7 @@ router.route('')
 
         try {
             
-            let user = new User(req.body, req.session?.user as User);
+            let user = new User({...req.body, password: 'default'}, req.session?.user as User);
             await user.add();
             res.status(200).send(user);
 

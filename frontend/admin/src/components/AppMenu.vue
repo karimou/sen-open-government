@@ -4,12 +4,21 @@
 
     const menu = ref([
         {
-            label: 'Données du site', items: [
-                {to: '/admin/elections', label: 'Élections'},
-                {to: '/admin/organisations', label: 'Organisations'},
-                {to: '/admin/persons', label: 'Personnes'},
-                {to: '/admin/issues', label: 'Thèmes'},
-                {to: '/admin/opinions', label: 'Opinions'}
+            label: 'Données du site', 
+            icon: 'pi pi-database',
+            items: [
+                {to: '/admin/elections', icon: 'pi pi-envelope', label: 'Élections'},
+                {to: '/admin/organisations', icon: 'pi pi-building', label: 'Organisations'},
+                {to: '/admin/persons', icon: 'pi pi-users', label: 'Personnes'},
+                {to: '/admin/issues', icon: 'pi pi-question-circle', label: 'Thèmes'},
+                {to: '/admin/opinions', icon: 'pi pi-megaphone', label: 'Opinions'}
+            ]
+        },
+        {
+            label: 'Administration', 
+            icon: 'pi pi-cog',
+            items: [
+                {to: '/admin/users', icon: 'pi pi-users', label: 'Utilisateurs'}
             ]
         }
     ]);

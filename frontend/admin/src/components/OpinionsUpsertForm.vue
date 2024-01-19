@@ -116,7 +116,7 @@
                 </div>
 
                 <div class="field col-6">
-                    <label for="title">Sujet politique</label>
+                    <label for="title">Thème</label>
 
                     <Dropdown
                         v-if="!issuesStore.issues"

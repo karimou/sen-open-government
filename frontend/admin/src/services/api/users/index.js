@@ -9,8 +9,9 @@ const listUsers = async () => {
         })
 };
 
-const addUser = async ({ username, email, phone, password }) => {
-    return http.post('/api/v1/users', { username, email, phone, password })
+const addUser = async ({ username, email, phone }) => {
+    phone = phone.replaceAll(' ', '');
+    return http.post('/api/v1/users', { username, email, phone })
         .then(res => {
             if (res.status == 200) {
                 return res.data;
@@ -18,8 +19,9 @@ const addUser = async ({ username, email, phone, password }) => {
         })
 };
 
-const updateUser = async ({ username, email, phone, password }) => {
-    return http.put('/api/v1/users', { username, email, phone, password })
+const updateUser = async ({ id, username, email, phone }) => {
+    phone = phone.replaceAll(' ', '');
+    return http.put('/api/v1/users', { id, username, email, phone })
         .then(res => {
             if (res.status == 200) {
                 return res.data;

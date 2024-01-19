@@ -69,11 +69,10 @@ class User {
     }
     async update(): Promise<void> {
         let client = await getClient();
-        let passwordHash = crypto.createHash('md5').update(this.password as string).digest('hex');
 
         let query = {
             text: userQueries.UPDATE_USER,
-            values: [this.username, this.email, this.phone, passwordHash, this.last_modified_by?.id]
+            values: [this.id, this.username, this.email, this.phone, this.last_modified_by?.id]
         }
 
         let user = await client.query(query)

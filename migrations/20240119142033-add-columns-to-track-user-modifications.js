@@ -15,7 +15,7 @@ exports.setup = function(options, seedLink) {
 };
 
 exports.up = function(db, callback) {
-  db.addColumn('user', 'last_modified_on', { type: 'int' }, callback);
+  db.addColumn('user', 'last_modified_on', { type: 'timestamp' }, callback);
   db.addColumn('user', 'last_modified_by', { type: 'int' }, function() {
     db.addForeignKey('user', 'user', 'user_user_fk', {'last_modified_by': 'id'}, {
       onDelete: 'SET NULL',

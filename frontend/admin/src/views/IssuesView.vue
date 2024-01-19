@@ -7,9 +7,11 @@
     import { API } from '@/services/api';
     import { useDialog } from 'primevue/usedialog';
     import { useIssuesStore } from '@/stores/issues';
+    import { useOpinionsStore } from '@/stores/opinions';
     
 
     const issuesStore = useIssuesStore();
+    const opinionsStore = useOpinionsStore();
 
     onMounted(issuesStore.refreshIssues);
 
@@ -27,6 +29,9 @@
             .finally(() => loading.value = false);
     };
 
+    /* ----------- 
+    Issues upsert handling
+    ----------- */
     const dialog = useDialog();
     const IssuesUpsertForm = defineAsyncComponent(() => import('@/components/IssuesUpsertForm.vue'));
 
@@ -34,6 +39,22 @@
         dialog.open(IssuesUpsertForm, { 
             data: issue,
             onClose: issuesStore.refreshIssues,
+            props: {
+                modal: true
+            }
+        });
+    };
+
+    /* ----------- 
+    Opinions upsert handling
+    ----------- */
+    const OpinionsUpsertForm = defineAsyncComponent(() => import('@/components/OpinionsUpsertForm.vue'));
+    const openOpinionUpsertForm = (issue = {}) => {
+        dialog.open(OpinionsUpsertForm, { 
+            data: {
+                issue_id: issue?.id
+            },
+            onClose: opinionsStore.refreshOpinions,
             props: {
                 modal: true
             }
@@ -79,6 +100,7 @@
                     <Column headerStyle="min-width: 100px">
                         <template #body="{ data }">
                             <Button class="p-button-text p-button-rounded" icon="pi pi-pencil" @click="openIssueUpsertForm(data)"></Button>
+                            <Button class="p-button-text p-button-rounded" icon="pi pi-megaphone" @click="openOpinionUpsertForm(data)"></Button>
                         </template>
                     </Column>
                     <Column field="title" header="Titre"></Column>
