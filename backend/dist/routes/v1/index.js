@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const users_1 = __importDefault(require("./users"));
+const elections_1 = __importDefault(require("./elections"));
+const organisations_1 = __importDefault(require("./organisations"));
+const persons_1 = __importDefault(require("./persons"));
+const issues_1 = __importDefault(require("./issues"));
+const opinions_1 = __importDefault(require("./opinions"));
+const v1Router = (0, express_1.Router)();
+v1Router.use('/users', users_1.default);
+v1Router.use('/elections', elections_1.default);
+v1Router.use('/organisations', organisations_1.default);
+v1Router.use('/persons', persons_1.default);
+v1Router.use('/issues', issues_1.default);
+v1Router.use('/opinions', opinions_1.default);
+exports.default = v1Router;
