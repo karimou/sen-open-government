@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper-x3n3nnut.js";import{c as o,o as r}from"./index-v6tMztMt.js";const c={};function n(s,t){return r(),o("div",null," PersonsView ")}const f=e(c,[["render",n]]);export{f as default};

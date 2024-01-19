@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper-x3n3nnut.js";import{c as n,o}from"./index-v6tMztMt.js";const c={};function r(t,i){return o(),n("div",null," OpinionsView ")}const a=e(c,[["render",r]]);export{a as default};
