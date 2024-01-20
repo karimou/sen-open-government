@@ -117,9 +117,3 @@
 </template>
 
 <style scoped>
-.blue-box {
-    width: 500px; 
-    border-radius: 1rem; 
-    background: linear-gradient(0deg, rgba(0, 123, 255, 0.5), rgba(0, 123, 255, 0.5)), linear-gradient(92.54deg, #1c80cf 47.88%, #ffffff 100.01%)
-}
-</style>
