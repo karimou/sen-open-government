@@ -10,7 +10,7 @@ const listUsers = async () => {
 };
 
 const addUser = async ({ username, email, phone }) => {
-    phone = phone.replaceAll(' ', '');
+    phone = phone?.replaceAll(' ', '');
     return http.post('/api/v1/users', { username, email, phone })
         .then(res => {
             if (res.status == 200) {
@@ -20,7 +20,7 @@ const addUser = async ({ username, email, phone }) => {
 };
 
 const updateUser = async ({ id, username, email, phone }) => {
-    phone = phone.replaceAll(' ', '');
+    phone = phone?.replaceAll(' ', '');
     return http.put('/api/v1/users', { id, username, email, phone })
         .then(res => {
             if (res.status == 200) {
