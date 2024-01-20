@@ -82,7 +82,7 @@
                         </div>
                     </template>
                     <Column selectionMode="multiple" headerStyle="width: 3rem" />
-                    <Column >
+                    <Column headerStyle="min-width: 100px">
                         <template #body="{ data }">
                             <Button class="p-button-text p-button-rounded" icon="pi pi-pencil" @click="openOrganisationUpsertForm(data)"></Button>
                         </template>

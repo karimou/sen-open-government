@@ -1,0 +1,4 @@
+<template>
+    ElectionsCandidates
+
+</template>
