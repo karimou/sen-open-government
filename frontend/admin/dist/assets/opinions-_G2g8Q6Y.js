@@ -1,1 +1,0 @@
-import{d as o,r as i,A as e}from"./index-SBcS5hmR.js";const p=o("opinions",()=>{const n=i(null);return{opinions:n,refreshOpinions:async()=>e.opinions.listOpinions().then(s=>n.value=s)}});export{p as u};
