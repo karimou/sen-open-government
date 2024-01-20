@@ -6,9 +6,9 @@ export const useElectionsStore = defineStore('elections', () => {
 
     const elections = ref(null);
 
-    const refreshElections = () => {
+    const refreshElections = async () => {
 
-        API.elections.listElections()
+        return API.elections.listElections()
             .then(data => elections.value = data);
     };
 

@@ -3,6 +3,7 @@
     import Column from 'primevue/column';
     import Toolbar from 'primevue/toolbar';
     import Button from 'primevue/button';
+    import Skeleton from 'primevue/skeleton';
     import { ref, onMounted, defineAsyncComponent } from 'vue';
     import { API } from '@/services/api';
     import { useDialog } from 'primevue/usedialog';
@@ -12,8 +13,15 @@
     /* -----------
     Data init
     ----------- */
+    const emptyArray = new Array(5);
     const electionsStore = useElectionsStore();
-    onMounted(electionsStore.refreshElections);
+    const tableLoading = ref(false);
+    onMounted(() => {
+        tableLoading.value = true;
+        electionsStore.refreshElections()
+            .then(() => tableLoading.value = false);
+    });
+
 
     /* -----------
     Elections deletion handling
@@ -65,7 +73,31 @@
 <template>
     <div class="grid">
         <div class="col-12">
-            <div class="card" v-if="electionsStore.elections?.length > 0">
+            <div class="card" v-if="!!tableLoading">
+                <DataTable :value="emptyArray">
+                    <Column field="title" header="Titre">
+                        <template #body>
+                            <Skeleton></Skeleton>
+                        </template>
+                    </Column>
+                    <Column field="type" header="Type">
+                        <template #body>
+                            <Skeleton></Skeleton>
+                        </template>
+                    </Column>
+                    <Column field="date" header="Date">
+                        <template #body>
+                            <Skeleton></Skeleton>
+                        </template>
+                    </Column>
+                    <Column field="description" header="Description">
+                        <template #body>
+                            <Skeleton></Skeleton>
+                        </template>
+                    </Column>
+                </DataTable>
+            </div>
+            <div class="card" v-else-if="electionsStore.elections?.length > 0">
                 <Toolbar class="mb-4">
                     <template v-slot:start>
                         <div class="my-2">
@@ -89,12 +121,14 @@
                 <DataTable 
                     :value="electionsStore.elections"
                     v-model:selection="selectedElections"
+                    :loading="tableLoading"
                 >
                     <template #header>
                         <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                             <h5 class="m-0">Élections</h5>
                         </div>
                     </template>
+                    <template #loading> Loading customers data. Please wait. </template>
                     <Column selectionMode="multiple" headerStyle="width: 3rem" />
                     <Column headerStyle="min-width: 100px">
                         <template #body="{ data }">
@@ -110,7 +144,6 @@
 
                 </DataTable>
             </div>
-
             <div
                 class="px-4 py-5 shadow-1 flex flex-column md:flex-row md:align-items-center justify-content-between mb-3"
                 style="width: 600px; background-color: white;"
