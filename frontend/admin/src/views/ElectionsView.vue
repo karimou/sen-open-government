@@ -3,17 +3,16 @@
     import Column from 'primevue/column';
     import Toolbar from 'primevue/toolbar';
     import Button from 'primevue/button';
-    import Skeleton from 'primevue/skeleton';
     import { ref, onMounted, defineAsyncComponent } from 'vue';
     import { API } from '@/services/api';
     import { useDialog } from 'primevue/usedialog';
     import { useElectionsStore } from '@/stores/elections';
+    import AppTableSkeleton from '@/components/AppTableSkeleton.vue';
     
 
     /* -----------
     Data init
     ----------- */
-    const emptyArray = new Array(5);
     const electionsStore = useElectionsStore();
     const tableLoading = ref(false);
     onMounted(() => {
@@ -73,30 +72,7 @@
 <template>
     <div class="grid">
         <div class="col-12">
-            <div class="card" v-if="!!tableLoading">
-                <DataTable :value="emptyArray">
-                    <Column field="title" header="Titre">
-                        <template #body>
-                            <Skeleton></Skeleton>
-                        </template>
-                    </Column>
-                    <Column field="type" header="Type">
-                        <template #body>
-                            <Skeleton></Skeleton>
-                        </template>
-                    </Column>
-                    <Column field="date" header="Date">
-                        <template #body>
-                            <Skeleton></Skeleton>
-                        </template>
-                    </Column>
-                    <Column field="description" header="Description">
-                        <template #body>
-                            <Skeleton></Skeleton>
-                        </template>
-                    </Column>
-                </DataTable>
-            </div>
+            <AppTableSkeleton v-if="!!tableLoading"/>
             <div class="card" v-else-if="electionsStore.elections?.length > 0">
                 <Toolbar class="mb-4">
                     <template v-slot:start>

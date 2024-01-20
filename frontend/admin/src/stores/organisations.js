@@ -6,9 +6,9 @@ export const useOrganisationsStore = defineStore('organisations', () => {
 
     const organisations = ref(null);
 
-    const refreshOrganisations = () => {
+    const refreshOrganisations = async () => {
 
-        API.organisations.listOrganisations()
+        return API.organisations.listOrganisations()
             .then(data => organisations.value = data);
     };
 

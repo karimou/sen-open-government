@@ -8,6 +8,7 @@
     import { useDialog } from 'primevue/usedialog';
     import { useIssuesStore } from '@/stores/issues';
     import { useOpinionsStore } from '@/stores/opinions';
+    import AppTableSkeleton from '@/components/AppTableSkeleton.vue';
     
 
     /* -----------
@@ -15,7 +16,12 @@
     ----------- */
     const issuesStore = useIssuesStore();
     const opinionsStore = useOpinionsStore();
-    onMounted(issuesStore.refreshIssues);
+    const tableLoading = ref(false);
+    onMounted(() => {
+        tableLoading.value = true;
+        issuesStore.refreshIssues()
+            .then(() => tableLoading.value = false);
+    });
 
     /* -----------
     Issues deletion handling
@@ -70,7 +76,8 @@
 <template>
     <div class="grid">
         <div class="col-12">
-            <div class="card" v-if="issuesStore.issues?.length > 0">
+            <AppTableSkeleton v-if="!!tableLoading"/>
+            <div class="card" v-else-if="issuesStore.issues?.length > 0">
                 <Toolbar class="mb-4">
                     <template v-slot:start>
                         <div class="my-2">

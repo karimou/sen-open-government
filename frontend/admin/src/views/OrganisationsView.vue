@@ -7,13 +7,19 @@
     import { API } from '@/services/api';
     import { useDialog } from 'primevue/usedialog';
     import { useOrganisationsStore } from '@/stores/organisations';
+    import AppTableSkeleton from '@/components/AppTableSkeleton.vue';
     
 
     /* -----------
     Data init
     ----------- */
+    const tableLoading = ref(false);
     const organisationsStore = useOrganisationsStore();
-    onMounted(organisationsStore.refreshOrganisations);
+    onMounted(() => {
+        tableLoading.value = true;
+        organisationsStore.refreshOrganisations()
+            .then(() => tableLoading.value = false);
+    });
 
     /* -----------
     Organisations deletion handling
@@ -51,7 +57,8 @@
 <template>
     <div class="grid">
         <div class="col-12">
-            <div class="card" v-if="organisationsStore.organisations?.length > 0">
+            <AppTableSkeleton v-if="!!tableLoading"/>
+            <div class="card" v-else-if="organisationsStore.organisations?.length > 0">
                 <Toolbar class="mb-4">
                     <template v-slot:start>
                         <div class="my-2">

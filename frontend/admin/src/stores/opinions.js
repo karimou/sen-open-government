@@ -6,9 +6,9 @@ export const useOpinionsStore = defineStore('opinions', () => {
 
     const opinions = ref(null);
 
-    const refreshOpinions = () => {
+    const refreshOpinions = async () => {
 
-        API.opinions.listOpinions()
+        return API.opinions.listOpinions()
             .then(data => opinions.value = data);
     };
 

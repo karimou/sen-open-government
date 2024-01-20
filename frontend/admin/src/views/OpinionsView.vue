@@ -8,13 +8,19 @@
     import { API } from '@/services/api';
     import { useDialog } from 'primevue/usedialog';
     import { useOpinionsStore } from '@/stores/opinions';
+    import AppTableSkeleton from '@/components/AppTableSkeleton.vue';
     
 
     /* -----------
     Data init
     ----------- */
+    const tableLoading = ref(false);
     const opinionsStore = useOpinionsStore();
-    onMounted(opinionsStore.refreshOpinions);
+    onMounted(() => {
+        tableLoading.value = true;
+        opinionsStore.refreshOpinions()
+            .then(() => tableLoading.value = false);
+    });
 
     /* -----------
     Opinions deletion handling
@@ -77,7 +83,8 @@
 <template>
     <div class="grid">
         <div class="col-12">
-            <div class="card" v-if="opinionsStore.opinions?.length > 0">
+            <AppTableSkeleton v-if="!!tableLoading"/>
+            <div class="card" v-else-if="opinionsStore.opinions?.length > 0">
                 <Toolbar class="mb-4">
                     <template v-slot:start>
                         <div class="my-2">

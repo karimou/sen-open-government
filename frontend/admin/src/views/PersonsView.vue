@@ -8,14 +8,20 @@
     import { useDialog } from 'primevue/usedialog';
     import { usePersonsStore } from '@/stores/persons';
     import { useOpinionsStore } from '@/stores/opinions';
+    import AppTableSkeleton from '@/components/AppTableSkeleton.vue';
     
 
     /* -----------
     Data init
     ----------- */
+    const tableLoading = ref(false);
     const personsStore = usePersonsStore();
     const opinionsStore = useOpinionsStore();
-    onMounted(personsStore.refreshPersons);
+    onMounted(() => {
+        tableLoading.value = true;
+        personsStore.refreshPersons()
+            .then(() => tableLoading.value = false);
+    });
 
     /* -----------
     Persons deletion handling
@@ -71,7 +77,8 @@
 <template>
     <div class="grid">
         <div class="col-12">
-            <div class="card" v-if="personsStore.persons?.length > 0">
+            <AppTableSkeleton v-if="!!tableLoading"/>
+            <div class="card" v-else-if="personsStore.persons?.length > 0">
                 <Toolbar class="mb-4">
                     <template v-slot:start>
                         <div class="my-2">

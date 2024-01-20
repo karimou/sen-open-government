@@ -7,13 +7,19 @@
     import { API } from '@/services/api';
     import { useDialog } from 'primevue/usedialog';
     import { useUsersStore } from '@/stores/users';
+    import AppTableSkeleton from '@/components/AppTableSkeleton.vue';
     
 
     /* -----------
     Data init
     ----------- */
+    const tableLoading = ref(false);
     const usersStore = useUsersStore();
-    onMounted(usersStore.refreshUsers);
+    onMounted(() => {
+        tableLoading.value = true;
+        usersStore.refreshUsers()
+            .then(() => tableLoading.value = false);
+    });
 
     /* -----------
     Users deletion handling
@@ -53,7 +59,8 @@
 <template>
     <div class="grid">
         <div class="col-12">
-            <div class="card" v-if="usersStore.users?.length > 0">
+            <AppTableSkeleton v-if="!!tableLoading"/>
+            <div class="card" v-else-if="usersStore.users?.length > 0">
                 <Toolbar class="mb-4">
                     <template v-slot:start>
                         <div class="my-2">

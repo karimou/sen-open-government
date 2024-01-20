@@ -6,17 +6,21 @@
     import Button from 'primevue/button';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
+    import AppTableSkeleton from '@/components/AppTableSkeleton.vue';
 
     /* -----------
     Data init
     ----------- */
+    const tableLoading = ref(false);
     const dialogRef = inject('dialogRef');
     const election = ref(null);
     const electionCandidates = ref([]);
     const fetchCandidates = () => {
+        tableLoading.value = true;
         if (!election.value?.id) return;
         API.elections.listElectionCandidates(election.value?.id)
-            .then(data => electionCandidates.value = data);
+            .then(data => electionCandidates.value = data)
+            .then(() => tableLoading.value = false);
     };
     onMounted(() => {
         election.value = dialogRef.value.data;
@@ -60,7 +64,8 @@
 <template>
     
     <div style="width: 650px">
-        <div v-if="electionCandidates?.length > 0">
+        <AppTableSkeleton v-if="!!tableLoading"/>
+        <div v-else-if="electionCandidates?.length > 0">
             <Toolbar class="mb-4">
                 <template v-slot:start>
                     <div class="my-2">

@@ -6,9 +6,9 @@ export const usePersonsStore = defineStore('persons', () => {
 
     const persons = ref(null);
 
-    const refreshPersons = () => {
+    const refreshPersons = async () => {
 
-        API.persons.listPersons()
+        return API.persons.listPersons()
             .then(data => persons.value = data);
     };
 

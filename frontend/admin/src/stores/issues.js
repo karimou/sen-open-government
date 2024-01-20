@@ -6,9 +6,9 @@ export const useIssuesStore = defineStore('issues', () => {
 
     const issues = ref(null);
 
-    const refreshIssues = () => {
+    const refreshIssues = async () => {
 
-        API.issues.listIssues()
+        return API.issues.listIssues()
             .then(data => issues.value = data);
     };
 
