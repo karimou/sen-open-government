@@ -82,14 +82,14 @@
                         </div>
                     </template>
                     <Column selectionMode="multiple" headerStyle="width: 3rem" />
-                    <Column headerStyle="min-width: 100px">
+                    <Column >
                         <template #body="{ data }">
                             <Button class="p-button-text p-button-rounded" icon="pi pi-pencil" @click="openOrganisationUpsertForm(data)"></Button>
                         </template>
                     </Column>
                     <Column field="name" header="Nom"></Column>
                     <Column field="type" header="Type"></Column>
-                    <Column field="description" header="Description"></Column>
+                    <Column headerStyle="min-width: 150px" field="description" header="Description"></Column>
                     <Column field="twitter" header="Twitter"></Column>
                     <Column field="facebook" header="Facebook"></Column>
                     <Column field="instagram" header="Instagram"></Column>
