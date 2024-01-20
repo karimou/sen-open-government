@@ -130,12 +130,12 @@ class Election {
         return elections.map(election => new Election(election , election.user));
 
     }
-    async addCandidate(personId: number, user?: User): Promise<void> {
+    static async addCandidate(electionId: number, personId: number, user?: User): Promise<void> {
         let client = await getClient();
 
         let query = {
-            text: electionQueries.ADD_CANDIDATE,
-            values: [this.id, personId, user?.id]
+            text: electionQueries.ADD_ELECTION_CANDIDATE,
+            values: [electionId, personId, user?.id]
         }
 
         let electionCandidate = await client.query(query)
@@ -147,6 +147,24 @@ class Election {
         if (!electionCandidate) throw(new Error('[Election] candidate addition failed'));
 
     }
+    static async removeCandidate(electionId: number, personId: number): Promise<void> {
+        let client = await getClient();
+
+        let query = {
+            text: electionQueries.REMOVE_ELECTION_CANDIDATE,
+            values: [electionId, personId]
+        }
+
+        let id = await client.query(query)
+            .then(res => res.rows[0])
+            .catch(e => console.log(e));
+        
+        client.release();
+
+        if (!id) throw(new Error('[Election] candidate removal failed'));
+
+    }
+    
 }
 
 export default Election;

@@ -36,9 +36,40 @@ const deleteElections = async (ids) => {
         })
 };
 
+const listElectionCandidates = async (electionId) => {
+    return http.get(`/api/v1/elections/candidates/${ electionId }`)
+        .then(res => {
+            if (res.status == 200) {
+                return res.data;
+            }
+        })
+};
+
+const addElectionCandidate = async ({electionId, personId}) => {
+    return http.post('/api/v1/elections/candidates', {electionId, personId})
+        .then(res => {
+            if (res.status == 200) {
+                return res.data;
+            }
+        })
+};
+
+const removeElectionCandidates = async (pairs) => {
+    return http.delete('/api/v1/elections/candidates', { data: { pairs } })
+        .then(res => {
+            if (res.status == 200) {
+                return res.data;
+            }
+        })
+};
+
+
 export default {
     listElections,
     addElection,
     updateElection,
-    deleteElections
+    deleteElections,
+    listElectionCandidates,
+    addElectionCandidate,
+    removeElectionCandidates
 }

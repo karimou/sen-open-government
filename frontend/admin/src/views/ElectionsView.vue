@@ -9,12 +9,16 @@
     import { useElectionsStore } from '@/stores/elections';
     
 
+    /* -----------
+    Data init
+    ----------- */
     const electionsStore = useElectionsStore();
-
     onMounted(electionsStore.refreshElections);
 
+    /* -----------
+    Elections deletion handling
+    ----------- */
     const selectedElections = ref(null);
-
     const loading = ref(false);
     const deleteSelectedElections = () => {
         let ids = selectedElections.value?.map(election => election.id);
@@ -27,9 +31,11 @@
             .finally(() => loading.value = false);
     };
 
+    /* -----------
+    Elections upsert handling
+    ----------- */
     const dialog = useDialog();
     const ElectionsUpsertForm = defineAsyncComponent(() => import('@/components/ElectionsUpsertForm.vue'));
-
     const openElectionUpsertForm = (election = {}) => {
         dialog.open(ElectionsUpsertForm, { 
             data: election,
@@ -39,6 +45,20 @@
             }
         });
     };
+
+    /* -----------
+    Elections canidates list display
+    ----------- */
+    const ElectionsCandidates = defineAsyncComponent(() => import('@/components/ElectionsCandidates.vue'));
+    const displayElectionCandidatesList = (election = {}) => {
+        dialog.open(ElectionsCandidates, { 
+            data: election,
+            onClose: () => console.log('ElectionsCandidates', 'close'),
+            props: {
+                modal: true
+            }
+        });
+    }
     
 </script>
 
@@ -79,7 +99,9 @@
                     <Column headerStyle="min-width: 100px">
                         <template #body="{ data }">
                             <Button class="p-button-text p-button-rounded" icon="pi pi-pencil" @click="openElectionUpsertForm(data)"></Button>
+                            <Button class="p-button-text p-button-rounded" icon="pi pi-users" @click="displayElectionCandidatesList(data)"></Button>
                         </template>
+                    
                     </Column>
                     <Column field="title" header="Titre"></Column>
                     <Column field="type" header="Type"></Column>
