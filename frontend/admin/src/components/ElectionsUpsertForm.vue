@@ -48,13 +48,13 @@
         if (!id.value) {
             API.elections.addElection(values)
                 .then(result => {
-                    dialogRef.value.close();
+                    dialogRef.value.close('success');
                 })
                 .finally(() => loading.value = false);
         } else {
             API.elections.updateElection({...values, id: id.value})
                 .then(result => {
-                    dialogRef.value.close();
+                    dialogRef.value.close('success');
                 })
                 .finally(() => loading.value = false);
         }

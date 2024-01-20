@@ -1,20 +1,22 @@
 <script setup>
     import * as yup from 'yup';
     import { useForm } from 'vee-validate';
-    import InputText from 'primevue/inputtext';
-    import Textarea from 'primevue/textarea';
     import Button from 'primevue/button';
-    import Editor from 'primevue/editor';
     import Dropdown from 'primevue/dropdown';
 
     import Message from 'primevue/message';
-    import { computed, inject, onMounted, ref } from 'vue';
+    import { computed, inject, onMounted, ref, defineAsyncComponent } from 'vue';
     import { API } from '@/services/api';
 
     import { usePersonsStore } from '@/stores/persons';
     import { useElectionsStore } from '@/stores/elections';
 
+    import { useDialog } from 'primevue/usedialog';
 
+
+    /* -----------
+    Form schema and initialisation
+    ----------- */
     const schema = yup.object({
         electionId: yup
             .number()
@@ -27,7 +29,9 @@
     const [electionId, _electionIdAttrs ] = defineField('electionId');
     const [personId, _personIdAttrs ] = defineField('personId');
     
-    const id = ref(null);
+    /* ----------- 
+    Data init
+    ----------- */
     const personsStore = usePersonsStore();
     const electionsStore = useElectionsStore();
     const initialValues = ref({});
@@ -46,7 +50,9 @@
         return dict;
     });
 
-
+    /* ----------- 
+    Submit handling
+    ----------- */
     const loading = ref(false);
     const onSubmit = handleSubmit((values) => {
         loading.value = true;
@@ -58,6 +64,25 @@
         
         
     });
+
+    /* ----------- 
+    Persons upsert handling
+    ----------- */
+    const dialog = useDialog();
+    const PersonsUpsertForm = defineAsyncComponent(() => import('@/components/PersonsUpsertForm.vue'));
+
+    const openPersonUpsertForm = (person = {}) => {
+        dialog.open(PersonsUpsertForm, { 
+            data: person,
+            onClose: (props) => {
+                if (props?.data == 'success') personsStore.refreshPersons();
+            },
+            props: {
+                modal: true
+            }
+        });
+    };
+
 
 </script>
 <template>
@@ -81,6 +106,7 @@
                     optionValue="id"
                     placeholder="Choisir une personne"
                     class="w-full"
+                    filter
                 >
                     <template #value="slotProps">
                         <span v-if="slotProps.value">
@@ -99,6 +125,12 @@
                         </span>
                     </template>
                 </Dropdown>
+                <Button 
+                    label="Ajouter une personne" 
+                    icon="pi pi-plus" 
+                    text
+                    @click="openPersonUpsertForm"
+                ></Button>
             </div>
             <div class="field ">
                 <label for="title">Élection</label>
@@ -118,6 +150,7 @@
                     optionValue="id"
                     placeholder="Choisir une élection"
                     class="w-full"
+                    filter
                 />
             </div>
             <Button type="submit" label="Soumettre" class="w-full" :loading="loading"></Button>

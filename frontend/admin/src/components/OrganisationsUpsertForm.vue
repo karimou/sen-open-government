@@ -72,13 +72,13 @@
         if (!id.value) {
             API.organisations.addOrganisation(values)
                 .then(result => {
-                    dialogRef.value.close();
+                    dialogRef.value.close('success');
                 })
                 .finally(() => loading.value = false);
         } else {
             API.organisations.updateOrganisation({...values, id: id.value})
                 .then(result => {
-                    dialogRef.value.close();
+                    dialogRef.value.close('success');
                 })
                 .finally(() => loading.value = false);
         }

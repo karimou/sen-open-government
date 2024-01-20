@@ -60,7 +60,6 @@
     const displayElectionCandidatesList = (election = {}) => {
         dialog.open(ElectionsCandidates, { 
             data: election,
-            onClose: () => console.log('ElectionsCandidates', 'close'),
             props: {
                 modal: true
             }

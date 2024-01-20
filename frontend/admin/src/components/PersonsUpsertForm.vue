@@ -59,19 +59,22 @@
     });
 
 
+    /* ----------- 
+    Submit handling
+    ----------- */
     const loading = ref(false);
     const onSubmit = handleSubmit((values) => {
         loading.value = true;
         if (!id.value) {
             API.persons.addPerson(values)
                 .then(result => {
-                    dialogRef.value.close();
+                    dialogRef.value.close('success');
                 })
                 .finally(() => loading.value = false);
         } else {
             API.persons.updatePerson({...values, id: id.value})
                 .then(result => {
-                    dialogRef.value.close();
+                    dialogRef.value.close('success');
                 })
                 .finally(() => loading.value = false);
         }

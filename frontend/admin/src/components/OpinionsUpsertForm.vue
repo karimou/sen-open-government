@@ -1,20 +1,24 @@
 <script setup>
     import * as yup from 'yup';
     import { useForm } from 'vee-validate';
-    import InputText from 'primevue/inputtext';
     import Textarea from 'primevue/textarea';
     import Button from 'primevue/button';
     import Editor from 'primevue/editor';
     import Dropdown from 'primevue/dropdown';
 
     import Message from 'primevue/message';
-    import { computed, inject, onMounted, ref } from 'vue';
+    import { computed, inject, onMounted, ref, defineAsyncComponent } from 'vue';
     import { API } from '@/services/api';
 
     import { usePersonsStore } from '@/stores/persons';
     import { useIssuesStore } from '@/stores/issues';
 
+    import { useDialog } from 'primevue/usedialog';
 
+
+    /* -----------
+    Form schema and initialisation
+    ----------- */
     const schema = yup.object({
         author_id: yup
             .number()
@@ -34,6 +38,9 @@
     const [summary, _summaryAttrs ] = defineField('summary');
     const [content, _contentAttrs ] = defineField('content');
     
+    /* ----------- 
+    Data init
+    ----------- */
     const id = ref(null);
     const personsStore = usePersonsStore();
     const issuesStore = useIssuesStore();
@@ -54,23 +61,59 @@
     });
 
 
+    /* ----------- 
+    Submit handling
+    ----------- */
     const loading = ref(false);
     const onSubmit = handleSubmit((values) => {
         loading.value = true;
         if (!id.value) {
             API.opinions.addOpinion(values)
                 .then(result => {
-                    dialogRef.value.close();
+                    dialogRef.value.close('success');
                 })
                 .finally(() => loading.value = false);
         } else {
             API.opinions.updateOpinion({...values, id: id.value})
                 .then(result => {
-                    dialogRef.value.close();
+                    dialogRef.value.close('success');
                 })
                 .finally(() => loading.value = false);
         }
     });
+
+    /* ----------- 
+    Persons upsert handling
+    ----------- */
+    const dialog = useDialog();
+    const PersonsUpsertForm = defineAsyncComponent(() => import('@/components/PersonsUpsertForm.vue'));
+    const openPersonUpsertForm = (person = {}) => {
+        dialog.open(PersonsUpsertForm, { 
+            data: person,
+            onClose: (props) => {
+                if (props?.data == 'success') personsStore.refreshPersons();
+            },
+            props: {
+                modal: true
+            }
+        });
+    };
+
+    /* ----------- 
+    Issues upsert handling
+    ----------- */
+    const IssuesUpsertForm = defineAsyncComponent(() => import('@/components/IssuesUpsertForm.vue'));
+    const openIssueUpsertForm = (issue = {}) => {
+        dialog.open(IssuesUpsertForm, { 
+            data: issue,
+            onClose: (props) => {
+                if (props?.data == 'success') issuesStore.refreshIssues();
+            },
+            props: {
+                modal: true
+            }
+        });
+    };
 
 </script>
 <template>
@@ -95,6 +138,7 @@
                         optionValue="id"
                         placeholder="Choisir une personne"
                         class="w-full"
+                        filter
                     >
                         <template #value="slotProps">
                             <span v-if="slotProps.value">
@@ -113,6 +157,12 @@
                             </span>
                         </template>
                     </Dropdown>
+                    <Button 
+                        label="Ajouter une personne" 
+                        icon="pi pi-plus" 
+                        text
+                        @click="openPersonUpsertForm"
+                    ></Button>
                 </div>
 
                 <div class="field col-6">
@@ -133,7 +183,14 @@
                         optionValue="id"
                         placeholder="Choisir un thème"
                         class="w-full"
+                        filter
                     />
+                    <Button 
+                        label="Ajouter un thème" 
+                        icon="pi pi-plus" 
+                        text
+                        @click="openIssueUpsertForm"
+                    ></Button>
                 </div>
             </div>
 

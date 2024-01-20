@@ -42,13 +42,13 @@
         if (!id.value) {
             API.issues.addIssue(values)
                 .then(result => {
-                    dialogRef.value.close();
+                    dialogRef.value.close('success');
                 })
                 .finally(() => loading.value = false);
         } else {
             API.issues.updateIssue({...values, id: id.value})
                 .then(result => {
-                    dialogRef.value.close();
+                    dialogRef.value.close('success');
                 })
                 .finally(() => loading.value = false);
         }
