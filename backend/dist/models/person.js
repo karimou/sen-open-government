@@ -98,5 +98,36 @@ class Person {
             return persons.map(person => new Person(person, person.user));
         });
     }
+    static listElectionCandidates(electionId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = yield (0, db_1.getClient)();
+            let query = {
+                text: personQueries.LIST_ELECTION_CANDIDATES,
+                values: [electionId]
+            };
+            let persons = yield client.query(query)
+                .then(res => res.rows)
+                .catch(e => console.log(e));
+            client.release();
+            if (!persons)
+                throw (new Error('[person] retrieving persons list failed'));
+            return persons.map(person => new Person(person, person.user));
+        });
+    }
+    addElection(electionId, user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = yield (0, db_1.getClient)();
+            let query = {
+                text: personQueries.ADD_ELECTION,
+                values: [this.id, electionId, user === null || user === void 0 ? void 0 : user.id]
+            };
+            let electionCandidate = yield client.query(query)
+                .then(res => res.rows[0])
+                .catch(e => console.log(e));
+            client.release();
+            if (!electionCandidate)
+                throw (new Error('[Person] candidate addition failed'));
+        });
+    }
 }
 exports.default = Person;

@@ -63,7 +63,7 @@ dotenv_1.default.config();
 // Session management
 //-------
 let tlsSettings = isLocal ? null : { tls: { rejectUnauthorized: false } };
-let redisClient = (0, redis_1.createClient)(Object.assign({ url: process.env.REDIS_TLS_URL }, tlsSettings));
+let redisClient = (0, redis_1.createClient)(Object.assign({ url: process.env.REDIS_URL }, tlsSettings));
 redisClient.on('connect', () => {
     console.log('[Redis] Connected to redis successfully');
 });
@@ -88,7 +88,7 @@ app.use((0, express_session_1.default)({
 db.query('SELECT NOW() AS "theTime"', [], (err, result) => {
     var _a;
     if (err) {
-        console.log('[Postgres] Could not connect to database on startup');
+        console.log('[Postgres] Could not connect to database on startup', err);
     }
     else {
         console.log(`[Postgres] connection successful: ${(_a = result.rows[0]) === null || _a === void 0 ? void 0 : _a.theTime}`);

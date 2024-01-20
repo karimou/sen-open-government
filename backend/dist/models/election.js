@@ -98,5 +98,51 @@ class Election {
             return elections.map(election => new Election(election, election.user));
         });
     }
+    static listCandidateElections(personId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = yield (0, db_1.getClient)();
+            let query = {
+                text: electionQueries.LIST_CANDIDATE_ELECTIONS,
+                values: [personId]
+            };
+            let elections = yield client.query(query)
+                .then(res => res.rows)
+                .catch(e => console.log(e));
+            client.release();
+            if (!elections)
+                throw (new Error('[Election] retrieving elections list failed'));
+            return elections.map(election => new Election(election, election.user));
+        });
+    }
+    static addCandidate(electionId, personId, user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = yield (0, db_1.getClient)();
+            let query = {
+                text: electionQueries.ADD_ELECTION_CANDIDATE,
+                values: [electionId, personId, user === null || user === void 0 ? void 0 : user.id]
+            };
+            let electionCandidate = yield client.query(query)
+                .then(res => res.rows[0])
+                .catch(e => console.log(e));
+            client.release();
+            if (!electionCandidate)
+                throw (new Error('[Election] candidate addition failed'));
+        });
+    }
+    static removeCandidate(electionId, personId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = yield (0, db_1.getClient)();
+            let query = {
+                text: electionQueries.REMOVE_ELECTION_CANDIDATE,
+                values: [electionId, personId]
+            };
+            let id = yield client.query(query)
+                .then(res => res.rows[0])
+                .catch(e => console.log(e));
+            client.release();
+            if (!id)
+                throw (new Error('[Election] candidate removal failed'));
+        });
+    }
 }
 exports.default = Election;
