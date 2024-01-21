@@ -61,7 +61,7 @@
 
 <template>
     <div class="layout-topbar">
-        <router-link to="/" class="layout-topbar-logo">
+        <router-link to="/admin" class="layout-topbar-logo">
             <!-- <img :src="logoUrl" alt="logo" /> -->
             <span>Sen open gouv</span>
         </router-link>

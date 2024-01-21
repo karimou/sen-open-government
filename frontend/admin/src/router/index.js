@@ -13,7 +13,7 @@ const router = createRouter({
         {
           path: '/admin',
           name: 'home',
-          component: () => import('@/views/HomeView.vue')
+          component: () => import('@/views/ElectionsView.vue')
         },
         {
           path: '/admin/elections',
