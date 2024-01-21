@@ -9,8 +9,12 @@
     import { inject, onMounted, ref } from 'vue';
     import { API } from '@/services/api';
     import { format } from 'date-fns';
+    import { useDialog } from 'primevue/usedialog';
 
     
+    /* -----------
+    Form schema and initialisation
+    ----------- */
     const schema = yup.object({
         date: yup
             .date()
@@ -30,6 +34,9 @@
     const [type, _typeAttrs ] = defineField('type');
     const [description, _descriptionAttrs ] = defineField('description');
     
+    /* -----------
+    Data init
+    ----------- */
     const id = ref(null);
     const initialValues = ref({});
 
@@ -42,6 +49,9 @@
     });
 
 
+    /* ----------- 
+    Submit handling
+    ----------- */
     const loading = ref(false);
     const onSubmit = handleSubmit((values) => {
         loading.value = true;

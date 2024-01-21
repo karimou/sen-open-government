@@ -11,6 +11,8 @@
     import { API } from '@/services/api';
     import { format } from 'date-fns';
 
+    import AppPicturesSelector from './AppPicturesSelector.vue';
+
     const schema = yup.object({
         firstname: yup
             .string()
@@ -85,6 +87,12 @@
     <div style="width: 450px">
         <h5>{{ id ? 'Modifier' : 'Ajouter' }} une personne</h5>
         <form @submit="onSubmit" :initial-values="initialValues.value">
+
+            <div class="formgrid grid">
+                <div class="field col-6">
+                    <AppPicturesSelector />
+                </div>
+            </div>
             <div class="formgrid grid">
                 <div class="field col-6">
                     <label for="firstname">Prénom</label>

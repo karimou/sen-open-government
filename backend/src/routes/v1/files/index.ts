@@ -4,11 +4,13 @@ import { isUserSigned } from '../../../middleware';
 
 import { uploadMultipart } from '../../../services/s3';
 
+import multer from 'multer';
+const upload = multer()
 
 const router = Router();
 
-router.route('')
-    .all(isUserSigned)
-    .post(async (req: Request, res: Response) => {
-
+router.post('/upload', isUserSigned, upload.single('file'), async (req: Request, res: Response) => {
+        console.log(req.file)
     });
+
+export default router;

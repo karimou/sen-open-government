@@ -6,6 +6,7 @@ import organisationsRouter from './organisations';
 import personsRouter from './persons';
 import issuesRouter from './issues';
 import opinionsRouter from './opinions';
+import filesRouter from './files';
 
 const v1Router = Router();
 
@@ -15,5 +16,6 @@ v1Router.use('/organisations', organisationsRouter);
 v1Router.use('/persons', personsRouter);
 v1Router.use('/issues', issuesRouter);
 v1Router.use('/opinions', opinionsRouter);
+v1Router.use('/files', filesRouter);
 
 export default v1Router;

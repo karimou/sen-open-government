@@ -1,4 +1,4 @@
-import http from '../https';
+import http from '../http';
 
 const listElections = async () => {
     return http.get('/api/v1/elections')

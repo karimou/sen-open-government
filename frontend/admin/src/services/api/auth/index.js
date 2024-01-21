@@ -1,4 +1,4 @@
-import http from '../https';
+import http from '../http';
 import { useAuthStore  } from '@/stores/auth';
 import router from '@/router';
 
