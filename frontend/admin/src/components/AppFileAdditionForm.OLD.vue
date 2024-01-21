@@ -48,15 +48,6 @@
 	import Api from '@/services/api.js';
 	//import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 	
-	import S3 from 'aws-sdk/clients/s3';
-
-	const AWS_S3_BUCKET = 'maad-vod-source-1cad35visps8g'
-	const s3 = new S3({
-		accessKeyId: 'AKIAIXHWIFQGAJX6PSFA',
-		secretAccessKey: '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',
-		region: 'eu-west-2'
-	}); //IMPROVE THIS BY USING AN IDENTITY POOL INSTEAD OF SECRET KEYS
-
 	export default {
 		name: 'AddFile',
 		data: () => ({
@@ -81,44 +72,14 @@
 			      			console.log([extension, type, mimetype])
 			      			//if (!extension) {throw 'Type of file not supported'}
 			      			if (file.size > 200000000) {throw 'File is too big'}
-							let params = {
-								Bucket: AWS_S3_BUCKET, // pass your bucket name
-								Key: file.name, // file will be saved as testBucket/contacts.csv
-								Body: e.target.result,
-					  			ACL: 'public-read'
-					     	};
-					     	vm.request = s3.upload(params);
-					     	vm.request
-								.on('httpUploadProgress', event => {
-									vm.progress = Math.round(event.loaded / event.total * 100);
-								})
-								.send((err, data) => {
-									if (err) {
-										vm.handleUploadComplete(err);
-									} else {
-										let media = {
-											name: file.name, 
-											alias: file.name, 
-											location: data.Location, 
-											mimetype: file.type,
-											type: type || 'file',
-											alias: vm.alias,
-											extension: extension,
-											size: file.size
-										}
-										Api.medias.save(media)
-											.then(res => {
-												if (res.status === 'OK') {
-													vm.handleUploadComplete(res)
-												} else {
-													vm.handleUploadComplete(null, 'error received from server')
-												}
-											})
-											.catch(e => vm.handleUploadComplete(null, e))
-									}
-								});
+							
+							//   file.name, // file will be saved as testBucket/contacts.csv
+							// 	Body: e.target.result,
+							
 						} catch (e) {
-							vm.handleUploadComplete(e);
+							
+							console.log(e);
+
 						}
 					};
 				})(f);
@@ -174,34 +135,6 @@
             
             return ['jpeg', 'image', 'image/jpeg']
 		
-		} else if (containsHash(signature, ['1A45DFA3'])) {
-            
-            return ['mkv', 'video', 'video/x-matroska']
-		
-		} else if (containsHash(signature, ['667479706973', '667479704D53'])) {
-           	
-           	return ['mp4', 'video', 'video/mp4']
-
-		} else if (containsHash(signature, ['FFFB90', '494433'])) {
-            
-            return ['mp3', 'audio', 'audio/mp3']
-
-		} else if (containsHash(signature, ['667479703367'])) {
-            
-            return ['3gp', 'audio', 'audio/3gp']
-
-		} else if (containsHash(signature, ['474946383961','474946383761'])) {
-            return ['gif', 'image', 'image/gif']
-
-		} else if (containsHash(signature, ['255044462d'])) {
-            return ['pdf', 'file', 'application/pdf']
-
-		} else if (containsHash(signature, ['52494646']) && containsHash(signature, ['57415645'])) {
-           	return ['wav', 'audio', 'audio/x-wav']
-
-		} else if (containsHash(signature, ['52494646']) && containsHash(signature, ['41564920'])) {
-           	return ['avi', 'video', 'video/x-msvideo']
-
 		} else {
 			return []
 		}
