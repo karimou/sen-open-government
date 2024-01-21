@@ -9,27 +9,27 @@
     ----------- */
     const tableLoading = ref(false);
     const dialogRef = inject('dialogRef');
-    const person = ref(null);
+    const issue = ref(null);
     const opinionsStore = useOpinionsStore();
 
     onMounted(async () => {
-        person.value = dialogRef.value.data;
+        issue.value = dialogRef.value.data;
         if (!opinionsStore.opinions) await opinionsStore.refreshOpinions();
     });
 
-    const personOpinions = computed(() => {
-        return opinionsStore.getPersonOpinions(person.value?.id);
+    const issueOpinions = computed(() => {
+        return opinionsStore.getIssueOpinions(issue.value?.id);
     });
 
 </script>
 
 <template>
     <BaseOpinionsTable 
-        :opinions="personOpinions"
+        :opinions="issueOpinions"
         :group="true"
-        defaultGroupingHeader="issue.title"
+        defaultGroupingHeader="author.name"
         :loading="tableLoading"
-        :personId="person?.id"
+        :issueId="issue?.id"
         @refresh="opinionsStore.refreshOpinions"
     />
     

@@ -16,5 +16,9 @@ export const useOpinionsStore = defineStore('opinions', () => {
         return opinions.value?.filter(opinion => opinion.author_id == personId);
     };
 
-    return { opinions, refreshOpinions, getPersonOpinions };
+    const getIssueOpinions = (issueId) => {
+        return opinions.value?.filter(opinion => opinion.issue_id == issueId);
+    };
+
+    return { opinions, refreshOpinions, getPersonOpinions, getIssueOpinions };
 })

@@ -13,11 +13,14 @@
     /* -----------
     Props init
     ----------- */
-    const tableLoading = ref(false);
     const props = defineProps({
         opinions: Array,
         personId: Number,
         issueId: Number,
+        defaultGroupingHeader: {
+            type: String,
+            default: 'author.name'
+        },
         group: {
             type: Boolean,
             default: false
@@ -27,8 +30,7 @@
             default: false
         }
     });
-    const { opinions, group, personId, issueId, loading } = toRefs(props);
-    console.log(opinions.value)
+    const { opinions, group, personId, issueId, loading, defaultGroupingHeader } = toRefs(props);
     const emit = defineEmits(['refresh']);
 
     /* -----------
@@ -78,7 +80,7 @@
     Data grouping
     ----------- */
     const expandedRowGroups = ref();
-    const groupingHeader = ref('author.name');
+    const groupingHeader = ref(defaultGroupingHeader.value);
     const groupingHeaders = [
         {field: 'author.name', label: 'Auteur'},
         {field: 'issue.title', label: 'Thème'}
@@ -176,7 +178,7 @@
                 <div class="mt-4 mr-auto md:mt-0 md:mr-0">
                     <Button 
                         class="p-button font-bold px-5 py-3 p-button-success p-button-rounded p-button-raised"
-                        @click="openOpinionUpsertForm"
+                        @click="openOpinionUpsertForm()"
                     >Ajouter</Button>
                 </div>
             </div>

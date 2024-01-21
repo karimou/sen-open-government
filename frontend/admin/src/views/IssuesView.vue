@@ -58,13 +58,10 @@
     /* ----------- 
     Opinions upsert handling
     ----------- */
-    const OpinionsUpsertForm = defineAsyncComponent(() => import('@/components/OpinionsUpsertForm.vue'));
-    const openOpinionUpsertForm = (issue = {}) => {
-        dialog.open(OpinionsUpsertForm, { 
-            data: {
-                issue_id: issue?.id
-            },
-            onClose: opinionsStore.refreshOpinions,
+    const IssuesOpinions = defineAsyncComponent(() => import('@/components/IssuesOpinions.vue'));
+    const displayIssueOpinions = (issue = {}) => {
+        dialog.open(IssuesOpinions, { 
+            data: issue,
             props: {
                 modal: true
             }
@@ -111,7 +108,7 @@
                     <Column headerStyle="min-width: 100px">
                         <template #body="{ data }">
                             <Button class="p-button-text p-button-rounded" icon="pi pi-pencil" @click="openIssueUpsertForm(data)"></Button>
-                            <Button class="p-button-text p-button-rounded" icon="pi pi-megaphone" @click="openOpinionUpsertForm(data)"></Button>
+                            <Button class="p-button-text p-button-rounded" icon="pi pi-megaphone" @click="displayIssueOpinions(data)"></Button>
                         </template>
                     </Column>
                     <Column field="title" header="Titre"></Column>
