@@ -12,5 +12,9 @@ export const useOpinionsStore = defineStore('opinions', () => {
             .then(data => opinions.value = data);
     };
 
-    return { opinions, refreshOpinions };
+    const getPersonOpinions = (personId) => {
+        return opinions.value?.filter(opinion => opinion.author_id == personId);
+    };
+
+    return { opinions, refreshOpinions, getPersonOpinions };
 })

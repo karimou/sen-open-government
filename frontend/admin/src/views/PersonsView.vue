@@ -16,7 +16,7 @@
     ----------- */
     const tableLoading = ref(false);
     const personsStore = usePersonsStore();
-    const opinionsStore = useOpinionsStore();
+    
     onMounted(() => {
         tableLoading.value = true;
         personsStore.refreshPersons()
@@ -59,13 +59,10 @@
     /* ----------- 
     Opinions upsert handling
     ----------- */
-    const OpinionsUpsertForm = defineAsyncComponent(() => import('@/components/OpinionsUpsertForm.vue'));
-    const openOpinionUpsertForm = (person = {}) => {
-        dialog.open(OpinionsUpsertForm, { 
-            data: {
-                author_id: person?.id
-            },
-            onClose: opinionsStore.refreshOpinions,
+    const PersonsOpinions = defineAsyncComponent(() => import('@/components/PersonsOpinions.vue'));
+    const displayPersonOpinions = (person = {}) => {
+        dialog.open(PersonsOpinions, { 
+            data: person,
             props: {
                 modal: true
             }
@@ -112,7 +109,7 @@
                     <Column headerStyle="min-width: 100px">
                         <template #body="{ data }">
                             <Button class="p-button-text p-button-rounded" icon="pi pi-pencil" @click="openPersonUpsertForm(data)"></Button>
-                            <Button class="p-button-text p-button-rounded" icon="pi pi-megaphone" @click="openOpinionUpsertForm(data)"></Button>
+                            <Button class="p-button-text p-button-rounded" icon="pi pi-megaphone" @click="displayPersonOpinions(data)"></Button>
                         </template>
 
                     </Column>
