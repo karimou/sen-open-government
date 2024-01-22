@@ -1,58 +1,58 @@
 <script setup>
-    import { ref } from 'vue';
+    import { ref, onMounted } from 'vue';
     import Dropdown from 'primevue/dropdown';
     import FileUpload from 'primevue/fileupload';
+    import { useFilesStore } from '@/stores/files';
+    import Image from 'primevue/image';
 
-    const uploading = ref(false);
-    const onUpload = () => {
-        console.log('onUpload');
-    }
+    const loading = ref(false);
+
+    const image = defineModel('image');
 
     const images = ref([]);
 
-    const onFileSelected = (event) => {
-        var f =  event.target.files[0];
-        var reader = new FileReader();
-        uploading = true;
-        reader.onload = (function (file) {
-            return function(e) {
-                try {
-                    let [extension, type, mimetype] = getFileParams(getFileSignature(e.target.result));
-                    console.log([extension, type, mimetype])
-                    //if (!extension) {throw 'Type of file not supported'}
-                    if (file.size > 200000000) {throw 'File is too big'}
-                    
-                    //   file.name, // file will be saved as testBucket/contacts.csv
-                    // 	Body: e.target.result,
-                    
-                } catch (e) {
-                    
-                    console.log(e);
+    const filesStore = useFilesStore();
+    onMounted(() => {
+        loading.value = true;
+        filesStore.refreshFiles()
+            .then(() => loading.value = false);
+    });
 
-                }
-            };
-        })(f);
-        reader.readAsArrayBuffer(f);
-    };
     
 </script>
 
 <template>
-    <div>
-        <Dropdown
-            v-model="images"
-            class="w-full"
-            
-        />
-        <FileUpload 
-            mode="basic" 
-            name="file" 
-            chooseLabel="Ajouter une image"
-            class="p-button-text"
-            url="/api/v1/files/upload" 
-            accept="image/*" 
-            :maxFileSize="1000000" 
-            @upload="onUpload" 
-        />
+    <div class="grid">
+        <div class="col-6">
+            <Dropdown
+                :options="filesStore.files"
+                v-model="image"
+                class="w-full"
+                optionLabel="name"
+                optionValue="url"
+                placeholder="Choisir une image"
+                :loading="loading"
+                showClear
+            />
+            <Image 
+                :src="image"
+                style="max-width: 100%;"
+                :imageStyle="{maxWidth: '100%'}"
+            />
+        </div>
+        <div class="col-6">
+            <FileUpload 
+                mode="advanced" 
+                name="file" 
+                chooseLabel="Ajouter une image"
+                class="p-button-text"
+                url="/api/v1/files/upload" 
+                accept="image/*" 
+                :maxFileSize="1000000" 
+                showUploadButton
+                @upload="filesStore.refreshFiles" 
+                
+            />
+        </div>
     </div>
 </template>

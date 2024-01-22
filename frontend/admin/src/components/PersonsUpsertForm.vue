@@ -67,6 +67,7 @@
     const loading = ref(false);
     const onSubmit = handleSubmit((values) => {
         loading.value = true;
+        console.log(values)
         if (!id.value) {
             API.persons.addPerson(values)
                 .then(result => {
@@ -88,11 +89,9 @@
         <h5>{{ id ? 'Modifier' : 'Ajouter' }} une personne</h5>
         <form @submit="onSubmit" :initial-values="initialValues.value">
 
-            <div class="formgrid grid">
-                <div class="field col-6">
-                    <AppPicturesSelector />
-                </div>
-            </div>
+            <AppPicturesSelector 
+                v-model:image="photo"
+            />
             <div class="formgrid grid">
                 <div class="field col-6">
                     <label for="firstname">Prénom</label>

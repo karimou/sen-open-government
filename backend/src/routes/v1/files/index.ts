@@ -30,4 +30,23 @@ router
         res.status(200).send(file);
     });
 
+router
+    .route('')
+    .all(isUserSigned)
+    .get(async (_req: Request, res: Response) => {
+
+        try {
+            
+            let files = await MyFile
+                .list();
+            res.status(200).send(files);
+
+        } catch (e) {
+
+            return res.status(500).send(e);
+
+        }
+        
+    });
+
 export default router;
