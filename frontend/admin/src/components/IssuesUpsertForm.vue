@@ -9,7 +9,6 @@
     import Message from 'primevue/message';
     import { inject, onMounted, ref } from 'vue';
     import { API } from '@/services/api';
-    import { format } from 'date-fns';
     import AppPicturesSelector from '@/components/AppPicturesSelector.vue';
 
     const schema = yup.object({
