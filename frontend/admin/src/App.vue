@@ -12,3 +12,10 @@
   <RouterView />
   <DynamicDialog/>
 </template>
+
+
+<style>
+    .p-avatar img {
+        object-fit: cover !important;   
+    }
+</style>

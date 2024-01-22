@@ -3,6 +3,7 @@
     import Column from 'primevue/column';
     import Toolbar from 'primevue/toolbar';
     import Button from 'primevue/button';
+    import Avatar from 'primevue/avatar';
     import { ref, defineAsyncComponent, toRefs } from 'vue';
     import { API } from '@/services/api';
     import { useDialog } from 'primevue/usedialog';
@@ -130,12 +131,23 @@
                         </div>
                     </template>
                     <Column selectionMode="multiple" headerStyle="width: 3rem" />
-                    <Column headerStyle="min-width: 100px">
+                    <Column headerStyle="width: 120px">
                         <template #body="{ data }">
                             <Button class="p-button-text p-button-rounded" icon="pi pi-pencil" @click="openPersonUpsertForm(data)"></Button>
                             <Button class="p-button-text p-button-rounded" icon="pi pi-megaphone" @click="displayPersonOpinions(data)"></Button>
                         </template>
 
+                    </Column>
+                    <Column field="photo" headerStyle="width: 100px">
+                        <template #body="{ data }">
+                            <Avatar 
+                                class="contained-image"
+                                v-if="data.photo"
+                                :image="data.photo"
+                                size="xlarge" 
+                                shape="circle" 
+                            />
+                        </template>
                     </Column>
                     <Column field="firstname" header="Prénom"></Column>
                     <Column field="lastname" header="Nom"></Column>
