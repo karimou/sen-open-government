@@ -1,0 +1,7 @@
+import{r as d,X as f,o as p,u as C,a as g,c as h,g as E,A as c,i as A,_ as I}from"./index-sjrDLI-L.js";import{_ as F}from"./BasePersonsTable-wquNpmyN.js";import"./AppTableSkeleton-Nfvta1m-.js";import"./index.esm-Kf8LRFWe.js";const R={style:{width:"650px"}},D={__name:"ElectionsCandidates",setup(x){const n=d(!1),r=f("dialogRef"),a=d(null),s=d([]),o=()=>{var t,e;n.value=!0,(t=a.value)!=null&&t.id&&c.elections.listElectionCandidates((e=a.value)==null?void 0:e.id).then(i=>s.value=i).then(()=>n.value=!1)};p(()=>{a.value=r.value.data,o()});const u=C(),_=A(()=>I(()=>import("./ElectionCandidateAdditionForm-4ulb1uzZ.js"),__vite__mapDeps([0,1,2,3,4,5,6,7]))),m=()=>{var t;u.open(_,{data:{electionId:(t=a.value)==null?void 0:t.id},onClose:e=>{(e==null?void 0:e.data)=="success"&&o()},props:{modal:!0}})},v=t=>{let e=t.map(i=>{var l;return{electionId:(l=a.value)==null?void 0:l.id,personId:i.id}});return c.elections.removeElectionCandidates(e)};return(t,e)=>(g(),h("div",R,[E(F,{persons:s.value,loading:n.value,addFunction:m,deleteFunction:v,onRefresh:o},null,8,["persons","loading"])]))}};export{D as default};
+function __vite__mapDeps(indexes) {
+  if (!__vite__mapDeps.viteFileDeps) {
+    __vite__mapDeps.viteFileDeps = ["assets/ElectionCandidateAdditionForm-4ulb1uzZ.js","assets/index-sjrDLI-L.js","assets/index-D9x--RlZ.css","assets/message.esm-UrD84rNF.js","assets/index.esm-Kf8LRFWe.js","assets/AppTableSkeleton-Nfvta1m-.js","assets/persons-mFnoK_ll.js","assets/ElectionsView-ts0NWtGZ.js"]
+  }
+  return indexes.map((i) => __vite__mapDeps.viteFileDeps[i])
+}
