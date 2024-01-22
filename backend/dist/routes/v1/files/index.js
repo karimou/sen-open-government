@@ -36,4 +36,17 @@ router
         res.status(500).send('File could not be added to database');
     res.status(200).send(file);
 }));
+router
+    .route('')
+    .all(middleware_1.isUserSigned)
+    .get((_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let files = yield models_1.MyFile
+            .list();
+        res.status(200).send(files);
+    }
+    catch (e) {
+        return res.status(500).send(e);
+    }
+}));
 exports.default = router;

@@ -22,7 +22,7 @@ class Issue {
             let client = yield (0, db_1.getClient)();
             let query = {
                 text: issueQueries.INSERT_ISSUE,
-                values: [this.title, this.short_description, this.long_description, (_a = this.last_modified_by) === null || _a === void 0 ? void 0 : _a.id]
+                values: [this.title, this.short_description, this.long_description, this.photo, (_a = this.last_modified_by) === null || _a === void 0 ? void 0 : _a.id]
             };
             let issue = yield client.query(query)
                 .then(res => res.rows[0])
@@ -40,7 +40,7 @@ class Issue {
             let client = yield (0, db_1.getClient)();
             let query = {
                 text: issueQueries.UPDATE_ISSUE,
-                values: [this.id, this.title, this.short_description, this.long_description, (_a = this.last_modified_by) === null || _a === void 0 ? void 0 : _a.id]
+                values: [this.id, this.title, this.short_description, this.long_description, this.photo, (_a = this.last_modified_by) === null || _a === void 0 ? void 0 : _a.id]
             };
             let issue = yield client.query(query)
                 .then(res => res.rows[0])
