@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Opinion = exports.Issue = exports.Person = exports.Organisation = exports.Election = exports.User = void 0;
+exports.MyFile = exports.Opinion = exports.Issue = exports.Person = exports.Organisation = exports.Election = exports.User = void 0;
 const user_1 = __importDefault(require("./user"));
 exports.User = user_1.default;
 const election_1 = __importDefault(require("./election"));
@@ -16,3 +16,5 @@ const issue_1 = __importDefault(require("./issue"));
 exports.Issue = issue_1.default;
 const opinion_1 = __importDefault(require("./opinion"));
 exports.Opinion = opinion_1.default;
+const file_1 = __importDefault(require("./file"));
+exports.MyFile = file_1.default;

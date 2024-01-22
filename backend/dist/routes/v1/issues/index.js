@@ -39,7 +39,6 @@ router.route('')
     .post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
-        console.log(req.body);
         let issue = new models_1.Issue(req.body, (_a = req.session) === null || _a === void 0 ? void 0 : _a.user);
         yield issue.add();
         res.status(200).send(issue);
