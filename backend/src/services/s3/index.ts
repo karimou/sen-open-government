@@ -10,20 +10,18 @@ import {
 
 const partSize = 6 * 1024 * 1024; //6mb; min is 5mb and max is 5gb
 		
-export const uploadMultipart = async (fileName: string, base64Str: string) => {
-	
+export const uploadMultipart = async (fileName: string | undefined, buffer: Buffer | undefined) => {
+	if (!buffer) return;
     const s3Client = new S3Client({
         credentials: {
             accessKeyId: process.env.AWS_ACCESS_KEY as string,
             secretAccessKey: process.env.AWS_SECRET_KEY as string,
         },
-        region: 'eu-west-2'
+        region: process.env.AWS_REGION
     });
     const bucketName = process.env.AWS_S3_BUCKET_NAME;
     
     let uploadId;
-    
-    const buffer = Buffer.from(base64Str, 'base64');
 
 
     try {
@@ -59,8 +57,8 @@ export const uploadMultipart = async (fileName: string, base64Str: string) => {
             Key: fileName,
             UploadId: uploadId,
             MultipartUpload: {
-                Parts: uploadResults.map((Etag, i) => ({
-                    Etag,
+                Parts: uploadResults.map(({ ETag }, i) => ({
+                    ETag,
                     PartNumber: i + 1
                 }))
             }

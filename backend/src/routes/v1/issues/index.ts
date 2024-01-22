@@ -43,7 +43,6 @@ router.route('')
     .post(async (req: Request, res: Response) => {
 
         try {
-            console.log(req.body)
             let issue = new Issue(req.body, req.session?.user as User);
             await issue.add();
             res.status(200).send(issue);

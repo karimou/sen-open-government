@@ -5,6 +5,7 @@ import Organisation from './organisation';
 import Person from './person';
 import Issue from './issue';
 import Opinion from './opinion';
+import MyFile from './file';
 
 export {
     User,
@@ -12,5 +13,6 @@ export {
     Organisation,
     Person,
     Issue,
-    Opinion
+    Opinion,
+    MyFile
 };
