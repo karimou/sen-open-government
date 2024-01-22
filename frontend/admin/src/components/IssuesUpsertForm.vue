@@ -10,6 +10,7 @@
     import { inject, onMounted, ref } from 'vue';
     import { API } from '@/services/api';
     import { format } from 'date-fns';
+    import AppPicturesSelector from '@/components/AppPicturesSelector.vue';
 
     const schema = yup.object({
         title: yup
@@ -19,19 +20,23 @@
             .string()
             .required(),
         long_description: yup
+            .string(),
+        photo: yup
             .string()
+            
     });
     const { handleSubmit, errors, defineField, setFieldValue } = useForm({validationSchema: schema});
     const [title, _titleAttrs ] = defineField('title');
     const [short_description, _short_descriptionAttrs ] = defineField('short_description');
     const [long_description, _long_descriptionAttrs ] = defineField('long_description');
+    const [photo, _photoAttrs ] = defineField('photo');
     
     const id = ref(null);
     const initialValues = ref({});
 
     const dialogRef = inject('dialogRef');
     onMounted(() => {
-        ['title', 'short_description', 'long_description'].forEach(field => { if (dialogRef.value.data[field]) setFieldValue(field, dialogRef.value.data[field]) });
+        ['title', 'short_description', 'long_description', 'photo'].forEach(field => { if (dialogRef.value.data[field]) setFieldValue(field, dialogRef.value.data[field]) });
         id.value = dialogRef.value.data?.id;
     });
 
@@ -59,6 +64,9 @@
     <div style="width: 650px">
         <h5>{{ id ? 'Modifier' : 'Ajouter' }} un thème politique</h5>
         <form @submit="onSubmit" :initial-values="initialValues.value">
+            <AppPicturesSelector 
+                v-model:image="photo"
+            />
             <div class="field">
                 <label for="title">Titre</label>
                 <InputText

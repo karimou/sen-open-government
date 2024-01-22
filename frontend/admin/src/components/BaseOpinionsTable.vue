@@ -4,6 +4,7 @@
     import Toolbar from 'primevue/toolbar';
     import Button from 'primevue/button';
     import Dropdown from 'primevue/dropdown';
+    import Avatar from 'primevue/avatar';
     import { ref, computed, toRefs, defineAsyncComponent } from 'vue';
     import { API } from '@/services/api';
     import { useDialog } from 'primevue/usedialog';
@@ -144,18 +145,31 @@
                         </div>
                     </template>
                     <Column selectionMode="multiple" headerStyle="width: 3rem" />
-                    <Column headerStyle="min-width: 20px">
+                    <Column headerStyle="width: 60px">
                         <template #body="{ data }">
                             <Button class="p-button-text p-button-rounded" icon="pi pi-pencil" @click="openOpinionUpsertForm(data)"></Button>
                         </template>
                     </Column>
                     <template #groupheader="slotProps" v-if="group">
                         <template v-if="groupingHeader == 'author.name'">
-                            <img v-if="slotProps.data.author.photo" :alt="slotProps.data.author.name" :src="slotProps.data.author.photo" width="32" style="vertical-align: middle" class="ml-2" />
+                            <Avatar 
+                                class="contained-image ml-2 vertical-align-middle "
+                                v-if="slotProps.data.author.photo"
+                                :image="slotProps.data.author.photo"
+                                width="32"
+                                shape="circle" 
+                            />
                             <span class="vertical-align-middle ml-2 font-bold line-height-3">{{ slotProps.data.author.name }}</span>
                         </template>
 
                         <template v-else-if="groupingHeader == 'issue.title'">
+                            <Avatar 
+                                class="contained-image ml-2 vertical-align-middle "
+                                v-if="slotProps.data.issue.photo"
+                                :image="slotProps.data.issue.photo"
+                                width="32"
+                                shape="circle" 
+                            />
                             <span class="vertical-align-middle ml-2 font-bold line-height-3">{{ slotProps.data.issue.title }}</span>
                         </template>
                     </template>

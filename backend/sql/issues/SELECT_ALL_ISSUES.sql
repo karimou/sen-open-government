@@ -3,6 +3,7 @@ SELECT
     issue.title,
     issue.short_description,
     issue.long_description,
+    issue.photo,
     issue.created_on, 
     issue.last_modified_on, 
     json_build_object('id', "user".id, 'username', "user".username) as user

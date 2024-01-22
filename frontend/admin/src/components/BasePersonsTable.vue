@@ -145,7 +145,7 @@
                                 v-if="data.photo"
                                 :image="data.photo"
                                 size="xlarge" 
-                                shape="circle" 
+                                shape="rectangle" 
                             />
                         </template>
                     </Column>

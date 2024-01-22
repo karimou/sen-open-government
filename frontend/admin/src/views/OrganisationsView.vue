@@ -89,7 +89,7 @@
                         </div>
                     </template>
                     <Column selectionMode="multiple" headerStyle="width: 3rem" />
-                    <Column headerStyle="min-width: 100px">
+                    <Column headerStyle="width: 60px">
                         <template #body="{ data }">
                             <Button class="p-button-text p-button-rounded" icon="pi pi-pencil" @click="openOrganisationUpsertForm(data)"></Button>
                         </template>

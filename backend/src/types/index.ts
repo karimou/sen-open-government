@@ -25,4 +25,5 @@ export interface Issue {
     title: string
     short_description: string
     long_description: string
+    photo: string
 }

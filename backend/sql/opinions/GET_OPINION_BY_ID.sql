@@ -3,7 +3,7 @@ SELECT
     opinion.author_id,
     json_build_object('id', person.id, 'firstname', person.firstname, 'lastname', person.lastname) as author,
     opinion.issue_id,
-    json_build_object('id', issue.id, 'title', issue.title) as issue,
+    json_build_object('id', issue.id, 'title', issue.title, 'photo', issue.photo) as issue,
     opinion.summary,
     opinion.content,
     opinion.created_on, 

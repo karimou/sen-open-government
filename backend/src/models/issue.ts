@@ -8,6 +8,7 @@ class Issue {
     title: string
     short_description: string
     long_description: string
+    photo: string
     created_on: Date
     last_modified_on: Date
     last_modified_by: User | undefined
@@ -21,7 +22,7 @@ class Issue {
 
         let query = {
             text: issueQueries.INSERT_ISSUE,
-            values: [this.title, this.short_description, this.long_description, this.last_modified_by?.id]
+            values: [this.title, this.short_description, this.long_description, this.photo, this.last_modified_by?.id]
         }
 
         let issue = await client.query(query)
@@ -40,7 +41,7 @@ class Issue {
 
         let query = {
             text: issueQueries.UPDATE_ISSUE,
-            values: [this.id, this.title, this.short_description, this.long_description, this.last_modified_by?.id]
+            values: [this.id, this.title, this.short_description, this.long_description, this.photo, this.last_modified_by?.id]
         }
 
         let issue = await client.query(query)

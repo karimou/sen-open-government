@@ -9,8 +9,8 @@ const listIssues = async () => {
         })
 };
 
-const addIssue = async ({title, short_description, long_description}) => {
-    return http.post('/api/v1/issues', {title, short_description, long_description})
+const addIssue = async ({title, short_description, long_description, photo}) => {
+    return http.post('/api/v1/issues', {title, short_description, long_description, photo})
         .then(res => {
             if (res.status == 200) {
                 return res.data;
@@ -18,8 +18,8 @@ const addIssue = async ({title, short_description, long_description}) => {
         })
 };
 
-const updateIssue = async ({id, title, short_description, long_description}) => {
-    return http.put('/api/v1/issues', {id, title, short_description, long_description})
+const updateIssue = async ({id, title, short_description, long_description, photo}) => {
+    return http.put('/api/v1/issues', {id, title, short_description, long_description, photo})
         .then(res => {
             if (res.status == 200) {
                 return res.data;
