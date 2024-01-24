@@ -46,26 +46,33 @@
 
 </script>
 <template>
-    <MegaMenu :model="menu" v-if="menu">
-        <template #start>
-            <RouterLink custom v-slot="{ href, navigate }" :to="`/election/${ electionsStore.currentElection.id }`">
-                <a v-ripple :href="href" @click="navigate">
-                    {{ electionsStore.currentElection.title }}
+    <nav>
+        <MegaMenu :model="menu" v-if="menu">
+            <template #start>
+                <RouterLink custom v-slot="{ href, navigate }" :to="`/election/${ electionsStore.currentElection.id }`">
+                    <a v-ripple :href="href" @click="navigate">
+                        {{ electionsStore.currentElection.title }}
+                    </a>
+                </RouterLink>
+            </template>
+            <template #item="{ item }">
+                <RouterLink v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+                    <a v-ripple :href="href" @click="navigate" class="uppercase">
+                        <span :class="item.icon" />
+                        <span class="ml-2">{{ item.label }}</span>
+                    </a>
+                </RouterLink>
+                <a v-else v-ripple class="flex align-items-center uppercase cursor-pointer px-3 py-2">
+                    <span>{{ item.label }}</span>
                 </a>
-            </RouterLink>
-        </template>
-        <template #item="{ item }">
-            <RouterLink v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-                <a v-ripple :href="href" @click="navigate">
-                    <span :class="item.icon" />
-                    <span class="ml-2">{{ item.label }}</span>
-                </a>
-            </RouterLink>
-            <a v-else v-ripple class="flex align-items-center uppercase cursor-pointer px-3 py-2">
-                <span>{{ item.label }}</span>
-            </a>
-        </template>
-    </MegaMenu>
-    <RouterView />
+            </template>
+        </MegaMenu>
+    </nav>
+    <main>
+        <RouterView />
+    </main>
 </template>
+
+<style>
+</style>
   

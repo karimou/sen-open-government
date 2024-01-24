@@ -7,7 +7,6 @@ import { createPinia } from 'pinia';
 import Ripple from 'primevue/ripple';
 
 import '@/assets/styles.scss';
-import 'primevue/resources/themes/lara-light-green/theme.css'
 
 const app = createApp(App);
 
