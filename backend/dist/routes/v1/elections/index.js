@@ -14,18 +14,25 @@ const models_1 = require("../../../models");
 const middleware_1 = require("../../../middleware");
 const router = (0, express_1.Router)();
 router
-    .get('/:electionId', middleware_1.isUserSigned, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    .get('/:electionId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let election = yield models_1.Election
             .getById(req.params.electionId);
-        res.status(200).send(election);
+        if (!election)
+            return res.status(404).send();
+        let candidates = yield models_1.Person.listElectionCandidates(election.id);
+        let opinions = yield models_1.Opinion.listOpinionsByElection(election.id);
+        let allIssues = yield models_1.Issue.list();
+        let issueIds = Array.from(new Set(opinions.map(opinion => opinion.issue_id)));
+        let issues = allIssues.filter(issue => issueIds.includes(issue.id));
+        res.status(200).send(Object.assign(Object.assign({}, election), { candidates, opinions, issues }));
     }
     catch (e) {
         return res.status(500).send(e);
     }
 }));
 router
-    .get('/candidates/:electionId', middleware_1.isUserSigned, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    .get('/candidates/:electionId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let persons = yield models_1.Person.listElectionCandidates(Number(req.params.electionId));
         res.status(200).send(persons);
@@ -55,9 +62,8 @@ router.route('/candidates')
         return res.status(500).send(e);
     }
 }));
-router.route('')
-    .all(middleware_1.isUserSigned)
-    .get((_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router
+    .get('', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let elections = yield models_1.Election
             .list();
@@ -66,7 +72,9 @@ router.route('')
     catch (e) {
         return res.status(500).send(e);
     }
-}))
+}));
+router.route('')
+    .all(middleware_1.isUserSigned)
     .post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _b;
     try {

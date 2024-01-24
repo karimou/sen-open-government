@@ -118,11 +118,11 @@ app.use((req, res, next) => {
 //-------
 const adminHtml = (0, node_fs_1.readFileSync)(path_1.default.join(`${__dirname}/../../frontend/admin/dist/index.html`), 'utf8');
 const getAdminPage = (req, res) => res.send(adminHtml);
+const websiteHtml = (0, node_fs_1.readFileSync)(path_1.default.join(`${__dirname}/../../frontend/website/dist/index.html`), 'utf8');
+const getWebsitePage = (req, res) => res.send(websiteHtml);
 app.get('/admin', getAdminPage);
 app.get('/admin/*', getAdminPage);
-app.get('/', (req, res) => {
-    res.send('Welcome to Dakar in Senegal, the city of typescript!');
-});
+app.get('/', getWebsitePage);
 //-------------
 // Server start
 //-------

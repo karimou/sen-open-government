@@ -98,5 +98,21 @@ class Opinion {
             return opinions.map(opinion => new Opinion(opinion, opinion.user));
         });
     }
+    static listOpinionsByElection(electionId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = yield (0, db_1.getClient)();
+            let query = {
+                text: opinionQueries.LIST_OPINIONS_BY_ELECTION,
+                values: [electionId]
+            };
+            let opinions = yield client.query(query)
+                .then(res => res.rows)
+                .catch(e => console.log(e));
+            client.release();
+            if (!opinions)
+                throw (new Error('[opinion] retrieving opinions list failed'));
+            return opinions.map(opinion => new Opinion(opinion, opinion.user));
+        });
+    }
 }
 exports.default = Opinion;
