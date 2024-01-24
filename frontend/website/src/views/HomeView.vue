@@ -2,5 +2,5 @@
 <template>
   <div>
     Home view
-  </div>>
+  </div>
 </template>

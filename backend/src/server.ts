@@ -114,11 +114,12 @@ apiRoutes(app);
 const adminHtml = readFileSync(path.join(`${ __dirname }/../../frontend/admin/dist/index.html`), 'utf8');
 const getAdminPage = (req: Request, res: Response) => res.send(adminHtml);
 
+const websiteHtml = readFileSync(path.join(`${ __dirname }/../../frontend/website/dist/index.html`), 'utf8');
+const getWebsitePage = (req: Request, res: Response) => res.send(websiteHtml);
+
 app.get('/admin', getAdminPage);
 app.get('/admin/*', getAdminPage);
-app.get('/', (req: Request, res: Response) => {
-  res.send('Welcome to Dakar in Senegal, the city of typescript!')
-});
+app.get('/', getWebsitePage);
 
 //-------------
 // Server start
