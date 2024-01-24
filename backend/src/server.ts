@@ -120,6 +120,7 @@ const getWebsitePage = (req: Request, res: Response) => res.send(websiteHtml);
 app.get('/admin', getAdminPage);
 app.get('/admin/*', getAdminPage);
 app.get('/', getWebsitePage);
+app.get('/*', getWebsitePage);
 
 //-------------
 // Server start
