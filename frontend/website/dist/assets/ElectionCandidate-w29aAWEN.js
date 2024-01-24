@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper-x3n3nnut.js";import{c as t,o as c}from"./index-jEdtqT73.js";const n={};function o(r,a){return c(),t("div",null," Candidate view ")}const _=e(n,[["render",o]]);export{_ as default};
