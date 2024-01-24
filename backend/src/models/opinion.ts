@@ -112,6 +112,26 @@ class Opinion {
         return opinions.map(opinion => new Opinion(opinion , opinion.user));
 
     }
+
+    static async listOpinionsByElection(electionId: number): Promise<Array<Opinion>> {
+        let client = await getClient();
+
+        let query = {
+            text: opinionQueries.LIST_OPINIONS_BY_ELECTION,
+            values: [electionId]
+        }
+
+        let opinions = await client.query(query)
+            .then(res => res.rows)
+            .catch(e => console.log(e));
+
+        client.release();
+
+        if (!opinions) throw(new Error('[opinion] retrieving opinions list failed'));
+        
+        return opinions.map(opinion => new Opinion(opinion , opinion.user));
+
+    }
 }
 
 export default Opinion;

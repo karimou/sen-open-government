@@ -1,19 +1,25 @@
 
 import { Router, Request, Response } from 'express';
 
-import { Election, User, Person } from '../../../models';
+import { Election, User, Person, Opinion, Issue } from '../../../models';
 
 import { isUserSigned } from '../../../middleware';
 
 const router = Router();
 
 router
-    .get('/:electionId', isUserSigned, async (req: Request, res: Response) => {
+    .get('/:electionId', async (req: Request, res: Response) => {
         try {
             
             let election = await Election
                 .getById(req.params.electionId);
-            res.status(200).send(election);
+            if (!election) return res.status(404).send();
+            let candidates = await Person.listElectionCandidates(election.id);
+            let opinions = await Opinion.listOpinionsByElection(election.id);
+            let allIssues = await Issue.list();
+            let issueIds = Array.from(new Set(opinions.map(opinion => opinion.issue_id)));
+            let issues = allIssues.filter(issue => issueIds.includes(issue.id));
+            res.status(200).send({ ...election, candidates, opinions, issues });
 
         } catch (e) {
 
@@ -25,7 +31,7 @@ router
 
 
 router
-    .get('/candidates/:electionId', isUserSigned, async (req: Request, res: Response) => {
+    .get('/candidates/:electionId', async (req: Request, res: Response) => {
     
         try {
             
@@ -68,11 +74,11 @@ router.route('/candidates')
         } catch (e) {
             return res.status(500).send(e);
         }
-    })
+    });
 
-router.route('')
-    .all(isUserSigned)
-    .get(async (_req: Request, res: Response) => {
+
+router
+    .get('', async (_req: Request, res: Response) => {
 
         try {
             
@@ -86,7 +92,10 @@ router.route('')
 
         }
         
-    })
+    });
+
+router.route('')
+    .all(isUserSigned)
     .post(async (req: Request, res: Response) => {
 
         try {
@@ -125,7 +134,7 @@ router.route('')
         } catch (e) {
             return res.status(500).send(e);
         }
-    })
+    });
 
 
 export default router;
