@@ -12,11 +12,20 @@ export const useElectionsStore = defineStore('elections', () => {
         currentElection.value = election;
         issuesDict.value = {};
         currentElection.value.issues.forEach(issue => issuesDict.value[issue.id] = issue);
-        console.log(issuesDict.value)
     };
 
+    const getIssue = (issueId) => issuesDict.value[issueId];
 
     const getIssueTitle = (issueId) => issuesDict.value[issueId]?.title;
 
-    return { elections, currentElection, storeCurrentElection, getIssueTitle };
+    const getIssueImage = (issueId) => issuesDict.value[issueId]?.photo;
+
+    const getCandidate = (candidateId) => {
+        for (let i = 0; i < currentElection.value.candidates?.length; i++) {
+            let item = currentElection.value.candidates[i];
+            if (item.id == candidateId) return item;
+        }
+    };
+
+    return { elections, currentElection, storeCurrentElection, getIssueTitle, getCandidate, getIssueImage, getIssue };
 });

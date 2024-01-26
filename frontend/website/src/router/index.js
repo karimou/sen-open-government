@@ -36,7 +36,7 @@ const router = createRouter({
         {
           path: '',
           name: 'election',
-          component: () => import('@/views/ElectionMainView.vue')
+          component: () => import('@/views/ElectionMain.vue')
         },
         {
           path: 'candidate/:candidateId',
