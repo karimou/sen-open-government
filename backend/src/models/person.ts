@@ -136,6 +136,25 @@ class Person {
         return persons.map(person => new Person(person , person.user));
 
     }
+    static async listOrganisationMembers(organisationId: number): Promise<Array<Person>> {
+        let client = await getClient();
+
+        let query = {
+            text: personQueries.LIST_ORGANISATION_MEMBERS,
+            values: [organisationId]
+        }
+
+        let persons = await client.query(query)
+            .then(res => res.rows)
+            .catch(e => console.log(e));
+
+        client.release();
+
+        if (!persons) throw(new Error('[person] retrieving persons list failed'));
+        
+        return persons.map(person => new Person(person , person.user));
+
+    }
     async addElection(electionId: number, user?: User): Promise<void> {
         let client = await getClient();
 

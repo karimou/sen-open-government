@@ -50,7 +50,7 @@
 </script>
 
 <template>
-    <div style="width: 650px">
+    <div style="width: 850px">
         <BasePersonsTable
             :persons="electionCandidates"
             :loading="tableLoading"

@@ -118,6 +118,59 @@ class Organisation {
         return organisations.map(organisation => new Organisation(organisation , organisation.user));
 
     }
+    static async listPersonOrganisations(personId: number): Promise<Array<Organisation>> {
+        let client = await getClient();
+
+        let query = {
+            text: organisationQueries.LIST_PERSON_ORGANISATIONS,
+            values: [personId]
+        }
+
+        let organisations = await client.query(query)
+            .then(res => res.rows)
+            .catch(e => console.log(e));
+
+        client.release();
+
+        if (!organisations) throw(new Error('[Organisation] retrieving organisations list failed'));
+        
+        return organisations.map(organisation => new Organisation(organisation , organisation.user));
+
+    }
+    static async addMember(organisationId: number, personId: number, role: string, user?: User): Promise<void> {
+        let client = await getClient();
+
+        let query = {
+            text: organisationQueries.ADD_ORGANISATION_MEMBER,
+            values: [organisationId, personId, role, user?.id]
+        }
+
+        let organisationMember = await client.query(query)
+            .then(res => res.rows[0])
+            .catch(e => console.log(e));
+        
+        client.release();
+
+        if (!organisationMember) throw(new Error('[Organisation] member addition failed'));
+
+    }
+    static async removeMember(organisationId: number, personId: number): Promise<void> {
+        let client = await getClient();
+
+        let query = {
+            text: organisationQueries.REMOVE_ORGANISATION_MEMBER,
+            values: [organisationId, personId]
+        }
+
+        let id = await client.query(query)
+            .then(res => res.rows[0])
+            .catch(e => console.log(e));
+        
+        client.release();
+
+        if (!id) throw(new Error('[Organisation] member removal failed'));
+
+    }
 }
 
 export default Organisation;
