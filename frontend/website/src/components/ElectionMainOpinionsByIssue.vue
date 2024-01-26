@@ -39,6 +39,7 @@
     <div 
         v-for="(candidateOpinions, issueId) in groupedOpinions" class="mb-4"
         :ref="(el) => issueRefs[issueId] = el"
+        v-if="issueId > 0"
     >
         <div class="flex align-items-center">
             <Avatar 

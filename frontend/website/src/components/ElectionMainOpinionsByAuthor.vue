@@ -44,6 +44,7 @@
     <div 
         v-for="(candidateOpinions, candidateId) in groupedOpinions" 
         class="mb-4"
+        v-if="candidateId > 0"
         :ref="(el) => candidateRefs[candidateId] = el"
     >
         <div class="flex align-items-center">

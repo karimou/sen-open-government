@@ -10,7 +10,6 @@ const fetchElection = async (to, from) => {
   let election = await API.elections.getElection(electionId);
   const electionsStore = useElectionsStore();
   electionsStore.storeCurrentElection(election);
-  console.log('fetchElection', electionsStore.currentElection);
 
 };
 
