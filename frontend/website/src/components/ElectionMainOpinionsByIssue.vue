@@ -40,7 +40,7 @@
         v-for="(candidateOpinions, issueId) in groupedOpinions" class="mb-4"
         :ref="(el) => issueRefs[issueId] = el"
     >
-        <div class="flex align-items-center" v-if="issueId > 0">
+        <div class="flex align-items-center" v-if="electionsStore.getIssue(issueId)">
             <Avatar 
                 :image="electionsStore.getIssueImage(issueId)"
                 size="xlarge"

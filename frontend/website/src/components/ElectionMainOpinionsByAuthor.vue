@@ -46,7 +46,7 @@
         class="mb-4"
         :ref="(el) => candidateRefs[candidateId] = el"
     >
-        <div class="flex align-items-center" v-if="candidateId > 0">
+        <div class="flex align-items-center" v-if="electionsStore.getCandidate(candidateId)">
             <Avatar 
                 :image="electionsStore.getCandidate(candidateId)?.photo"
                 size="xlarge"
