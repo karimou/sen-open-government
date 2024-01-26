@@ -40,28 +40,30 @@
         v-for="(candidateOpinions, issueId) in groupedOpinions" class="mb-4"
         :ref="(el) => issueRefs[issueId] = el"
     >
-        <div class="flex align-items-center" v-if="electionsStore.getIssue(issueId)">
-            <Avatar 
-                :image="electionsStore.getIssueImage(issueId)"
-                size="xlarge"
-                shape="rectangle"
-                class="mr-2"
-            />
-            <Button
-                text
-                @click="router.push(`/election/${ electionsStore.currentElection.id }/issue/${ issueId }`)"
-            >
-                {{ electionsStore.getIssueTitle(issueId) }}
-            </Button>
-        </div>
-        <div>
-            <AppCandidateOpinionsPanel
-                v-for="(opinions, candidateId ) in Object.groupBy(candidateOpinions, opinion => opinion.author_id)"
-                :opinions="opinions"
-                :candidateId="Number(candidateId)"
-            />
+        <template v-if="electionsStore.getIssue(issueId)">
+            <div class="flex align-items-center">
+                <Avatar 
+                    :image="electionsStore.getIssueImage(issueId)"
+                    size="xlarge"
+                    shape="rectangle"
+                    class="mr-2"
+                />
+                <Button
+                    text
+                    @click="router.push(`/election/${ electionsStore.currentElection.id }/issue/${ issueId }`)"
+                >
+                    {{ electionsStore.getIssueTitle(issueId) }}
+                </Button>
+            </div>
+            <div>
+                <AppCandidateOpinionsPanel
+                    v-for="(opinions, candidateId ) in Object.groupBy(candidateOpinions, opinion => opinion.author_id)"
+                    :opinions="opinions"
+                    :candidateId="Number(candidateId)"
+                />
 
-        </div>
+            </div>
+        </template>
     </div>
 	<ScrollTop />
 </template>
