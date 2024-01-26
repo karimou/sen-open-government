@@ -72,7 +72,7 @@ exports.up = function(db, callback) {
     if (err) {console.log(err);return callback(err)};
     let query = `
       CREATE UNIQUE INDEX IF NOT EXISTS organisation_member_combined_index ON organisation_member(organisation_id, person_id);
-      ALTER TABLE organisation_member ADD CONSTRAINT unique_label UNIQUE USING INDEX organisation_member_combined_index;
+      ALTER TABLE organisation_member ADD CONSTRAINT organisation_member_unique_label UNIQUE USING INDEX organisation_member_combined_index;
     `;
     db.runSql(query, function(err) {
       if (err) {console.log(err);return callback(err)}

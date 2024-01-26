@@ -1,7 +1,7 @@
 
 import { Router, Request, Response } from 'express';
 
-import { Organisation, User } from '../../../models';
+import { Organisation, User, Person } from '../../../models';
 
 import { isUserSigned } from '../../../middleware';
 
@@ -21,7 +21,53 @@ router
             
         }
 
+    });
+
+router
+    .get('/members/:organisationId', async (req: Request, res: Response) => {
+
+        try {
+            
+            let persons = await Person.listOrganisationMembers(Number(req.params.organisationId));
+            res.status(200).send(persons);
+
+        } catch (e) {
+
+            return res.status(500).send(e);
+
+        }
+        
     })
+
+router.route('/members')
+    .all(isUserSigned)
+    .post(async (req: Request, res: Response) => {
+
+        try {
+            
+            await Organisation.addMember(req.body.organisationId, req.body.personId, req.body.role, req.session?.user as User);
+            res.status(200).send();
+
+        } catch (e) {
+
+            return res.status(500).send(e);
+
+        }
+    })
+    .delete(async (req: Request, res: Response) => { 
+        interface organisationMember {
+            organisationId: number
+            personId: number
+        }
+        try {
+
+            await Promise.all(req.body.pairs.map((pair: organisationMember) => Organisation.removeMember(pair.organisationId, pair.personId)));
+            res.status(200).send();
+
+        } catch (e) {
+            return res.status(500).send(e);
+        }
+    });
 
 router.route('')
     .all(isUserSigned)

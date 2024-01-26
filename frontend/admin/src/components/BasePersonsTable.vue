@@ -26,9 +26,13 @@
         loading: {
             type: Boolean,
             default: false
+        },
+        hideDescription: {
+            type: Boolean,
+            default: false
         }
     });
-    const { persons, loading, addFunction, deleteFunction } = toRefs(props);
+    const { persons, loading, addFunction, deleteFunction, hideDescription } = toRefs(props);
     const emit = defineEmits(['refresh']);
 
     /* -----------
@@ -151,7 +155,7 @@
                     </Column>
                     <Column field="firstname" header="Prénom"></Column>
                     <Column field="lastname" header="Nom"></Column>
-                    <Column field="description" header="Description"></Column>
+                    <Column field="description" header="Description" v-if="!hideDescription"></Column>
 
                 </DataTable>
             </div>
