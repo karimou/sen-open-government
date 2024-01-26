@@ -8,4 +8,5 @@ SELECT
     issue.last_modified_on, 
     json_build_object('id', "user".id, 'username', "user".username) as user
 FROM issue
-LEFT JOIN "user" ON issue.last_modified_by = "user".id;
+LEFT JOIN "user" ON issue.last_modified_by = "user".id
+ORDER BY title;
