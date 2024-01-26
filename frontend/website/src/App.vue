@@ -17,5 +17,36 @@
       position: absolute;
       top: 76px;
   }
+  nav {
+    height: 76px;
+    /* padding: 5px 10px 5px 20px; */
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    z-index: 180;
+    width: 100%;
+    transition: background-color 1s;
+    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box
+  }
+  nav.on-top {
+    z-index: 300;
+  }
+  @media screen and (min-width: 1024px) {
+    nav {
+      height: 96px;
+      /* padding: 10px 18px 10px 52px; */
+    }
+    main {
+        top: 96px;
+    }
+  }
+  nav .title {
+    text-decoration: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size:large;
+    font-weight: semi-bold;
+  }
 </style>
 

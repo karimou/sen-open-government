@@ -13,9 +13,9 @@
 
 </script>
 <template>
-    <nav>
+    <nav class="flex align-items-center justify-content-center">
         <RouterLink custom v-slot="{ href, navigate }" :to="`/election/${ electionsStore.currentElection.id }`">
-            <a v-ripple :href="href" @click="navigate">
+            <a v-ripple :href="href" @click="navigate" class="title">
                 {{ electionsStore.currentElection.title }}
             </a>
         </RouterLink>
