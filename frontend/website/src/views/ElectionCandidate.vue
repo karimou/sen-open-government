@@ -27,14 +27,19 @@
 		candidateId.value = Number(params.candidateId);
 
 	}
-	onMounted(() => initParams(route.params));
+	onMounted(() => {
+		initParams(route.params);
+	})
+
 
 	onBeforeRouteUpdate((to, from) => {
 		initParams(to.params);
 		selectedIssue.value = null;
 	});
 
-	watch(candidateId, () => candidate.value = electionsStore.getCandidate(candidateId.value));
+	watch(candidateId, () => {
+		candidate.value = electionsStore.getCandidate(candidateId.value);
+	});
 
 	const displayedOpinions = computed(() => {
 		if (!electionsStore.currentElection.opinions) return [];
@@ -48,6 +53,10 @@
 		if (!candidate.value) return;
 		return `${ candidate.value.firstname } ${ candidate.value.lastname }`;
     });
+
+	watch(candidateName, (val) => {
+		document.title = document.title + ' - ' + val;
+	});
 
 
 </script>

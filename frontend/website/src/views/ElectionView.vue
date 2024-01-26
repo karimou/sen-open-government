@@ -3,11 +3,16 @@
     import { RouterLink, RouterView } from 'vue-router';
 
     import { useElectionsStore } from '@/stores/elections';
+import { onMounted } from 'vue';
 
     /* -----------
     Data init
     ----------- */
     const electionsStore = useElectionsStore();
+
+    onMounted(() => {
+        document.title = electionsStore.currentElection?.title;
+    });
 
 
 
