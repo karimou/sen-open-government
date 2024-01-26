@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper-x3n3nnut.js";import{c,o}from"./index-q_HIAbNY.js";const t={};function n(r,s){return o(),c("div",null," Election view ")}const i=e(t,[["render",n]]);export{i as default};
