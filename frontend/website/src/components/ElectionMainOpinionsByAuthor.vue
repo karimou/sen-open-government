@@ -34,7 +34,7 @@
 
     watch(scrollToAuthorId, () => {
         if (!scrollToAuthorId.value) return;
-        candidateRefs.value[scrollToAuthorId.value].scrollIntoView({ behavior: 'smooth' });
+        candidateRefs.value[scrollToAuthorId.value]?.scrollIntoView({ behavior: 'smooth' });
         emits('onScrollFinish');
     });
 

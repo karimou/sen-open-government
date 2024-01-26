@@ -3,7 +3,7 @@
     import Panel from 'primevue/panel';
     import Avatar from 'primevue/avatar';
     import Divider from 'primevue/divider';
-    import { toRefs } from 'vue';
+    import { computed, toRefs } from 'vue';
 
     import { useElectionsStore } from '@/stores/elections';
     const electionsStore = useElectionsStore();
@@ -24,10 +24,14 @@
 
     const { opinions, candidateId, collapsed } = toRefs(props);
 
-	const formatName = (candidate) => {
+    const candidate = computed(() => {
+        return electionsStore.getCandidate(candidateId.value);
+    })
+
+    const candidateName = computed(() => {
 		if (!candidate) return;
 		return `${ candidate.firstname } ${ candidate.lastname }`;
-	};
+    })
 
 </script>
 
@@ -39,11 +43,11 @@
         <template #header>
             <div class="flex align-items-center gap-2">
                 <Avatar 
-                    :image="electionsStore.getCandidate(candidateId)?.photo"
+                    :image="candidate?.photo"
                     size="large" 
                     shape="rectangle" 
                 />
-                <span class="font-bold">{{ formatName(electionsStore.getCandidate(candidateId)) }}</span>
+                <span class="font-bold">{{ candidateName }}</span>
             </div>
         </template>
         <p

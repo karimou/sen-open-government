@@ -30,7 +30,7 @@
 
     watch(scrollToIssueId, () => {
         if (!scrollToIssueId.value) return;
-        issueRefs.value[scrollToIssueId.value].scrollIntoView({ behavior: 'smooth' });
+        issueRefs.value[scrollToIssueId.value]?.scrollIntoView({ behavior: 'smooth' });
         emits('onScrollFinish');
     });
 </script>
