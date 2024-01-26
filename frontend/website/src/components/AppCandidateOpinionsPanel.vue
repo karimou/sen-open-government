@@ -29,8 +29,8 @@
     })
 
     const candidateName = computed(() => {
-		if (!candidate) return;
-		return `${ candidate.firstname } ${ candidate.lastname }`;
+		if (!candidate.value) return;
+		return `${ candidate.value.firstname } ${ candidate.value.lastname }`;
     })
 
 </script>
