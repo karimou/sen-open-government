@@ -48,7 +48,7 @@
     >
         <div class="flex align-items-center">
             <Avatar 
-                :image="electionsStore.getCandidate(candidateId).photo"
+                :image="electionsStore.getCandidate(candidateId)?.photo"
                 size="xlarge"
                 shape="rectangle"
                 class="mr-2"

@@ -39,7 +39,7 @@
         <template #header>
             <div class="flex align-items-center gap-2">
                 <Avatar 
-                    :image="electionsStore.getCandidate(candidateId).photo"
+                    :image="electionsStore.getCandidate(candidateId)?.photo"
                     size="large" 
                     shape="rectangle" 
                 />

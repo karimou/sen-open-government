@@ -1,4 +1,3 @@
-
 <script setup>
 	import { useElectionsStore } from '@/stores/elections';
 	import Dropdown from 'primevue/dropdown';
@@ -146,4 +145,3 @@
 	}
 	
 </style>
-	

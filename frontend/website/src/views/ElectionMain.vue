@@ -70,7 +70,7 @@
 		</div>
 		<div 
 			class="flex justify-content-center mb-4"
-			style="max-width: 600px; margin: auto;"
+			style="max-width: 600px; margin: auto;flex-wrap: wrap;"
 		>
 			<template
 				v-if="isGroupBy('author_id')"
