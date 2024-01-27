@@ -1,0 +1,1 @@
+import{d as o,r,A as t}from"./index-R5AkUM7P.js";const O=o("opinions",()=>{const e=r(null);return{opinions:e,refreshOpinions:async()=>t.opinions.listOpinions().then(n=>e.value=n),getPersonOpinions:n=>{var s;return(s=e.value)==null?void 0:s.filter(i=>i.author_id==n)},getIssueOpinions:n=>{var s;return(s=e.value)==null?void 0:s.filter(i=>i.issue_id==n)}}});export{O as u};
