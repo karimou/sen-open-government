@@ -114,6 +114,22 @@ class Person {
             return persons.map(person => new Person(person, person.user));
         });
     }
+    static listOrganisationMembers(organisationId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = yield (0, db_1.getClient)();
+            let query = {
+                text: personQueries.LIST_ORGANISATION_MEMBERS,
+                values: [organisationId]
+            };
+            let persons = yield client.query(query)
+                .then(res => res.rows)
+                .catch(e => console.log(e));
+            client.release();
+            if (!persons)
+                throw (new Error('[person] retrieving persons list failed'));
+            return persons.map(person => new Person(person, person.user));
+        });
+    }
     addElection(electionId, user) {
         return __awaiter(this, void 0, void 0, function* () {
             let client = yield (0, db_1.getClient)();

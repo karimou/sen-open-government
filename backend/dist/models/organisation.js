@@ -98,5 +98,51 @@ class Organisation {
             return organisations.map(organisation => new Organisation(organisation, organisation.user));
         });
     }
+    static listPersonOrganisations(personId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = yield (0, db_1.getClient)();
+            let query = {
+                text: organisationQueries.LIST_PERSON_ORGANISATIONS,
+                values: [personId]
+            };
+            let organisations = yield client.query(query)
+                .then(res => res.rows)
+                .catch(e => console.log(e));
+            client.release();
+            if (!organisations)
+                throw (new Error('[Organisation] retrieving organisations list failed'));
+            return organisations.map(organisation => new Organisation(organisation, organisation.user));
+        });
+    }
+    static addMember(organisationId, personId, role, user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = yield (0, db_1.getClient)();
+            let query = {
+                text: organisationQueries.ADD_ORGANISATION_MEMBER,
+                values: [organisationId, personId, role, user === null || user === void 0 ? void 0 : user.id]
+            };
+            let organisationMember = yield client.query(query)
+                .then(res => res.rows[0])
+                .catch(e => console.log(e));
+            client.release();
+            if (!organisationMember)
+                throw (new Error('[Organisation] member addition failed'));
+        });
+    }
+    static removeMember(organisationId, personId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = yield (0, db_1.getClient)();
+            let query = {
+                text: organisationQueries.REMOVE_ORGANISATION_MEMBER,
+                values: [organisationId, personId]
+            };
+            let id = yield client.query(query)
+                .then(res => res.rows[0])
+                .catch(e => console.log(e));
+            client.release();
+            if (!id)
+                throw (new Error('[Organisation] member removal failed'));
+        });
+    }
 }
 exports.default = Organisation;
