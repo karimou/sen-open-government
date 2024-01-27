@@ -19,4 +19,9 @@ app.directive('ripple', Ripple);
 const pinia = createPinia();
 app.use(pinia);
 
+app.provide('$groupArrayBy', (array, callbackFn) => {
+    if (Object.groupBy) return Object.groupBy(array, callbackFn);
+    if (array.group) return array.group(callbackFn);
+});
+
 app.mount('#app')

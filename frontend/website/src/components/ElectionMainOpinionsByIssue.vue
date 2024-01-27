@@ -1,6 +1,6 @@
 <script setup>
     
-    import { toRefs, ref, watch } from 'vue';
+    import { toRefs, ref, watch, inject } from 'vue';
 	import Button from 'primevue/button';
 	import Avatar from 'primevue/avatar';
     import ScrollTop from 'primevue/scrolltop';
@@ -8,6 +8,8 @@
     import { useElectionsStore } from '@/stores/elections';
 
     import AppCandidateOpinionsPanel from './AppCandidateOpinionsPanel.vue';
+    
+    const $groupArrayBy = inject('$groupArrayBy');
 
     const props = defineProps({
         groupedOpinions: {
@@ -57,7 +59,7 @@
             </div>
             <div>
                 <AppCandidateOpinionsPanel
-                    v-for="(opinions, candidateId ) in Object.groupBy(candidateOpinions, opinion => opinion.author_id)"
+                    v-for="(opinions, candidateId ) in $groupArrayBy(candidateOpinions, opinion => opinion.author_id)"
                     :opinions="opinions"
                     :candidateId="Number(candidateId)"
                 />

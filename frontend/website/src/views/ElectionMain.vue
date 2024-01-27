@@ -1,6 +1,6 @@
 
 <script setup>
-	import { computed, ref } from 'vue';
+	import { computed, ref, inject } from 'vue';
 	import { useElectionsStore } from '@/stores/elections';
 	import Button from 'primevue/button';
 	import Divider from 'primevue/divider';
@@ -8,6 +8,8 @@
 	import ElectionMainOpinionsByIssue from '@/components/ElectionMainOpinionsByIssue.vue';
 	import AppCandidatesSelector from '@/components/AppCandidatesSelector.vue';
 	import AppIssuesSelector from '@/components/AppIssuesSelector.vue';
+
+	const $groupArrayBy = inject('$groupArrayBy');
 
 	const groupBy = ref('author_id');
 
@@ -20,7 +22,7 @@
 		event.target.blur();
 	};
 	
-	const groupedOpinions = computed(() => Object.groupBy(electionsStore.currentElection.opinions, (item) => item[groupBy.value]));
+	const groupedOpinions = computed(() => $groupArrayBy(electionsStore.currentElection.opinions, (item) => item[groupBy.value]));
 
 	const scrollToAuthorId = ref(null);
 

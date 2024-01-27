@@ -3,7 +3,7 @@
 	import { useElectionsStore } from '@/stores/elections';
 	import Dropdown from 'primevue/dropdown';
 	import Button from 'primevue/button';
-	import { computed, watch, onMounted, ref } from 'vue';
+	import { computed, watch, onMounted, ref, inject } from 'vue';
 	import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 	import Sidebar from 'primevue/sidebar';
 	import AppSocialLinks from '@/components/AppSocialLinks.vue';
@@ -12,6 +12,8 @@
 	import bgImage from '@/assets/bg.jpeg';
 	import AppCandidateOpinionsPanel from '@/components/AppCandidateOpinionsPanel.vue';
 	import AppCandidatesSelector from '@/components/AppCandidatesSelector.vue';
+
+	const $groupArrayBy = inject('$groupArrayBy');
 
 	const route = useRoute();
 
@@ -43,7 +45,7 @@
 		let filteredOpinions = electionsStore.currentElection.opinions
 			.filter(opinion => selectedCandidate.value ? (opinion.author_id == selectedCandidate.value) : true)
 			.filter(opinion => opinion.issue_id == issueId.value);
-		return Object.groupBy(filteredOpinions, (opinion) => opinion.author_id);
+		return $groupArrayBy(filteredOpinions, (opinion) => opinion.author_id);
 	});
 
     const candidateRefs = ref({});
