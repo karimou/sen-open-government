@@ -11,6 +11,7 @@
 
 	import bgImage from '@/assets/bg.jpeg';
 	import AppCandidateOpinionsPanel from '@/components/AppCandidateOpinionsPanel.vue';
+	import AppCandidatesSelector from '@/components/AppCandidatesSelector.vue';
 
 	const route = useRoute();
 
@@ -45,6 +46,11 @@
 		return Object.groupBy(filteredOpinions, (opinion) => opinion.author_id);
 	});
 
+    const candidateRefs = ref({});
+
+	const scrollToAuthor = (candidateId) => {
+        candidateRefs.value[candidateId]?.scrollIntoView({ behavior: 'smooth' });
+	};
 
 </script>
 <template>
@@ -58,34 +64,24 @@
 			<div>
 				<Button label="Plus d'infos" text severity="primary" @click="descriptionVisible = true" />
 			</div>
-			<AppSocialLinks 
-				:website="issue?.website"
-				:facebook="issue?.facebook"
-				:instagram="issue?.instagram"
-				:twitter="issue?.twitter"
+		</div>
+		<div class="flex justify-content-center mb-6">
+			<AppCandidatesSelector
+				@scroll="scrollToAuthor($event)"
 			/>
 		</div>
 		<div style="z-index: 1; position: relative;">
 			<div class="grid">
 				<div class="lg:col-offset-3 lg:col-6 md:col-offset-2 md:col-8 col-offset-1 col-10">
-					<div class="field">
-						<Dropdown
-							class="w-full"
-							:options="electionsStore.currentElection.candidates"
-							v-model="selectedCandidate"
-							optionLabel="title"
-							optionValue="id"
-							showClear
-							placeholder="Sélectionner un candidate"
+					<div
+						v-for="(candidateOpinions, candidateId ) in displayedOpinions" :ref="(el) => candidateRefs[candidateId] = el"
+					>
+						<AppCandidateOpinionsPanel
+							:opinions="candidateOpinions"
+							:candidateId="Number(candidateId)"
+							:collapsed="false"
 						/>
 					</div>
-
-					<AppCandidateOpinionsPanel
-						v-for="(candidateOpinions, candidateId ) in displayedOpinions" :ref="candidateId"
-						:opinions="candidateOpinions"
-						:candidateId="Number(candidateId)"
-						:collapsed="false"
-					/>
 				</div>
 			</div>
 		</div>

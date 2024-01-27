@@ -11,9 +11,10 @@
 	import bgImage from '@/assets/bg.jpeg';
 	import AppIssueOpinionsPanel from '@/components/AppIssueOpinionsPanel.vue';
 
+	import AppIssuesSelector from '@/components/AppIssuesSelector.vue';
+
 	const route = useRoute();
 
-	const selectedIssue = ref(null);
 
 	const electionId = ref(null);
 	const candidateId = ref(null);
@@ -34,7 +35,6 @@
 
 	onBeforeRouteUpdate((to, from) => {
 		initParams(to.params);
-		selectedIssue.value = null;
 	});
 
 	watch(candidateId, () => {
@@ -44,7 +44,6 @@
 	const displayedOpinions = computed(() => {
 		if (!electionsStore.currentElection.opinions) return [];
 		let filteredOpinions = electionsStore.currentElection.opinions
-			.filter(opinion => selectedIssue.value ? (opinion.issue_id == selectedIssue.value) : true)
 			.filter(opinion => opinion.author_id == candidateId.value);
 		return Object.groupBy(filteredOpinions, (opinion) => opinion.issue_id);
 	});
@@ -57,6 +56,12 @@
 	watch(candidateName, (val) => {
 		document.title = document.title + ' - ' + val;
 	});
+
+    const issueRefs = ref({});
+
+	const scrollToIssue = (issueId) => {
+        issueRefs.value[issueId]?.scrollIntoView({ behavior: 'smooth' });
+	};
 
 
 </script>
@@ -78,27 +83,23 @@
 				:twitter="candidate?.twitter"
 			/>
 		</div>
+		<div class="flex justify-content-center mb-6">
+			<AppIssuesSelector
+				@scroll="scrollToIssue($event)"
+			/>
+		</div>
 		<div style="z-index: 1; position: relative;">
 			<div class="grid">
 				<div class="lg:col-offset-3 lg:col-6 md:col-offset-2 md:col-8 col-offset-1 col-10">
-					<div class="field">
-						<Dropdown
-							class="w-full"
-							:options="electionsStore.currentElection.issues"
-							v-model="selectedIssue"
-							optionLabel="title"
-							optionValue="id"
-							showClear
-							placeholder="Sélectionner un thème"
+					<div 
+						v-for="(issueOpinions, issueId ) in displayedOpinions" :ref="(el) => issueRefs[issueId] = el"
+					>
+						<AppIssueOpinionsPanel
+							:opinions="issueOpinions"
+							:issueId="Number(issueId)"
+							:collapsed="false"
 						/>
 					</div>
-
-					<AppIssueOpinionsPanel
-						v-for="(issueOpinions, issueId ) in displayedOpinions" :ref="issueId"
-						:opinions="issueOpinions"
-						:issueId="Number(issueId)"
-						:collapsed="false"
-					/>
 				</div>
 			</div>
 		</div>
@@ -132,7 +133,7 @@
 	}
 	.candidate-name-zone {
 		margin-top: 100px !important;
-    	margin-bottom: 100px !important;
+    	margin-bottom: 40px !important;
 		text-align: center;
 	}
 	.candidate-image {

@@ -6,6 +6,8 @@
 	import Divider from 'primevue/divider';
 	import ElectionMainOpinionsByAuthor from '@/components/ElectionMainOpinionsByAuthor.vue';
 	import ElectionMainOpinionsByIssue from '@/components/ElectionMainOpinionsByIssue.vue';
+	import AppCandidatesSelector from '@/components/AppCandidatesSelector.vue';
+	import AppIssuesSelector from '@/components/AppIssuesSelector.vue';
 
 	const groupBy = ref('author_id');
 
@@ -20,23 +22,16 @@
 	
 	const groupedOpinions = computed(() => Object.groupBy(electionsStore.currentElection.opinions, (item) => item[groupBy.value]));
 
-	const formatName = (candidate) => {
-		if (!candidate) return;
-		return `${ candidate.firstname } ${ candidate.lastname }`;
-	};
-
 	const scrollToAuthorId = ref(null);
-	const scrollToIssueId = ref(null);
 
-	const scrollToAuthor = (candidateId, event) => {
+	const scrollToAuthor = (candidateId) => {
 		scrollToAuthorId.value = candidateId;
-		event.target.blur();
 	};
 
 
-	const scrollToIssue = (issueId, event) => {
+	const scrollToIssueId = ref(null);
+	const scrollToIssue = (issueId) => {
 		scrollToIssueId.value = issueId;
-		event.target.blur();
 	};
 
 </script>
@@ -75,28 +70,16 @@
 			<template
 				v-if="isGroupBy('author_id')"
 			>
-				<Button 
-					v-for="candidate in electionsStore.currentElection.candidates"
-					:label="formatName(candidate)" 
-					class="mx-2" 
-					text
-					size="small"
-					severity="primary"
-					@click="scrollToAuthor(candidate.id, $event)"
+				<AppCandidatesSelector
+					@scroll="scrollToAuthor($event)"
 				/>
 
 			</template>
 			<template 
 				v-else
 			>
-				<Button 
-					v-for="issue in electionsStore.currentElection.issues"
-					:label="issue.title" 
-					class="mx-1" 
-					text
-					size="small"
-					severity="primary"
-					@click="scrollToIssue(issue.id, $event)"
+				<AppIssuesSelector
+					@scroll="scrollToIssue($event)"
 				/>
 
 			</template>

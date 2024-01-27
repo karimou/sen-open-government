@@ -3,6 +3,7 @@
 	import Button from 'primevue/button';
 	import Avatar from 'primevue/avatar';
     import ScrollTop from 'primevue/scrolltop';
+    import Card from 'primevue/card';
 	import router from '@/router';
     import { useElectionsStore } from '@/stores/elections';
 
@@ -27,10 +28,6 @@
 
 	const electionsStore = useElectionsStore();
 
-	const formatName = (candidate) => {
-		if (!candidate) return;
-		return `${ candidate.firstname } ${ candidate.lastname }`;
-	};
 
     watch(scrollToAuthorId, () => {
         if (!scrollToAuthorId.value) return;
@@ -47,20 +44,27 @@
         :ref="(el) => candidateRefs[candidateId] = el"
     >
         <template v-if="electionsStore.getCandidate(candidateId)">
-            <div class="flex align-items-center">
-                <Avatar 
-                    :image="electionsStore.getCandidate(candidateId)?.photo"
-                    size="xlarge"
-                    shape="rectangle"
-                    class="mr-2"
-                />
-                <Button
-                    text
-                    @click="router.push(`/election/${ electionsStore.currentElection.id }/candidate/${ candidateId }`)"
-                >
-                    {{ formatName(electionsStore.getCandidate(candidateId)) }}
-                </Button>
-            </div>
+            <Card>
+                <template #content>
+                    <div class="flex align-items-center">
+                        <Avatar 
+                            :image="electionsStore.getCandidate(candidateId)?.photo"
+                            size="xlarge"
+                            shape="rectangle"
+                            class="mr-2"
+                        />
+                        <div class="flex flex-column">
+                            <Button
+                                text
+                                @click="router.push(`/election/${ electionsStore.currentElection.id }/candidate/${ candidateId }`)"
+                            >
+                                {{ electionsStore.getCandidateName(candidateId) }}
+                            </Button>
+                            <span v-if="electionsStore.hasCandidateOrganisations(candidateId)" class="font-bold ml-3 font-light uppercase">{{ electionsStore.getCandidateOrganisationsStr(candidateId)  }}</span>
+                        </div>
+                    </div>
+                </template>
+            </Card>
             <div>
                 <AppIssueOpinionsPanel
                     v-for="(opinions, issueId ) in Object.groupBy(candidateOpinions, opinion => opinion.issue_id)"

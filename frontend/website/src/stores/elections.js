@@ -27,5 +27,31 @@ export const useElectionsStore = defineStore('elections', () => {
         }
     };
 
-    return { elections, currentElection, storeCurrentElection, getIssueTitle, getCandidate, getIssueImage, getIssue };
+	const getCandidateName = (candidateId) => {
+        let candidate = getCandidate(candidateId);
+		if (!candidate) return;
+		return `${ candidate.firstname } ${ candidate.lastname }`;
+	};
+	const getCandidateOrganisationsStr = (candidateId) => {
+        let candidate = getCandidate(candidateId);
+		return candidate?.organisations?.map(organisation => organisation.name).filter(name => !!name && name != '').join(' | ');
+	};
+
+    const hasCandidateOrganisations = (candidateId) => {
+        let candidate = getCandidate(candidateId);
+		return candidate?.organisations?.length > 0;
+	};
+
+    return { 
+        elections, 
+        currentElection, 
+        storeCurrentElection, 
+        getIssue, 
+        getIssueTitle, 
+        getIssueImage, 
+        getCandidate, 
+        getCandidateName, 
+        getCandidateOrganisationsStr ,
+        hasCandidateOrganisations
+    };
 });
