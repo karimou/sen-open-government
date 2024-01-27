@@ -45,43 +45,38 @@
         class="mb-4"
         :ref="(el) => candidateRefs[candidateId] = el"
     >
-        <template v-if="electionsStore.getCandidate(candidateId)">
-            <Card>
-                <template #content>
-                    <div class="flex align-items-center">
-                        <Avatar 
-                            :image="electionsStore.getCandidate(candidateId)?.photo"
-                            size="xlarge"
-                            shape="rectangle"
-                            class="mr-2"
-                        />
-                        <div class="flex flex-column">
-                            <Button
-                                text
-                                @click="router.push(`/election/${ electionsStore.currentElection.id }/candidate/${ candidateId }`)"
-                            >
-                                {{ electionsStore.getCandidateName(candidateId) }}
-                            </Button>
-                            <span 
-                                v-if="electionsStore.hasCandidateOrganisations(candidateId)" 
-                                class="font-bold ml-3 font-light uppercase"
-                                style="color: #797979"
-                            >
-                                {{ electionsStore.getCandidateOrganisationsStr(candidateId) }}
-                            </span>
-                        </div>
+        <Card v-if="electionsStore.getCandidate(candidateId)">
+            <template #content>
+                <div class="flex align-items-center">
+                    <Avatar 
+                        :image="electionsStore.getCandidate(candidateId)?.photo"
+                        size="xlarge"
+                        shape="rectangle"
+                        class="mr-2"
+                    />
+                    <div class="flex flex-column">
+                        <Button
+                            text
+                            @click="router.push(`/election/${ electionsStore.currentElection.id }/candidate/${ candidateId }`)"
+                        >
+                            {{ electionsStore.getCandidateName(candidateId) }}
+                        </Button>
+                        <span 
+                            v-if="electionsStore.hasCandidateOrganisations(candidateId)" 
+                            class="font-bold ml-4 font-light uppercase text-sm"
+                            style="color: #797979"
+                        >
+                            {{ electionsStore.getCandidateOrganisationsStr(candidateId) }}
+                        </span>
                     </div>
-                </template>
-            </Card>
-            <div>
+                </div>
                 <AppIssueOpinionsPanel
                     v-for="(opinions, issueId ) in $groupArrayBy(candidateOpinions, opinion => opinion.issue_id)"
                     :opinions="opinions"
                     :issueId="Number(issueId)"
                 />
-
-            </div>
-        </template>
+            </template>
+        </Card>
     </div>
 	<ScrollTop />
 </template>
