@@ -1,5 +1,5 @@
 <script setup>
-    import { toRefs, watch, ref, inject} from 'vue';
+    import { toRefs, watch, ref, inject } from 'vue';
 	import Button from 'primevue/button';
 	import Avatar from 'primevue/avatar';
     import ScrollTop from 'primevue/scrolltop';
