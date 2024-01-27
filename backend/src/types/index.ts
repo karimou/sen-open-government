@@ -27,3 +27,8 @@ export interface Issue {
     long_description: string
     photo: string
 }
+
+export interface Organisation {
+    id: number
+    name: string
+}

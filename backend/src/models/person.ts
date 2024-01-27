@@ -1,5 +1,5 @@
 import { getClient, loadQueries } from '../services/db';
-import { User } from '../types';
+import { User, Organisation } from '../types';
 
 const personQueries = loadQueries('persons');
 
@@ -18,6 +18,7 @@ class Person {
     created_on: Date
     last_modified_on: Date
     last_modified_by: User | undefined
+    organisations: Array<Organisation> | undefined
 
     constructor(params: { [key: string]: any }, user?: User) {
         Object.assign(this, params);

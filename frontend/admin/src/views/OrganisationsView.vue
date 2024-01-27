@@ -51,6 +51,19 @@
             }
         });
     };
+
+    /* -----------
+    Organisation members display
+    ----------- */
+    const OrganisationsMembers = defineAsyncComponent(() => import('@/components/OrganisationsMembers.vue'));
+    const displayOrganisationsMembers = (organisation = {}) => {
+        dialog.open(OrganisationsMembers, { 
+            data: organisation,
+            props: {
+                modal: true
+            }
+        });
+    }
     
 </script>
 
@@ -89,9 +102,10 @@
                         </div>
                     </template>
                     <Column selectionMode="multiple" headerStyle="width: 3rem" />
-                    <Column headerStyle="width: 60px">
+                    <Column headerStyle="min-width: 120px">
                         <template #body="{ data }">
                             <Button class="p-button-text p-button-rounded" icon="pi pi-pencil" @click="openOrganisationUpsertForm(data)"></Button>
+                            <Button class="p-button-text p-button-rounded" icon="pi pi-users" @click="displayOrganisationsMembers(data)"></Button>
                         </template>
                     </Column>
                     <Column field="name" header="Nom"></Column>
