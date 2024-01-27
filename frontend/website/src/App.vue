@@ -44,9 +44,12 @@
   nav .title {
     text-decoration: none;
     cursor: pointer;
-    text-transform: uppercase;
-    font-size:large;
-    font-weight: semi-bold;
+    font-family: "Interstate", sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    /* text-transform: uppercase; */
+    letter-spacing: 3px;
+    color: #111;
   }
 </style>
 
