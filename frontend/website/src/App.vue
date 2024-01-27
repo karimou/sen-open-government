@@ -10,7 +10,7 @@
   html, body, #app {
     min-height: 100% !important;
   }
-  .p-avatar img {
+  .p-avatar img, .p-chip img {
       object-fit: cover !important;   
   }
   main {

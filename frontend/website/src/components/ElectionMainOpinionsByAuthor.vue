@@ -62,7 +62,13 @@
                             >
                                 {{ electionsStore.getCandidateName(candidateId) }}
                             </Button>
-                            <span v-if="electionsStore.hasCandidateOrganisations(candidateId)" class="font-bold ml-3 font-light uppercase">{{ electionsStore.getCandidateOrganisationsStr(candidateId)  }}</span>
+                            <span 
+                                v-if="electionsStore.hasCandidateOrganisations(candidateId)" 
+                                class="font-bold ml-3 font-light uppercase"
+                                style="color: #797979"
+                            >
+                                {{ electionsStore.getCandidateOrganisationsStr(candidateId) }}
+                            </span>
                         </div>
                     </div>
                 </template>
