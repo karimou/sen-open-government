@@ -1,15 +1,13 @@
 
 <script setup>
 	import { useElectionsStore } from '@/stores/elections';
-	import Dropdown from 'primevue/dropdown';
 	import Button from 'primevue/button';
 	import { computed, watch, onMounted, ref, inject } from 'vue';
 	import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 	import Sidebar from 'primevue/sidebar';
-	import AppSocialLinks from '@/components/AppSocialLinks.vue';
+
 	import ScrollTop from 'primevue/scrolltop';
 
-	import bgImage from '@/assets/bg.jpeg';
 	import AppCandidateOpinionsPanel from '@/components/AppCandidateOpinionsPanel.vue';
 	import AppCandidatesSelector from '@/components/AppCandidatesSelector.vue';
 
@@ -62,10 +60,10 @@
 
 </script>
 <template>
-	<div class="background-image pt-2 w-full" :style="{ backgroundImage: `url(${ bgImage })` }">
-
-		<div class="issue-image" :style="{ backgroundImage: `url(${ issue?.photo })` }"></div>
+	<div class="pt-2 w-full">
 		<div class="issue-name-zone justify-content-center">
+
+			<img v-if="issue?.photo" :src="issue?.photo" width="150"/>
 			<div>
 				<span class="text-4xl">{{ issue?.title }}</span>
 			</div>
@@ -105,44 +103,12 @@
 </template>
 
 <style scoped>
-	.background-image {
-		background-attachment: fixed;
-		background-position-y: 50%;
-		background-position-y: 0%;
-		background-repeat: no-repeat;
-		background-size: cover;
-		min-height: 100%;
-	}
-	.issue-title:before, .issue-title:after {
-		content: " ";
-		width: 60px;
-		height: 1px;
-		display: inline-block;
-		vertical-align: middle;   
-		background-color: black;
-	}
 	.issue-name-zone {
 		margin-top: 100px !important;
 			margin-bottom: 100px !important;
 		text-align: center;
 	}
-	.issue-image {
-		position: fixed;
-		background-size: contain;
-		opacity: 0.9;
-		/* filter: grayscale(1); */
-		height: 500px;
-		width: 500px;
-		background-repeat: no-repeat;
-		z-index: 0;
-	}
 
-		@media screen and (max-width: 769px) {
-		.issue-image {
-			opacity: 0.2;
-		}
-
-	}
 	
 </style>
 	

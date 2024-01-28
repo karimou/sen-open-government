@@ -59,6 +59,10 @@
     nav .logo img {
       width: 50px;
     }
+
+    nav .title {
+      font-size: 20px;
+    }
   }
 </style>
 

@@ -40,7 +40,8 @@
 
 <template>
     <div 
-        v-for="(candidateOpinions, issueId) in groupedOpinions" class="mb-4"
+        v-for="(candidateOpinions, issueId) in groupedOpinions" 
+        class="mb-4"
         :ref="(el) => issueRefs[issueId] = el"
     >
         <Card v-if="electionsStore.getIssue(issueId)">
