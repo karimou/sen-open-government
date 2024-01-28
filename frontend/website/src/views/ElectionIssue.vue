@@ -71,7 +71,7 @@
 				<Button label="Plus d'infos" text severity="primary" @click="descriptionVisible = true" />
 			</div>
 		</div>
-		<div class="flex justify-content-center mb-6">
+		<div class="flex flex-wrap justify-content-center mb-6">
 			<AppCandidatesSelector
 				@scroll="scrollToAuthor($event)"
 			/>
@@ -105,7 +105,7 @@
 <style scoped>
 	.issue-name-zone {
 		margin-top: 100px !important;
-			margin-bottom: 100px !important;
+		margin-bottom: 100px !important;
 		text-align: center;
 	}
 

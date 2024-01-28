@@ -94,7 +94,7 @@
 				:twitter="candidate?.twitter"
 			/>
 		</div>
-		<div class="flex justify-content-center mb-6">
+		<div class="flex flex-wrap justify-content-center mb-6">
 			<AppIssuesSelector
 				@scroll="scrollToIssue($event)"
 			/>
