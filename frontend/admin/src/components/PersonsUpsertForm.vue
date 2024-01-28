@@ -70,7 +70,6 @@
     const loading = ref(false);
     const onSubmit = handleSubmit((values) => {
         loading.value = true;
-        console.log(values)
         if (!id.value) {
             API.persons.addPerson(values)
                 .then(result => {
