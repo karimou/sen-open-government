@@ -31,7 +31,13 @@
 		issueId.value = Number(params.issueId);
 
 	}
-	onMounted(() => initParams(route.params));
+	onMounted(() => {
+		initParams(route.params);
+		window.scroll({
+			top: 0,
+			behavior: 'smooth'
+		});
+	});
 
 	onBeforeRouteUpdate((to, from) => {
 		initParams(to.params);
@@ -74,7 +80,7 @@
 		</div>
 		<div style="z-index: 1; position: relative;">
 			<div class="grid">
-				<div class="lg:col-offset-3 lg:col-6 md:col-offset-2 md:col-8 col-offset-1 col-10">
+				<div class="lg:col-offset-3 lg:col-6 md:col-offset-2 md:col-8">
 					<div
 						v-for="(candidateOpinions, candidateId ) in displayedOpinions" :ref="(el) => candidateRefs[candidateId] = el"
 					>

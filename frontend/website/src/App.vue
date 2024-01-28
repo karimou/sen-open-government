@@ -51,5 +51,14 @@
     letter-spacing: 3px;
     color: #111;
   }
+  nav .logo img {
+    width: 80px;
+    height: auto;
+  }
+  @media screen and (max-width: 664px) {
+    nav .logo img {
+      width: 50px;
+    }
+  }
 </style>
 
