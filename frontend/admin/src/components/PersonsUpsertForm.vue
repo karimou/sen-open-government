@@ -128,7 +128,6 @@
                     <label for="occupation">Profession</label>
                     <InputText
                         id="occupation"
-                        type="date"
                         v-model="occupation"
                         class="w-full"
                     />
