@@ -24,6 +24,8 @@
             .string(),
         date_of_birth: yup
             .date(),
+        occupation: yup
+            .string(),
         description: yup
             .string(),
         website: yup
@@ -44,6 +46,7 @@
     const [gender, _genderAttrs ] = defineField('gender');
     const [date_of_birth, _date_of_birthAttrs ] = defineField('date_of_birth');
     const [description, _descriptionAttrs ] = defineField('description');
+    const [occupation, _occupationAttrs] = defineField('occupation');
     const [twitter, _twitterAttrs ] = defineField('twitter');
     const [facebook, _facebookAttrs ] = defineField('facebook');
     const [instagram, _instagramAttrs ] = defineField('instagram');
@@ -56,7 +59,7 @@
     const dialogRef = inject('dialogRef');
     onMounted(() => {
         if (dialogRef.value.data?.date_of_birth) setFieldValue('date_of_birth', format(dialogRef.value.date_of_birth?.date, 'yyyy-MM-dd'));
-        ['firstname', 'lastname', 'gender', 'description', 'facebook', 'instagram', 'twitter', 'website', 'photo'].forEach(field => { if (dialogRef.value.data[field]) setFieldValue(field, dialogRef.value.data[field]) });
+        ['firstname', 'lastname', 'gender', 'occupation', 'description', 'facebook', 'instagram', 'twitter', 'website', 'photo'].forEach(field => { if (dialogRef.value.data[field]) setFieldValue(field, dialogRef.value.data[field]) });
         id.value = dialogRef.value.data?.id;
     });
 
@@ -119,6 +122,15 @@
                         id="date_of_birth"
                         type="date"
                         v-model="date_of_birth"
+                        class="w-full"
+                    />
+                </div>
+                <div class="field col-6">
+                    <label for="occupation">Profession</label>
+                    <InputText
+                        id="occupation"
+                        type="date"
+                        v-model="occupation"
                         class="w-full"
                     />
                 </div>
