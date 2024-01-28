@@ -22,7 +22,20 @@ class Person {
             let client = yield (0, db_1.getClient)();
             let query = {
                 text: personQueries.INSERT_PERSON,
-                values: [this.firstname, this.lastname, this.gender, this.date_of_birth, this.description, this.facebook, this.instagram, this.twitter, this.website, this.photo, (_a = this.last_modified_by) === null || _a === void 0 ? void 0 : _a.id]
+                values: [
+                    this.firstname,
+                    this.lastname,
+                    this.gender,
+                    this.date_of_birth,
+                    this.occupation,
+                    this.description,
+                    this.facebook,
+                    this.instagram,
+                    this.twitter,
+                    this.website,
+                    this.photo,
+                    (_a = this.last_modified_by) === null || _a === void 0 ? void 0 : _a.id
+                ]
             };
             let person = yield client.query(query)
                 .then(res => res.rows[0])
@@ -40,7 +53,21 @@ class Person {
             let client = yield (0, db_1.getClient)();
             let query = {
                 text: personQueries.UPDATE_PERSON,
-                values: [this.id, this.firstname, this.lastname, this.gender, this.date_of_birth, this.description, this.facebook, this.instagram, this.twitter, this.website, this.photo, (_a = this.last_modified_by) === null || _a === void 0 ? void 0 : _a.id]
+                values: [
+                    this.id,
+                    this.firstname,
+                    this.lastname,
+                    this.gender,
+                    this.date_of_birth,
+                    this.occupation,
+                    this.description,
+                    this.facebook,
+                    this.instagram,
+                    this.twitter,
+                    this.website,
+                    this.photo,
+                    (_a = this.last_modified_by) === null || _a === void 0 ? void 0 : _a.id
+                ]
             };
             let person = yield client.query(query)
                 .then(res => res.rows[0])
