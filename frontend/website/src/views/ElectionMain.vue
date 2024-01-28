@@ -89,7 +89,7 @@
 	</div>
 	<Divider />
 	<div class="grid">
-		<div class="lg:col-offset-3 lg:col-6 md:col-offset-2 md:col-8">
+		<div class="lg:col-offset-3 lg:col-6 md:col-offset-2 md:col-8 col">
 			<ElectionMainOpinionsByAuthor 
 				v-if="isGroupBy('author_id')"
 				:groupedOpinions="groupedOpinions"
