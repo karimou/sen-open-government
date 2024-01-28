@@ -60,7 +60,7 @@
     onMounted(() => {
         if (dialogRef.value.data?.date_of_birth) {
             try {
-                let dateStr = dialogRef.value.date_of_birth?.date;
+                let dateStr = dialogRef.value.data?.date_of_birth;
                 console.log(dateStr)
                 let date = new Date(dateStr);
                 setFieldValue('date_of_birth', format(date, 'yyyy-MM-dd'));
