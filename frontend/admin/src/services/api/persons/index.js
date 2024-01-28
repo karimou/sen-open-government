@@ -9,8 +9,8 @@ const listPersons = async () => {
         })
 };
 
-const addPerson = async ({ firstname, lastname, gender, date_of_birth, description, facebook, instagram, twitter, website, photo }) => {
-    return http.post('/api/v1/persons', { firstname, lastname, gender, date_of_birth, description, facebook, instagram, twitter, website, photo })
+const addPerson = async ({ firstname, lastname, gender, date_of_birth, occupation, description, facebook, instagram, twitter, website, photo }) => {
+    return http.post('/api/v1/persons', { firstname, lastname, gender, date_of_birth, occupation, description, facebook, instagram, twitter, website, photo })
         .then(res => {
             if (res.status == 200) {
                 return res.data;
@@ -18,8 +18,8 @@ const addPerson = async ({ firstname, lastname, gender, date_of_birth, descripti
         })
 };
 
-const updatePerson = async ({id, firstname, lastname, gender, date_of_birth, description, facebook, instagram, twitter, website, photo}) => {
-    return http.put('/api/v1/persons', {id, firstname, lastname, gender, date_of_birth, description, facebook, instagram, twitter, website, photo})
+const updatePerson = async ({id, firstname, lastname, gender, date_of_birth, occupation, description, facebook, instagram, twitter, website, photo}) => {
+    return http.put('/api/v1/persons', {id, firstname, lastname, gender, date_of_birth, occupation, description, facebook, instagram, twitter, website, photo})
         .then(res => {
             if (res.status == 200) {
                 return res.data;

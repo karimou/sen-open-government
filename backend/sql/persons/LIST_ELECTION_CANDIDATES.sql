@@ -10,6 +10,8 @@ SELECT
     person.id, 
     person.firstname,
     person.lastname,
+    person.date_of_birth,
+    person.occupation,
     person.description,
     person.facebook,
     person.instagram,
