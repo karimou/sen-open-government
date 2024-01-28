@@ -20,7 +20,7 @@
 
     const { website, facebook, twitter, instagram } = toRefs(props);
 
-    const goToUrl = (url) => window.open(url, '_blank');
+    const goToUrl = (url) => window.open(url);
 
 </script>
 <template>
