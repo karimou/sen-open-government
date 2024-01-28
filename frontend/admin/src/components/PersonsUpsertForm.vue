@@ -58,16 +58,7 @@
 
     const dialogRef = inject('dialogRef');
     onMounted(() => {
-        if (dialogRef.value.data?.date_of_birth) {
-            try {
-                let dateStr = dialogRef.value.data?.date_of_birth;
-                console.log(dateStr)
-                let date = new Date(dateStr);
-                setFieldValue('date_of_birth', format(date, 'yyyy-MM-dd'));
-            } catch (e) {
-                console.log(e);
-            }
-        }
+        if (dialogRef.value.data?.date_of_birth) setFieldValue('date_of_birth', format(new Date(dialogRef.value.data.date_of_birth), 'yyyy-MM-dd'));
         ['firstname', 'lastname', 'gender', 'occupation', 'description', 'facebook', 'instagram', 'twitter', 'website', 'photo'].forEach(field => { if (dialogRef.value.data[field]) setFieldValue(field, dialogRef.value.data[field]) });
         id.value = dialogRef.value.data?.id;
     });
