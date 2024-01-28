@@ -20,7 +20,8 @@
   nav {
     height: 76px;
     /* padding: 5px 10px 5px 20px; */
-    background-color: #fff;
+    background-color: #fcb900;
+    border-bottom: 3px solid red;
     position: fixed;
     top: 0;
     z-index: 180;
@@ -48,7 +49,7 @@
     font-size: 30px;
     font-weight: bold;
     /* text-transform: uppercase; */
-    letter-spacing: 3px;
+    letter-spacing: 1px;
     color: #111;
   }
   nav .logo img {
