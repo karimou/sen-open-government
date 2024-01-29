@@ -20,7 +20,7 @@
   nav {
     height: 76px;
     /* padding: 5px 10px 5px 20px; */
-    /* background-color: #fcb900; */
+    background-color: white;
     border-bottom: 3px solid #fcb900;
     position: fixed;
     top: 0;
