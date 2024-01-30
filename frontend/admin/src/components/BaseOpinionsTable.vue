@@ -64,6 +64,20 @@
         });
     };
 
+    /* ----------- 
+    CSV Import handling
+    ----------- */
+    const AppOpinionsCsvImport = defineAsyncComponent(() => import('@/components/AppOpinionsCsvImport.vue'));
+    const openOpinionsCsvImportDialog = () => {
+        dialog.open(AppOpinionsCsvImport, { 
+            data: { personId: personId.value, issueId: issueId.value},
+            onClose: () => emit('refresh'),
+            props: {
+                modal: true
+            }
+        });
+    };
+
     
     /* -----------
     Data reformatting
@@ -104,6 +118,12 @@
                                 @click="openOpinionUpsertForm()"
                             ></Button>
                             <Button 
+                                label="Import un CSV" 
+                                icon="pi pi-file-import" 
+                                class="p-button-primary mr-2" 
+                                @click="openOpinionsCsvImportDialog()"
+                            ></Button>
+                            <Button 
                                 label="Supprimer la sélection" 
                                 icon="pi pi-trash" 
                                 class="p-button-danger" 
@@ -111,6 +131,7 @@
                                 :disabled="!selectedOpinions || !selectedOpinions.length" 
                                 :loading="loading"
                             ></Button>
+                            
                         </div>
                     </template>
                     <template v-slot:end v-if="group">
