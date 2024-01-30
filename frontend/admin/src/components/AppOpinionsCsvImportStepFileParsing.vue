@@ -8,9 +8,9 @@
     import Papa from 'papaparse';
 
 
-    const emit = defineEmits(['complete']);
+    const emit = defineEmits(['start', 'complete']);
 
-    const fields = ref(['Prénom', 'Nom', 'Thème', 'Opinion']);
+    const fields = ref(['Thème', 'Opinion']);
 
     const errorMessage = ref(null);
     const parsedLines = ref([]);

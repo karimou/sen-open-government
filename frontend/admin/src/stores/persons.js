@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { API } from '@/services/api';
 
 export const usePersonsStore = defineStore('persons', () => {
@@ -12,5 +12,12 @@ export const usePersonsStore = defineStore('persons', () => {
             .then(data => persons.value = data);
     };
 
-    return { persons, refreshPersons };
+
+    const personsNames = computed(() => {
+        let dict = {};
+        persons.value.forEach(person => dict[person.id] = `${ person.firstname } ${ person.lastname }`);
+        return dict;
+    });
+
+    return { persons, personsNames, refreshPersons };
 })

@@ -44,11 +44,6 @@
         if (!electionsStore.elections) electionsStore.refreshElections();
     });
 
-    const personsNames = computed(() => {
-        let dict = {};
-        personsStore.persons.forEach(person => dict[person.id] = `${ person.firstname } ${ person.lastname }`);
-        return dict;
-    });
 
     /* ----------- 
     Submit handling
@@ -110,7 +105,7 @@
                 >
                     <template #value="slotProps">
                         <span v-if="slotProps.value">
-                            {{ personsNames[slotProps.value] }}
+                            {{ personsStore.personsNames[slotProps.value] }}
                         </span>
                         <span v-else>
                             {{  slotProps.placeholder }}
