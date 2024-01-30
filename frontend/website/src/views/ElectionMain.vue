@@ -66,8 +66,8 @@
 			<h5>Aller à:</h5>
 		</div>
 		<div 
-			class="flex justify-content-center mb-4"
-			style="max-width: 800px; margin: auto;flex-wrap: wrap;"
+			class="flex flex-wrap justify-content-center mb-4"
+			style="max-width: 800px; margin: auto;"
 		>
 			<template
 				v-if="isGroupBy('author_id')"

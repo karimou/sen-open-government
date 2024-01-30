@@ -71,7 +71,10 @@
 				<Button label="Plus d'infos" text severity="primary" @click="descriptionVisible = true" />
 			</div>
 		</div>
-		<div class="flex flex-wrap justify-content-center mb-6">
+		<div 
+			class="flex flex-wrap justify-content-center mb-6"
+			style="max-width: 800px; margin: auto;"
+		>
 			<AppCandidatesSelector
 				@scroll="scrollToAuthor($event)"
 			/>
