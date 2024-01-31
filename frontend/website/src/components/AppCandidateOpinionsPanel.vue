@@ -5,6 +5,7 @@
     import Divider from 'primevue/divider';
     import Sidebar from 'primevue/sidebar';
     import Button from 'primevue/button';
+    import Badge from 'primevue/badge';
     import { computed, toRefs, ref } from 'vue';
 
     import { useElectionsStore } from '@/stores/elections';
@@ -57,6 +58,7 @@
                     shape="rectangle" 
                 />
                 <span class="font-bold">{{ candidateName }}</span>
+                <Badge :value="opinions.length" severity="success"></Badge>
             </div>
         </template>
         <p
