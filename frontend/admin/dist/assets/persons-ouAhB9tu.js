@@ -1,1 +1,0 @@
-import{d as o,r as a,Y as u,A as c}from"./index-tVf0fXHj.js";const f=o("persons",()=>{const e=a(null),n=async()=>c.persons.listPersons().then(s=>e.value=s),t=u(()=>{let s={};return e.value.forEach(r=>s[r.id]=`${r.firstname} ${r.lastname}`),s});return{persons:e,personsNames:t,refreshPersons:n}});export{f as u};

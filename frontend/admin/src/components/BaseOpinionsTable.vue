@@ -196,7 +196,7 @@
                     </template>
                     <Column field="author.name" header="Auteur" />
                     <Column field="issue.title" header="Sujet" />
-                    <Column field="summary" header="Résumé"></Column>
+                    <Column field="summary" header="Résumé" headerStyle="width: 500px" bodyStyle="white-space: pre-wrap"/>
 
                 </DataTable>
             </div>
