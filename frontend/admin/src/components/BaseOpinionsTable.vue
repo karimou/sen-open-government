@@ -196,7 +196,13 @@
                     </template>
                     <Column field="author.name" header="Auteur" />
                     <Column field="issue.title" header="Sujet" />
-                    <Column field="summary" header="Résumé" headerStyle="width: 500px" bodyStyle="white-space: pre-wrap" bodyClass="truncate l3"/>
+                    <Column field="summary" header="Résumé" headerStyle="width: 500px">
+                        <template #body="{ data }">
+                            <p class="truncate l3">
+                                {{ data.summary }}
+                            </p>
+                        </template>
+                    </Column>
 
                 </DataTable>
             </div>
