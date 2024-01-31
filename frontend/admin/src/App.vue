@@ -18,4 +18,16 @@
     .p-avatar img {
         object-fit: cover !important;   
     }
+    .truncate {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2; /* number of lines to show */
+      line-clamp: 2;
+    }
+    .truncate.l3 {
+      -webkit-line-clamp: 3; /* number of lines to show */
+      line-clamp: 3;
+    }
 </style>
