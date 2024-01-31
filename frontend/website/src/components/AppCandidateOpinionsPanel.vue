@@ -65,7 +65,9 @@
             style="white-space: pre-wrap;"
         >
             {{ opinion.summary }}
-            <Button text v-if="opinion.content" label="En savoir plus" @click="displayOpinionContent(opinion)" />
+            <div v-if="opinion.content" class="justify-content-end">
+                <Button text label="En savoir plus" @click="displayOpinionContent(opinion)" />
+            </div>
             <Divider v-if="index != opinions.length - 1"/>
         </p>
     </Panel>
