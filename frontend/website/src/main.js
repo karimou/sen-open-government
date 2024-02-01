@@ -3,6 +3,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
 import PrimeVue from 'primevue/config';
+import BadgeDirective from 'primevue/badgedirective'; 
 import { createPinia } from 'pinia';
 import Ripple from 'primevue/ripple';
 
@@ -15,9 +16,11 @@ app.use(router);
 
 app.use(PrimeVue, { ripple: true });
 app.directive('ripple', Ripple);
+app.directive('badge', BadgeDirective);
 
 const pinia = createPinia();
 app.use(pinia);
+
 
 app.provide('$groupArrayBy', (array = [], callbackFn) => {
     if (!callbackFn) return;

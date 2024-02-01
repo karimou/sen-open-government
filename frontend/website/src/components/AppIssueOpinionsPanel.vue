@@ -2,13 +2,11 @@
 <script setup>
     import Panel from 'primevue/panel';
     import Avatar from 'primevue/avatar';
-    import Divider from 'primevue/divider';
-    import Sidebar from 'primevue/sidebar';
-    import Button from 'primevue/button';
     import Badge from 'primevue/badge';
     import { toRefs, ref } from 'vue';
 
     import { useElectionsStore } from '@/stores/elections';
+    import AppOpinion from '@/components/AppOpinion.vue';
     const electionsStore = useElectionsStore();
 
     const props = defineProps({
@@ -27,12 +25,6 @@
 
     const { opinions, issueId, collapsed } = toRefs(props);
 
-    const selectedOpinionVisible = ref(false);
-    const selectedOpinionContent = ref(null);
-    const displayOpinionContent = (opinion) => {
-        selectedOpinionVisible.value = true;
-        selectedOpinionContent.value = opinion.content;
-    };
 
 </script>
 
@@ -52,24 +44,10 @@
                 <Badge :value="opinions.length" severity="success"></Badge>
             </div>
         </template>
-        <p
-            class="m-0"
+        <AppOpinion
             v-for="(opinion, index) in opinions"
-            style="white-space: pre-wrap;"
-        >
-            {{ opinion.summary }}
-            <div v-if="opinion.content" class="flex justify-content-end">
-                <Button text label="En savoir plus" @click="displayOpinionContent(opinion)" />
-            </div>
-            <Divider v-if="index != opinions.length - 1"/>
-        </p>
+            :opinion="opinion"
+            :includeDivider="index != opinions.length - 1"
+        />
     </Panel>
-    <Sidebar 
-        v-model:visible="selectedOpinionVisible" 
-        header="En savoir plus"
-        class="w-full md:w-20rem lg:w-30rem"
-        position="right"
-    >
-        <p style="white-space: pre-wrap;" v-html="selectedOpinionContent"/>
-    </Sidebar>
 </template>

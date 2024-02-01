@@ -10,7 +10,7 @@ class Opinion {
     issue_id: number
     issue: Issue
     summary: string | null
-    has_summary: boolean
+    has_content: boolean
     content: string | null
     proposals: Array<OpinionProposal>
     num_proposals: number

@@ -1,10 +1,10 @@
 WITH opinion_proposals_count_table as (
     SELECT
-        opinion.id,
+        opinion.id as opinion_id,
         COALESCE(COUNT(opinion_proposal.id), 0) as num_proposals
     FROM opinion
     LEFT JOIN opinion_proposal ON opinion.id = opinion_proposal.opinion_id
-    GROUP BY opinion_id
+    GROUP BY opinion.id
 )
 SELECT
     opinion.id, 

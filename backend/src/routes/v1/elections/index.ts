@@ -17,8 +17,8 @@ router
             let candidates = await Person.listElectionCandidates(election.id);
             let opinions = await Opinion.listOpinionsByElection(election.id);
             opinions.forEach(opinion => {
+                opinion.has_content = !!opinion.content && (opinion.content != '');
                 opinion.content = null;
-                opinion.has_summary = !!opinion.summary && (opinion.summary != '');
             });
             let allIssues = await Issue.list();
             let issueIds = Array.from(new Set(opinions.map(opinion => opinion.issue_id)));
