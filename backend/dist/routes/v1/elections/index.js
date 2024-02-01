@@ -22,6 +22,10 @@ router
             return res.status(404).send();
         let candidates = yield models_1.Person.listElectionCandidates(election.id);
         let opinions = yield models_1.Opinion.listOpinionsByElection(election.id);
+        opinions.forEach(opinion => {
+            opinion.has_content = !!opinion.content && (opinion.content != '');
+            opinion.content = null;
+        });
         let allIssues = yield models_1.Issue.list();
         let issueIds = Array.from(new Set(opinions.map(opinion => opinion.issue_id)));
         let issues = allIssues.filter(issue => issueIds.includes(issue.id));

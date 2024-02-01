@@ -17,4 +17,4 @@ FROM organisation_member
 LEFT JOIN person ON person.id = organisation_member.person_id
 LEFT JOIN "user" ON person.last_modified_by = "user".id
 WHERE organisation_member.organisation_id = $1
-ORDER BY lastname, firstname;
+ORDER BY firstname, lastname;

@@ -27,4 +27,4 @@ LEFT JOIN person ON person.id = election_candidate.person_id
 LEFT JOIN "user" ON person.last_modified_by = "user".id
 LEFT JOIN person_organisations ON person_organisations.person_id = person.id
 WHERE election_candidate.election_id = $1
-ORDER BY lastname, firstname;
+ORDER BY firstname, lastname;

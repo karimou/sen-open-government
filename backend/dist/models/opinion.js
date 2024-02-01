@@ -114,5 +114,66 @@ class Opinion {
             return opinions.map(opinion => new Opinion(opinion, opinion.user));
         });
     }
+    static addProposal(opinionId, number, content, user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = yield (0, db_1.getClient)();
+            let query = {
+                text: opinionQueries.ADD_OPINION_PROPOSAL,
+                values: [opinionId, number, content, user === null || user === void 0 ? void 0 : user.id]
+            };
+            let opinionProposal = yield client.query(query)
+                .then(res => res.rows[0])
+                .catch(e => console.log(e));
+            client.release();
+            if (!opinionProposal)
+                throw (new Error('[Opinion] proposal addition failed'));
+        });
+    }
+    static updateProposal(id, number, content, user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = yield (0, db_1.getClient)();
+            let query = {
+                text: opinionQueries.UPDATE_OPINION_PROPOSAL,
+                values: [id, number, content, user === null || user === void 0 ? void 0 : user.id]
+            };
+            let opinionProposal = yield client.query(query)
+                .then(res => res.rows[0])
+                .catch(e => console.log(e));
+            client.release();
+            if (!opinionProposal)
+                throw (new Error('[Opinion] proposal update failed'));
+        });
+    }
+    static deleteProposals(ids) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = yield (0, db_1.getClient)();
+            let query = {
+                text: opinionQueries.DELETE_OPINION_PROPOSALS,
+                values: [ids]
+            };
+            let opinionProposals = yield client.query(query)
+                .then(res => res.rows)
+                .catch(e => console.log(e));
+            client.release();
+            if (!opinionProposals)
+                throw (new Error('[Opinion] proposals deletion failed'));
+        });
+    }
+    static listProposals(opinionId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client = yield (0, db_1.getClient)();
+            let query = {
+                text: opinionQueries.LIST_OPINION_PROPOSALS,
+                values: [opinionId]
+            };
+            let opinionProposals = yield client.query(query)
+                .then(res => res.rows)
+                .catch(e => console.log(e));
+            client.release();
+            if (!opinionProposals)
+                throw (new Error('[Opinion] proposals retrieval failed'));
+            return opinionProposals;
+        });
+    }
 }
 exports.default = Opinion;

@@ -24,6 +24,47 @@ router
         return res.status(500).send(e);
     }
 }));
+router
+    .get('/proposals/:opinionId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let proposals = yield models_1.Opinion.listProposals(Number(req.params.opinionId));
+        res.status(200).send(proposals);
+    }
+    catch (e) {
+        return res.status(500).send(e);
+    }
+}));
+router.route('/proposals')
+    .all(middleware_1.isUserSigned)
+    .post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    try {
+        yield models_1.Opinion.addProposal(req.body.opinionId, req.body.number, req.body.content, (_a = req.session) === null || _a === void 0 ? void 0 : _a.user);
+        res.status(200).send();
+    }
+    catch (e) {
+        return res.status(500).send(e);
+    }
+}))
+    .put((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
+    try {
+        yield models_1.Opinion.updateProposal(req.body.id, req.body.number, req.body.content, (_b = req.session) === null || _b === void 0 ? void 0 : _b.user);
+        res.status(200).send();
+    }
+    catch (e) {
+        return res.status(500).send(e);
+    }
+}))
+    .delete((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield models_1.Opinion.deleteProposals(req.body.ids);
+        res.status(200).send();
+    }
+    catch (e) {
+        return res.status(500).send(e);
+    }
+}));
 router.route('')
     .all(middleware_1.isUserSigned)
     .get((_req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -37,9 +78,9 @@ router.route('')
     }
 }))
     .post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _c;
     try {
-        let opinion = new models_1.Opinion(req.body, (_a = req.session) === null || _a === void 0 ? void 0 : _a.user);
+        let opinion = new models_1.Opinion(req.body, (_c = req.session) === null || _c === void 0 ? void 0 : _c.user);
         yield opinion.add();
         res.status(200).send(opinion);
     }
@@ -48,9 +89,9 @@ router.route('')
     }
 }))
     .put((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _b;
+    var _d;
     try {
-        let opinion = new models_1.Opinion(req.body, (_b = req.session) === null || _b === void 0 ? void 0 : _b.user);
+        let opinion = new models_1.Opinion(req.body, (_d = req.session) === null || _d === void 0 ? void 0 : _d.user);
         yield opinion.update();
         res.status(200).send(opinion);
     }

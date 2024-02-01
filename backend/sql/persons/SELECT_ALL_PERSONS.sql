@@ -15,4 +15,4 @@ SELECT
     json_build_object('id', "user".id, 'username', "user".username) as user
 FROM person
 LEFT JOIN "user" ON person.last_modified_by = "user".id
-ORDER BY lastname, firstname;
+ORDER BY firstname, lastname;
