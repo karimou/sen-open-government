@@ -8,7 +8,7 @@ import { isUserSigned } from '../../../middleware';
 const router = Router();
 
 router
-    .get('/:opinionId', isUserSigned, async (req: Request, res: Response) => {
+    .get('/:opinionId', async (req: Request, res: Response) => {
         try {
             
             let opinion = await Opinion
