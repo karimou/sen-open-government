@@ -133,12 +133,12 @@ class Opinion {
 
     }
 
-    static async addProposal(opinionId: number, content: number, user?: User): Promise<void> {
+    static async addProposal(opinionId: number, number: number, content: string, user?: User): Promise<void> {
         let client = await getClient();
 
         let query = {
             text: opinionQueries.ADD_OPINION_PROPOSAL,
-            values: [opinionId, content, user?.id]
+            values: [opinionId, number, content, user?.id]
         }
 
         let opinionProposal = await client.query(query)
@@ -150,6 +150,25 @@ class Opinion {
         if (!opinionProposal) throw(new Error('[Opinion] proposal addition failed'));
 
     }
+
+    static async updateProposal(id: number, number: number, content: string, user?: User): Promise<void> {
+        let client = await getClient();
+
+        let query = {
+            text: opinionQueries.UPDATE_OPINION_PROPOSAL,
+            values: [id, number, content, user?.id]
+        }
+
+        let opinionProposal = await client.query(query)
+            .then(res => res.rows[0])
+            .catch(e => console.log(e));
+        
+        client.release();
+
+        if (!opinionProposal) throw(new Error('[Opinion] proposal update failed'));
+
+    }
+    
 
     static async deleteProposals(ids: Array<number>): Promise<void> {
         let client = await getClient();

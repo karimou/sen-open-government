@@ -45,7 +45,20 @@ router.route('/proposals')
 
         try {
             
-            await Opinion.addProposal(req.body.opinionId, req.body.content, req.session?.user as User);
+            await Opinion.addProposal(req.body.opinionId, req.body.number, req.body.content, req.session?.user as User);
+            res.status(200).send();
+
+        } catch (e) {
+
+            return res.status(500).send(e);
+
+        }
+    })
+    .put(async (req: Request, res: Response) => {
+
+        try {
+            
+            await Opinion.updateProposal(req.body.id, req.body.number, req.body.content, req.session?.user as User);
             res.status(200).send();
 
         } catch (e) {

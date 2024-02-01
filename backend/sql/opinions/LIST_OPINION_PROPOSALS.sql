@@ -1,6 +1,8 @@
 
 SELECT
     opinion_proposal.id, 
+    opinion_proposal.opinion_id,
+    opinion_proposal.number,
     opinion_proposal.content,
     opinion_proposal.created_on, 
     opinion_proposal.last_modified_on, 

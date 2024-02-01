@@ -155,7 +155,13 @@
                     </Column>
                     <Column field="firstname" header="Prénom"></Column>
                     <Column field="lastname" header="Nom"></Column>
-                    <Column field="description" header="Description" v-if="!hideDescription"></Column>
+                    <Column field="description" header="Description" v-if="!hideDescription" headerStyle="width: 500px">
+                        <template #body="{ data}">
+                            <p class="truncate l3">
+                                {{ data.description }}
+                            </p>
+                        </template>
+                    </Column>
 
                 </DataTable>
             </div>

@@ -33,6 +33,9 @@ exports.up = function(db, callback) {
         }
       }
     },
+    number: {
+      type: 'int'
+    },
     content: {
       type: 'string'
     },

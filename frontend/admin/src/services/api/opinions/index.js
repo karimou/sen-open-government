@@ -36,9 +36,49 @@ const deleteOpinions = async (ids) => {
         })
 };
 
+
+const listProposals = async (opinionId) => {
+    return http.get(`/api/v1/opinions/proposals/${ opinionId }`)
+        .then(res => {
+            if (res.status == 200) {
+                return res.data;
+            }
+        })
+};
+
+const addProposal = async ({opinionId, number, content}) => {
+    return http.post('/api/v1/opinions/proposals', {opinionId, number, content})
+        .then(res => {
+            if (res.status == 200) {
+                return res.data;
+            }
+        })
+};
+const updateProposal = async ({id, number, content}) => {
+    return http.put('/api/v1/opinions/proposals', {id, number, content})
+        .then(res => {
+            if (res.status == 200) {
+                return res.data;
+            }
+        })
+};
+
+const deleteProposals = async (ids) => {
+    return http.delete('/api/v1/opinions/proposals', { data: { ids } })
+        .then(res => {
+            if (res.status == 200) {
+                return res.data;
+            }
+        })
+};
+
 export default {
     listOpinions,
     addOpinion,
     updateOpinion,
-    deleteOpinions
+    deleteOpinions,
+    listProposals,
+    addProposal,
+    updateProposal,
+    deleteProposals
 }

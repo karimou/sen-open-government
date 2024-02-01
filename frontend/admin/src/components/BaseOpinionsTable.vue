@@ -83,7 +83,7 @@
     const BaseOpinionsTableProposals = defineAsyncComponent(() => import('@/components/BaseOpinionsTableProposals.vue'));
     const openOpinionProposalsDialog = (opinion) => {
         dialog.open(BaseOpinionsTableProposals, { 
-            data: { opinionId: opinion.id},
+            data: opinion,
             onClose: () => emit('refresh'),
             props: {
                 modal: true

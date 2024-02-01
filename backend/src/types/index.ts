@@ -35,6 +35,7 @@ export interface Organisation {
 
 export interface OpinionProposal {
     id: number
+    number: number
     content: string
     created_on: Date
     last_modified_on: Date
