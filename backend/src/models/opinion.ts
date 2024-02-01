@@ -1,5 +1,5 @@
 import { getClient, loadQueries } from '../services/db';
-import { User, Person, Issue } from '../types';
+import { User, Person, Issue, OpinionProposal } from '../types';
 
 const opinionQueries = loadQueries('opinions');
 
@@ -130,6 +130,63 @@ class Opinion {
         if (!opinions) throw(new Error('[opinion] retrieving opinions list failed'));
         
         return opinions.map(opinion => new Opinion(opinion , opinion.user));
+
+    }
+
+    static async addProposal(opinionId: number, content: number, user?: User): Promise<void> {
+        let client = await getClient();
+
+        let query = {
+            text: opinionQueries.ADD_OPINION_PROPOSAL,
+            values: [opinionId, content, user?.id]
+        }
+
+        let opinionProposal = await client.query(query)
+            .then(res => res.rows[0])
+            .catch(e => console.log(e));
+        
+        client.release();
+
+        if (!opinionProposal) throw(new Error('[Opinion] proposal addition failed'));
+
+    }
+
+    static async deleteProposals(ids: Array<number>): Promise<void> {
+        let client = await getClient();
+
+        let query = {
+            text: opinionQueries.DELETE_OPINION_PROPOSALS,
+            values: [ids]
+        }
+
+        let opinionProposals = await client.query(query)
+            .then(res => res.rows)
+            .catch(e => console.log(e));
+        
+        client.release();
+
+        if (!opinionProposals) throw(new Error('[Opinion] proposals deletion failed'));
+
+    }
+
+
+    static async listProposals(opinionId: number): Promise<Array<OpinionProposal>> {
+        let client = await getClient();
+
+        let query = {
+            text: opinionQueries.LIST_OPINION_PROPOSALS,
+            values: [opinionId]
+        }
+
+        let opinionProposals = await client.query(query)
+            .then(res => res.rows)
+            .catch(e => console.log(e));
+        
+        client.release();
+
+        if (!opinionProposals) throw(new Error('[Opinion] proposals retrieval failed'));
+
+        return opinionProposals as Array<OpinionProposal>;
 
     }
 }

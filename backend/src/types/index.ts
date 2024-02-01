@@ -32,3 +32,11 @@ export interface Organisation {
     id: number
     name: string
 }
+
+export interface OpinionProposal {
+    id: number
+    content: string
+    created_on: Date
+    last_modified_on: Date
+    last_modified_by: User | undefined
+}

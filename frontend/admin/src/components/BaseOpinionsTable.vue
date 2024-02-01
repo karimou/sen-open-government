@@ -77,6 +77,19 @@
             }
         });
     };
+    /* ----------- 
+    Proposals display
+    ----------- */
+    const BaseOpinionsTableProposals = defineAsyncComponent(() => import('@/components/BaseOpinionsTableProposals.vue'));
+    const openOpinionProposalsDialog = (opinion) => {
+        dialog.open(BaseOpinionsTableProposals, { 
+            data: { opinionId: opinion.id},
+            onClose: () => emit('refresh'),
+            props: {
+                modal: true
+            }
+        });
+    };
 
     
     /* -----------
@@ -166,9 +179,10 @@
                         </div>
                     </template>
                     <Column selectionMode="multiple" headerStyle="width: 3rem" />
-                    <Column headerStyle="width: 60px">
+                    <Column headerStyle="width: 120px">
                         <template #body="{ data }">
                             <Button class="p-button-text p-button-rounded" icon="pi pi-pencil" @click="openOpinionUpsertForm(data)"></Button>
+                            <Button class="p-button-text p-button-rounded" icon="pi pi-user-edit" @click="openOpinionProposalsDialog(data)"></Button>
                         </template>
                     </Column>
                     <template #groupheader="slotProps" v-if="group">

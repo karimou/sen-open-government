@@ -23,6 +23,48 @@ router
 
     })
 
+router
+    .get('/proposals/:opinionId', async (req: Request, res: Response) => {
+
+        try {
+            
+            let proposals = await Opinion.listProposals(Number(req.params.opinionId));
+            res.status(200).send(proposals);
+
+        } catch (e) {
+
+            return res.status(500).send(e);
+
+        }
+        
+    })
+
+router.route('/proposals')
+    .all(isUserSigned)
+    .post(async (req: Request, res: Response) => {
+
+        try {
+            
+            await Opinion.addProposal(req.body.opinionId, req.body.content, req.session?.user as User);
+            res.status(200).send();
+
+        } catch (e) {
+
+            return res.status(500).send(e);
+
+        }
+    })
+    .delete(async (req: Request, res: Response) => { 
+        try {
+
+            await Opinion.deleteProposals(req.body.ids);
+            res.status(200).send();
+
+        } catch (e) {
+            return res.status(500).send(e);
+        }
+    });
+
 router.route('')
     .all(isUserSigned)
     .get(async (_req: Request, res: Response) => {

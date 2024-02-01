@@ -1,0 +1,1 @@
+DELETE FROM opinion_proposal WHERE id = ANY($1);
