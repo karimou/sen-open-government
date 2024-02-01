@@ -3,7 +3,7 @@
     import Panel from 'primevue/panel';
     import Avatar from 'primevue/avatar';
     import Badge from 'primevue/badge';
-    import { computed, toRefs, ref } from 'vue';
+    import { computed, toRefs } from 'vue';
     import AppOpinion from '@/components/AppOpinion.vue';
 
     import { useElectionsStore } from '@/stores/elections';
@@ -34,6 +34,12 @@
 		return `${ candidate.value.firstname } ${ candidate.value.lastname }`;
     });
 
+    const opinionsTotalProposals = computed(() => {
+        return opinions.value?.map(opinion => Number(opinion.num_proposals))
+            .filter(num => !!num)
+            .reduce((result, x) => result + x, 0)
+    });
+
 </script>
 
 <template>
@@ -49,7 +55,7 @@
                     shape="rectangle" 
                 />
                 <span class="font-bold">{{ candidateName }}</span>
-                <Badge :value="opinions.length" severity="success"></Badge>
+                <Badge :value="opinionsTotalProposals" severity="success"></Badge>
             </div>
         </template>
         <AppOpinion
