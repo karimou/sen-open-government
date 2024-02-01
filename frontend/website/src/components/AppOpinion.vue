@@ -91,7 +91,7 @@
             strokeWidth="8" 
         />
         <div v-else>
-            <Card v-for="proposal in opinionProposals">
+            <Card v-for="proposal in opinionProposals" class="mb-2">
                 <template #title>Proposition #{{ proposal.number }}</template>
                 <template #content>
                     <p class="m-0" style="white-space: pre-wrap;" v-html="proposal.content"/>
