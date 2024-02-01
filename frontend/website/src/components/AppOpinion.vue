@@ -88,7 +88,7 @@
         <ProgressSpinner 
             v-if="loading"
             style="width: 50px; height: 50px" 
-            strokeWidth="8" 
+            strokeWidth="3" 
         />
         <div v-else>
             <Card v-for="proposal in opinionProposals" class="mb-2">
