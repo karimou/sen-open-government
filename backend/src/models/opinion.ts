@@ -9,8 +9,11 @@ class Opinion {
     author: Person
     issue_id: number
     issue: Issue
-    summary: string
-    content: string
+    summary: string | null
+    has_summary: boolean
+    content: string | null
+    proposals: Array<OpinionProposal>
+    num_proposals: number
     created_on: Date
     last_modified_on: Date
     last_modified_by: User | undefined

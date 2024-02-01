@@ -16,13 +16,16 @@ router
             if (!election) return res.status(404).send();
             let candidates = await Person.listElectionCandidates(election.id);
             let opinions = await Opinion.listOpinionsByElection(election.id);
+            opinions.forEach(opinion => {
+                opinion.content = null;
+                opinion.has_summary = !!opinion.summary && (opinion.summary != '');
+            });
             let allIssues = await Issue.list();
             let issueIds = Array.from(new Set(opinions.map(opinion => opinion.issue_id)));
             let issues = allIssues.filter(issue => issueIds.includes(issue.id));
             res.status(200).send({ ...election, candidates, opinions, issues });
 
         } catch (e) {
-
             return res.status(500).send(e);
             
         }
