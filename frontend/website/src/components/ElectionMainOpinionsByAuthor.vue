@@ -1,9 +1,10 @@
 <script setup>
-    import { toRefs, watch, ref, inject } from 'vue';
+    import { toRefs, watch, ref, inject, computed } from 'vue';
 	import Button from 'primevue/button';
 	import Avatar from 'primevue/avatar';
     import ScrollTop from 'primevue/scrolltop';
     import Card from 'primevue/card';
+    import Badge from 'primevue/badge';
 	import router from '@/router';
     import { useElectionsStore } from '@/stores/elections';
     
@@ -37,6 +38,10 @@
         emits('onScrollFinish');
     });
 
+    const getProposals = (opinions = []) => opinions
+        .map(opinion => Number(opinion.num_proposals))
+        .filter(num => !!num)
+        .reduce((result, x) => result + x, 0)
 </script>
 
 <template>
@@ -60,6 +65,7 @@
                             @click="router.push(`/election/${ electionsStore.currentElection.id }/candidate/${ candidateId }`)"
                         >
                             {{ electionsStore.getCandidateName(candidateId) }}
+                            <Badge :value="getProposals(candidateOpinions)" severity="success"></Badge>
                         </Button>
                         <span 
                             v-if="electionsStore.hasCandidateOrganisations(candidateId)" 
