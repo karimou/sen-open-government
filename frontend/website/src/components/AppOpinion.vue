@@ -9,6 +9,10 @@
     import { API } from '@/services/api';
     import Card from 'primevue/card';
 
+    import { useElectionsStore } from '@/stores/elections';
+
+    const electionsStore = useElectionsStore();
+
     const props = defineProps({
         opinion: {
             type: Object
@@ -48,6 +52,11 @@
         if (!isDataLoaded.value) fetchOpinionData();
     };
 
+    const shareWhatsapp = (proposal) => {
+        let candidateName = electionsStore.getCandidateName(opinion.value?.author_id);
+        let currentUrl = window.location.href;
+        window.location.href = `whatsapp://send?text=Je vous partage cette proprosition du candidat ${ candidateName }:%0A${ encodeURIComponent(proposal.content) }%0A${encodeURIComponent(currentUrl)}`;
+    }
 
 </script>
 
@@ -62,7 +71,7 @@
                 <Button text label="En savoir plus" @click="displayContent()" />
             </div>
             <div v-if="opinion.num_proposals > 0" >
-                <Button text label="Propositions" @click="displayProposals()" severity="success" :badge="opinion.num_proposals" badgeSeverity="success"/>
+                <Button outlined label="Propositions" @click="displayProposals()" severity="success" :badge="opinion.num_proposals" badgeSeverity="success"/>
             </div>
         </div>
         <Divider v-if="includeDivider"/>
@@ -94,7 +103,13 @@
             <Card v-for="proposal in opinionProposals" class="mb-2">
                 <template #title>Proposition #{{ proposal.number }}</template>
                 <template #content>
+                    <Divider />
                     <p class="m-0" style="white-space: pre-wrap;" v-html="proposal.content"/>
+                </template>
+                <template #footer>
+                    <div class="flex mt-1 justify-content-end">
+                        <Button outlined icon="pi pi-whatsapp" severity="success" @click="shareWhatsapp(proposal)"/>
+                    </div>
                 </template>
             </Card>
         </div>
