@@ -66,7 +66,7 @@
         style="white-space: pre-wrap;"
     >
         {{ opinion.summary }}
-        <div class="flex justify-content-between">
+        <div class="flex justify-content-between mt-2">
             <div v-if="opinion.has_content">
                 <Button text label="En savoir plus" @click="displayContent()" />
             </div>
