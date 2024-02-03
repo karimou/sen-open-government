@@ -55,7 +55,7 @@
     const shareWhatsapp = (proposal) => {
         let candidateName = electionsStore.getCandidateName(opinion.value?.author_id);
         let currentUrl = window.location.href;
-        window.location.href = `whatsapp://send?text=Je vous partage cette proprosition du candidat ${ candidateName }:%0A${ encodeURIComponent(proposal.content) }%0A${encodeURIComponent(currentUrl)}`;
+        window.location.href = `whatsapp://send?text=Je vous partage cette proprosition du candidat ${ candidateName }:%0A"${ encodeURIComponent(proposal.content) }"%0A%0A${encodeURIComponent(currentUrl)}`;
     }
 
 </script>
