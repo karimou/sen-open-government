@@ -18,19 +18,19 @@
 
     const responsiveOptions = ref([
         {
-            breakpoint: '600px',
-            numVisible: Math.min(3, numCandidates),
-            numScroll: 1
+            breakpoint: '992px',
+            numVisible: 4,
+            numScroll: 3
         },
         {
             breakpoint: '768px',
-            numVisible: Math.min(4, numCandidates),
-            numScroll: 2
+            numVisible: 3,
+            numScroll: 1
         },
         {
-            breakpoint: '992px',
-            numVisible: Math.min(5, numCandidates),
-            numScroll: 3
+            breakpoint: '600px',
+            numVisible: 2,
+            numScroll: 1
         },
     ]);
 
@@ -39,8 +39,8 @@
     
     <Carousel
         :value="electionsStore.currentElection.candidates"
-        :numVisible="Math.min(2, numCandidates)"
-        :numScroll="1"
+        :numVisible="5"
+        :numScroll="3"
         :responsiveOptions="responsiveOptions"
         circular
         :autoplay-interval="2000"
