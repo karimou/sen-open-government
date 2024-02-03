@@ -9,3 +9,28 @@ html, body, #app, main {
 a {
     text-decoration: none;
 }
+.p-card {
+    background: #ffffff;
+    color: #334155;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+}
+.p-card .p-card-body {
+    padding: 1.5rem;
+}
+.p-card .p-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+.p-card .p-card-subtitle {
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    color: #64748b;
+}
+.p-card .p-card-content {
+    padding: 0 0 0 0;
+}
+.p-card .p-card-footer {
+    padding: 0 0 0 0;
+}

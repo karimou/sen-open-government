@@ -10,6 +10,7 @@
 
 	import AppCandidateOpinionsPanel from '@/components/AppCandidateOpinionsPanel.vue';
 	import AppCandidatesSelector from '@/components/AppCandidatesSelector.vue';
+	import AppCandidatesSelectorCarousel from '@/components/AppCandidatesSelectorCarousel.vue';
 
 	const $groupArrayBy = inject('$groupArrayBy');
 
@@ -75,9 +76,12 @@
 			class="flex flex-wrap justify-content-center mb-6"
 			style="max-width: 800px; margin: auto;"
 		>
-			<AppCandidatesSelector
+			<AppCandidatesSelectorCarousel
 				@scroll="scrollToAuthor($event)"
 			/>
+			<!-- <AppCandidatesSelector
+				@scroll="scrollToAuthor($event)"
+			/> -->
 		</div>
 		<div style="z-index: 1; position: relative;">
 			<div class="grid">

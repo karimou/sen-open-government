@@ -7,6 +7,7 @@
 	import ElectionMainOpinionsByAuthor from '@/components/ElectionMainOpinionsByAuthor.vue';
 	import ElectionMainOpinionsByIssue from '@/components/ElectionMainOpinionsByIssue.vue';
 	import AppCandidatesSelector from '@/components/AppCandidatesSelector.vue';
+	import AppCandidatesSelectorCarousel from '@/components/AppCandidatesSelectorCarousel.vue';
 	import AppIssuesSelector from '@/components/AppIssuesSelector.vue';
 
 	const $groupArrayBy = inject('$groupArrayBy');
@@ -72,9 +73,12 @@
 			<template
 				v-if="isGroupBy('author_id')"
 			>
-				<AppCandidatesSelector
+				<AppCandidatesSelectorCarousel
 					@scroll="scrollToAuthor($event)"
 				/>
+			<!-- <AppCandidatesSelector
+				@scroll="scrollToAuthor($event)"
+			/> -->
 
 			</template>
 			<template 
