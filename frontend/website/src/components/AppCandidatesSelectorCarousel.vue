@@ -56,7 +56,6 @@
                         <img 
                             :src="data.photo || 'https://placehold.co/150'"
                             class="border-round" 
-                            style="width: 300px;"
                         />
                         <!-- <Tag :value="slotProps.data.inventoryStatus" :severity="getSeverity(slotProps.data.inventoryStatus)" class="absolute" style="left:5px; top: 5px"/> -->
                     </div>
