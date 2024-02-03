@@ -48,7 +48,6 @@
         <template #item="{ data }">
             <div 
                 v-ripple
-                style="max-width: 15rem;"
                 class="cursor-pointer border-1 surface-border border-round m-2  p-3" 
                 @click="scrollToAuthor(data.id)"
             >
