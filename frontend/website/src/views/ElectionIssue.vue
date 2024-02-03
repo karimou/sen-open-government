@@ -76,12 +76,12 @@
 			class="flex flex-wrap justify-content-center mb-6"
 			style="max-width: 800px; margin: auto;"
 		>
-			<AppCandidatesSelectorCarousel
-				@scroll="scrollToAuthor($event)"
-			/>
-			<!-- <AppCandidatesSelector
+			<!-- <AppCandidatesSelectorCarousel
 				@scroll="scrollToAuthor($event)"
 			/> -->
+			<AppCandidatesSelector
+				@scroll="scrollToAuthor($event)"
+			/>
 		</div>
 		<div style="z-index: 1; position: relative;">
 			<div class="grid">

@@ -73,12 +73,12 @@
 			<template
 				v-if="isGroupBy('author_id')"
 			>
-				<AppCandidatesSelectorCarousel
+				<!-- <AppCandidatesSelectorCarousel
 					@scroll="scrollToAuthor($event)"
-				/>
-			<!-- <AppCandidatesSelector
+				/> -->
+			<AppCandidatesSelector
 				@scroll="scrollToAuthor($event)"
-			/> -->
+			/>
 
 			</template>
 			<template 
