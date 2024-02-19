@@ -33,7 +33,7 @@
     });
 
 
-    const isPanelCollapsed = ref();
+    const isPanelCollapsed = ref(false);
     onMounted(() => {
         isPanelCollapsed.value = collapsed.value;
     });

@@ -40,7 +40,7 @@
             .reduce((result, x) => result + x, 0)
     });
 
-    const isPanelCollapsed = ref();
+    const isPanelCollapsed = ref(false);
     onMounted(() => {
         isPanelCollapsed.value = collapsed.value;
     });
