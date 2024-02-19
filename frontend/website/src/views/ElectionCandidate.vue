@@ -103,7 +103,7 @@
 			/>
 		</div>
 		<div style="z-index: 1; position: relative;">
-			<div class="grid">
+			<div class="flex">
 				<div class="lg:col-offset-3 lg:col-6 md:col-offset-2 md:col-8 col">
 					<div 
 						v-for="(issueOpinions, issueId ) in displayedOpinions" :ref="(el) => issueRefs[issueId] = el"
