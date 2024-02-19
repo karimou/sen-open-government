@@ -3,7 +3,7 @@
     import Panel from 'primevue/panel';
     import Avatar from 'primevue/avatar';
     import Badge from 'primevue/badge';
-    import { computed, toRefs } from 'vue';
+    import { computed, toRefs, onMounted, ref } from 'vue';
     import AppOpinion from '@/components/AppOpinion.vue';
 
     import { useElectionsStore } from '@/stores/elections';
@@ -40,15 +40,25 @@
             .reduce((result, x) => result + x, 0)
     });
 
+    const isPanelCollapsed = ref();
+    onMounted(() => {
+        isPanelCollapsed.value = collapsed.value;
+    });
+    const togglePanel = () => isPanelCollapsed.value = !isPanelCollapsed.value;
+
 </script>
 
 <template>
     <Panel 
-        :collapsed="collapsed"
-        toggleable class="w-full my-2"
+        :collapsed="isPanelCollapsed"
+        toggleable 
+        class="w-full my-2"
     >
         <template #header>
-            <div class="flex align-items-center gap-2">
+            <div 
+                class="flex align-items-center gap-2 cursor-pointer" 
+                @click="togglePanel()"
+            >
                 <Avatar 
                     :image="candidate?.photo"
                     size="large" 

@@ -101,7 +101,7 @@
 		<Sidebar 
 			v-model:visible="descriptionVisible" 
 			header="Plus d'infos"
-			class="w-full md:w-20rem lg:w-30rem"
+			class="w-11 md:w-20rem lg:w-30rem"
 		>
 			<p style="white-space: pre-wrap;" v-html="issue?.short_description"/>
 		</Sidebar>

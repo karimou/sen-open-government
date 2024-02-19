@@ -79,7 +79,7 @@
     <Sidebar 
         v-model:visible="isContentVisible" 
         header="En savoir plus"
-        class="w-full md:w-8 lg:w-5"
+        class="w-11 md:w-8 lg:w-5"
         position="left"
     >
         <ProgressSpinner 
@@ -91,7 +91,7 @@
     </Sidebar>
     <Sidebar 
         v-model:visible="areProposalsVisible" 
-        class="w-full md:w-8 lg:w-5"
+        class="w-11 md:w-8 lg:w-5"
         position="right"
     >
         <ProgressSpinner 
