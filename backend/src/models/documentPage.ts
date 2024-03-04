@@ -1,3 +1,4 @@
+import { json } from "stream/consumers";
 import { getClient, loadQueries } from "../services/db";
 import { User } from '../types';
 
@@ -93,7 +94,10 @@ class DocumentPage {
 
         if (!documentPage) throw(new Error('[documentPage] retrieving documentPage failed'));
         
-        return new DocumentPage({...documentPage}, documentPage.user);
+        return new DocumentPage({
+            ...documentPage,
+            children: documentPage.children?.map((item: JSON) => new DocumentPage(item))
+        }, documentPage.user);
 
     }
     static async list(): Promise<Array<DocumentPage>> {
