@@ -14,7 +14,7 @@ const models_1 = require("../../../models");
 const middleware_1 = require("../../../middleware");
 const router = (0, express_1.Router)();
 router
-    .get('/:opinionId', middleware_1.isUserSigned, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    .get('/:opinionId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let opinion = yield models_1.Opinion
             .getById(req.params.opinionId);
