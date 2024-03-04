@@ -48,7 +48,8 @@
     </nav>
     <main >
         <section>
-            <div class="col-10 md:col-6 mx-auto text-center">
+            <div class="col-10 md:col-6 mx-auto">
+                <div class="title">Bienvenu(e)</div>
                 <p style="white-space: pre-wrap;">{{ documentPagesStore.currentDocumentPage?.summary }}</p>
             </div>
         </section>
