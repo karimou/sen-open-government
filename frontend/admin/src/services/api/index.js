@@ -6,6 +6,7 @@ import persons from './persons';
 import opinions from './opinions';
 import users from './users';
 import files from './files';
+import documentPages from './documentPages';
 
 export const API = {
     auth,
@@ -15,5 +16,6 @@ export const API = {
     persons,
     opinions,
     users,
-    files
+    files,
+    documentPages
 }
