@@ -14,7 +14,6 @@ class DocumentPage {
     capsule_url: string
     parent_id: number
     parent: DocumentPage
-    children: Array<DocumentPage>
     created_on: Date
     last_modified_on: Date
     last_modified_by: User | undefined
@@ -94,10 +93,26 @@ class DocumentPage {
 
         if (!documentPage) throw(new Error('[documentPage] retrieving documentPage failed'));
         
-        return new DocumentPage({
-            ...documentPage,
-            children: documentPage.children?.map((item: JSON) => new DocumentPage(item))
-        }, documentPage.user);
+        return new DocumentPage({...documentPage}, documentPage.user);
+
+    }
+    static async getDocumentChildren(id: number | string): Promise<Array<DocumentPage>> {
+        let client = await getClient();
+
+        let query = {
+            text: documentPageQueries.GET_DOCUMENT_PAGE_CHILDREN,
+            values: [id]
+        }
+
+        let documentPages = await client.query(query)
+            .then(res => res.rows)
+            .catch(e => console.log(e));
+
+        client.release();
+
+        if (!documentPages) throw(new Error('[documentPage] retrieving documentPage children failed'));
+        
+        return documentPages.map(documentPage => new DocumentPage(documentPage , documentPage.user));
 
     }
     static async list(): Promise<Array<DocumentPage>> {
