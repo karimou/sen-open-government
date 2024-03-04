@@ -28,7 +28,7 @@ class DocumentPage {
 
         let query = {
             text: documentPageQueries.INSERT_DOCUMENT_PAGE,
-            values: [this.title, this.summary, this.content, this.cover_image_url, this.capsule_url, this.cover_image_url, this.parent_id, this.last_modified_by?.id]
+            values: [this.title, this.summary, this.content, this.cover_image_url, this.capsule_url, this.parent_id, this.last_modified_by?.id]
         }
 
         let documentPage = await client.query(query)
@@ -46,7 +46,7 @@ class DocumentPage {
         let client = await getClient();
         let query = {
             text: documentPageQueries.UPDATE_DOCUMENT_PAGE,
-            values: [this.id, this.title, this.summary, this.content, this.cover_image_url, this.capsule_url, this.cover_image_url, this.parent_id, this.last_modified_by?.id]
+            values: [this.id, this.title, this.summary, this.content, this.cover_image_url, this.capsule_url, this.parent_id, this.last_modified_by?.id]
         }
 
         let documentPage = await client.query(query)

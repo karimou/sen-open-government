@@ -11,7 +11,8 @@
                 {to: '/admin/organisations', icon: 'pi pi-building', label: 'Organisations'},
                 {to: '/admin/persons', icon: 'pi pi-users', label: 'Personnes'},
                 {to: '/admin/issues', icon: 'pi pi-question-circle', label: 'Thèmes'},
-                {to: '/admin/opinions', icon: 'pi pi-megaphone', label: 'Opinions'}
+                {to: '/admin/opinions', icon: 'pi pi-megaphone', label: 'Opinions'},
+                {to: '/admin/document-pages', icon: 'pi pi-book', label: 'Documents'}
             ]
         },
         {

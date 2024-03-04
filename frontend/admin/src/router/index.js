@@ -45,6 +45,11 @@ const router = createRouter({
           name: 'users',
           component: () => import('@/views/UsersView.vue')
         },
+        {
+          path: '/admin/document-pages',
+          name: 'users',
+          component: () => import('@/views/DocumentPagesView.vue')
+        },
       ]
     },
     {
