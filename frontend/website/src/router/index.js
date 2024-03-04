@@ -1,15 +1,25 @@
 
 import { createRouter, createWebHistory } from 'vue-router';
 import ElectionView from '@/views/ElectionView.vue';
+import DocumentPageView from '@/views/DocumentPageView.vue';
 
 import { API } from '@/services/api';
 import { useElectionsStore } from '@/stores/elections';
+import { useDocumentPagesStore } from '@/stores/documentpages';
 
 const fetchElection = async (to, from) => {
   let electionId = to.params.electionId;
   let election = await API.elections.getElection(electionId);
   const electionsStore = useElectionsStore();
   electionsStore.storeCurrentElection(election);
+
+};
+
+const fetchDocumentPage = async (to, from) => {
+  let documentPageId = to.params.documentPageId;
+  let documentPage = await API.documentPages.getDocumentPage(documentPageId);
+  const documentPagesStore = useDocumentPagesStore();
+  documentPagesStore.storeCurrentDocumentPage(documentPage);
 
 };
 
@@ -59,6 +69,12 @@ const router = createRouter({
         },
       ]
     },
+    {
+      path: '/document/:documentPageId',
+      name: 'documentPage',
+      component: DocumentPageView,
+      beforeEnter: [fetchDocumentPage],
+    }
   ]
 })
 

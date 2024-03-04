@@ -9,6 +9,8 @@
 <style>
   html, body, #app {
     min-height: 100% !important;
+    /* font-family: 'Raleway, sans-serif' !important; */
+    font-size: 18px;
   }
   .p-avatar img, .p-chip img {
       object-fit: cover !important;   
@@ -19,9 +21,8 @@
   }
   nav {
     height: 76px;
-    /* padding: 5px 10px 5px 20px; */
-    background-color: white;
     border-bottom: 3px solid #fcb900;
+    background-color: white;
     position: fixed;
     top: 0;
     z-index: 180;
@@ -45,10 +46,9 @@
   nav .title {
     text-decoration: none;
     cursor: pointer;
-    font-family: "Interstate", sans-serif;
+    font-family: "Impact", sans-serif;
     font-size: 30px;
-    font-weight: bold;
-    /* text-transform: uppercase; */
+    text-transform: uppercase;
     letter-spacing: 1px;
     color: #111;
   }
