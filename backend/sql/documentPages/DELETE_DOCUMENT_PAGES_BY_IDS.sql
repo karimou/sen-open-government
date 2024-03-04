@@ -1,0 +1,1 @@
+DELETE FROM document_page WHERE id = ANY($1) RETURNING id;
