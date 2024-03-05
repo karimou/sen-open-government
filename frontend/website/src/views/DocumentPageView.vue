@@ -11,6 +11,7 @@
     import Button from 'primevue/button';
     import ScrollTop from 'primevue/scrolltop';
     import Image from 'primevue/image';
+    import Card from 'primevue/card';
 
     /* -----------
     Data init
@@ -151,29 +152,36 @@
         class="w-11 md:hidden"
         position="right"
     >
-        <div class="col-6">
-            <div
-                class="uppercase my-4 text-1-xl"
-            >
-                <a 
-                    v-ripple 
-                    @click="scrollToPage(); isTableOfContentsSidebarActive = false;" 
-                    class="cursor-pointer"
-                >Introduction</a>
+        <div class="grid">
+            <div class="sm:col-6">
+                <div
+                    class="uppercase my-4 text-1-xl"
+                >
+                    <a 
+                        v-ripple 
+                        @click="scrollToPage(); isTableOfContentsSidebarActive = false;" 
+                        class="cursor-pointer"
+                    >Introduction</a>
+                </div>
             </div>
-        </div>
-        <div 
-            class="col-6"
-            v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children" 
-        >
-            <div
-                class="uppercase my-4 text-1-xl"
+            <div 
+                class="sm:col-6"
+                v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children" 
             >
-                <a 
+                <Card
                     v-ripple 
-                    @click="scrollToPage(childPage.id); isTableOfContentsSidebarActive = false;" 
                     class="cursor-pointer"
-                >{{ childPage.title }}</a>
+                    @click="scrollToPage(childPage.id); isTableOfContentsSidebarActive = false;" 
+                >
+                    <template #header>
+                        <Image 
+                            :src="childPage?.cover_image_url" 
+                            alt="Image" 
+                            imageClass="w-full"
+                        />
+                    </template>
+                    <template #title>{{ childPage.title }}</template>
+                </Card>
             </div>
         </div>
     </Sidebar>
