@@ -15,47 +15,68 @@
     Data init
     ----------- */
     const documentPagesStore = useDocumentPagesStore();
-    const isSidebarActive = ref(false);
-    const isRootPage = ref(false);
-    const zoomedContent = ref({});
 
     onMounted(() => {
         document.title = documentPagesStore.currentDocumentPage?.title;
-        isRootPage.value = !!documentPagesStore.currentDocumentPage?.parent_id;
         
     });
 
+    const isSidebarActive = ref(false);
+    const zoomedContent = ref({});
     const zoomContent = (page) => {
         zoomedContent.value = page;
         isSidebarActive.value = true;
     };
 
+    /* -----------
+    Content sidebar
+    ----------- */
+    const isTableOfContentsSidebarActive = ref(false);
+    const displayTableOfContents = () => {
+        isTableOfContentsSidebarActive.value = true;
+
+    }
 
 
 
 </script>
 <template>
-    <nav class="flex align-items-center justify-content-center">
-        <div class="logo" style="position: absolute; left: 10px">
+    <nav class="flex align-items-center justify-content-center gap-10 md:gap-0">
+        <div class="md:w-1 ml-2">
             <!-- Logo Placeholder for Illustration -->
-            <a href="https://www.demainsenegal.sn/" target="_blank"><img :src="logoDs"></a>
-        </div>
-        <RouterLink custom v-slot="{ href, navigate }" :to="`/document/${ documentPagesStore.currentDocumentPage.id }`">
-            <a v-ripple :href="href" @click="navigate" class="title">
-                {{ documentPagesStore.currentDocumentPage.title }}
+            <a href="https://www.demainsenegal.sn/" target="_blank">
+                <img :src="logoDs" class="w-11 h-11" style="max-height: 70px;">
             </a>
-        </RouterLink>
+        </div>
+        <div class="hidden md:flex overflow-scroll w-11 h-full">
+            <div
+                class="flex align-items-center justify-content-center uppercase text-center px-4"
+                style="height: 100%; text-wrap: nowrap;"
+            >
+                <a v-ripple >Introduction</a>
+            </div>
+            <div
+                class="flex align-items-center justify-content-center uppercase border-left-1 text-center px-4"
+                style="height: 100%; text-wrap: nowrap;"
+                v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children" 
+            >
+                <a v-ripple >{{ childPage.title }}</a>
+            </div>
+        </div>
+        <div class="w-1 ml-auto mr-2 md:hidden">
+            <Button size="large" text icon="pi pi-bars" @click="displayTableOfContents()"/>
+        </div>
     </nav>
     <main >
         <section>
             <div class="col-10 md:col-6 mx-auto">
-                <div class="title">Bienvenu(e)</div>
+                <div class="text-7xl">{{ documentPagesStore.currentDocumentPage.title }}</div>
                 <p style="white-space: pre-wrap;">{{ documentPagesStore.currentDocumentPage?.summary }}</p>
             </div>
         </section>
         <section v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children">
             <div class="col-10 md:col-6 mx-auto">
-                <div class="title">{{ childPage.title }}</div>
+                <div class="text-5xl">{{ childPage.title }}</div>
                 <p style="white-space: pre-wrap;">{{ childPage.summary }}</p>
                 <Button :disabled="!childPage.content" label="En savoir plus" @click="zoomContent(childPage)" />
             </div>
@@ -69,11 +90,13 @@
     >
         <p style="white-space: pre-wrap;" v-html="zoomedContent.content"/>
     </Sidebar>
+    <Sidebar 
+        v-model:visible="isTableOfContentsSidebarActive" 
+        header="Contenu"
+        class="w-11 md:w-8 lg:w-6"
+        position="right"
+    >
+        CONTENTS
+    </Sidebar>
 	<ScrollTop />
 </template>
-
-<style scoped>
-    section .title {
-        font-size: 50px;
-    }
-</style>
