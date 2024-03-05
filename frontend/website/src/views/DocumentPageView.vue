@@ -92,7 +92,7 @@
                 <p style="white-space: pre-wrap;">{{ documentPagesStore.currentDocumentPage?.summary }}</p>
                 <Button 
                     text 
-                    v-if="childPage.content" 
+                    v-if="documentPagesStore.currentDocumentPage?.content" 
                     label="En savoir plus" 
                     @click="zoomSection(documentPagesStore.currentDocumentPage)" 
                 />
@@ -105,12 +105,12 @@
             <div class="col-10 md:col-6 mx-auto" >
                 <div 
                     class="text-5xl" 
-                    :ref="(el) => sectionRefs[childPage.id] = el"
+                    :ref="(el) => sectionRefs[childPage?.id] = el"
                 >{{ childPage.title }}</div>
-                <p style="white-space: pre-wrap;">{{ childPage.summary }}</p>
+                <p style="white-space: pre-wrap;">{{ childPage?.summary }}</p>
                 <Button 
                     text 
-                    v-if="childPage.content" 
+                    v-if="childPage?.content" 
                     label="En savoir plus" 
                     @click="zoomSection(childPage)" 
                 />
@@ -119,11 +119,11 @@
     </main>
     <Sidebar 
         v-model:visible="isSidebarActive" 
-        :header="zoomedSection.title"
+        :header="zoomedSection?.title"
         class="w-11 md:w-8"
         position="right"
     >
-        <p style="white-space: pre-wrap;" v-html="zoomedSection.content"/>
+        <p style="white-space: pre-wrap;" v-html="zoomedSection?.content"/>
     </Sidebar>
     <Sidebar 
         v-model:visible="isTableOfContentsSidebarActive" 
