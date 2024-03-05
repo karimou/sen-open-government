@@ -144,16 +144,14 @@
     <Sidebar 
         v-model:visible="isSidebarActive" 
         :header="zoomedSection?.title"
-        class="md:w-8"
-        position="full"
+        class="md:w-8 w-full"
     >
         <p style="white-space: pre-wrap;" v-html="zoomedSection?.content"/>
     </Sidebar>
     <Sidebar 
         v-model:visible="isTableOfContentsSidebarActive" 
-        header="Contenu"
         class="w-11 md:hidden"
-        position="right"
+        position="left"
     >
         <div class="grid">
             <div 
