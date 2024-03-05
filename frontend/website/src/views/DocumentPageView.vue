@@ -104,7 +104,7 @@
             v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children"
             
         >
-            <div class="col-11 md:col-8 mx-auto" >
+            <div class="col-11 md:col-8 lg-col-7 mx-auto" >
                 <div 
                     class="text-5xl text-center" 
                     :ref="(el) => sectionRefs[childPage?.id] = el"
@@ -112,7 +112,7 @@
 
                 <div class="flex grid" :class="{'flex-row-reverse': index % 2 == 0 }">
                     <div 
-                        class="md:col-6 lg:col-4"
+                        class="lg:col-6 md:col-4"
                         v-if="childPage?.cover_image_url"
                     >
                         <Image 
@@ -123,7 +123,7 @@
                     </div> 
 
                     <div 
-                        :class="{'md:col-6 lg:col-8': childPage?.cover_image_url}"
+                        :class="{'lg:col-6 md:col-8': childPage?.cover_image_url}"
                     >
 
                         <p style="white-space: pre-wrap;">{{ childPage?.summary }}</p>
