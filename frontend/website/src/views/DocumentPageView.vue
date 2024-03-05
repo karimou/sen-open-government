@@ -3,7 +3,7 @@
     import { RouterLink } from 'vue-router';
 
     import { useDocumentPagesStore } from '@/stores/documentpages';
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, watch } from 'vue';
 
     import logoDs from '@/assets/logo-DS.png';
 
@@ -37,6 +37,20 @@
 
     }
 
+    /* -----------
+    Scroll to section
+    ----------- */
+
+	const scrollToPageId = ref(null);
+
+    const scrollToPage = (pageId) => {
+        scrollToPageId.value = pageId;
+    };
+    const sectionRefs = ref({});
+    watch(scrollToPageId, () => {
+        if (!scrollToPageId.value) return;
+        sectionRefs.value[scrollToPageId.value]?.scrollIntoView({ behavior: 'smooth' });
+    });
 
 
 </script>
@@ -53,14 +67,14 @@
                 class="flex align-items-center justify-content-center uppercase text-center px-4"
                 style="height: 100%; text-wrap: nowrap;"
             >
-                <a v-ripple >Introduction</a>
+                <a v-ripple @click="scrollToPage()" class="cursor-pointer">Introduction</a>
             </div>
             <div
-                class="flex align-items-center justify-content-center uppercase border-left-1 text-center px-4"
+                class="flex align-items-center justify-content-center uppercase border-left-1 text-center px-4 hover:border-bottom-4"
                 style="height: 100%; text-wrap: nowrap;"
                 v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children" 
             >
-                <a v-ripple >{{ childPage.title }}</a>
+                <a v-ripple @click="scrollToPage(childPage.id)" class="cursor-pointer">{{ childPage.title }}</a>
             </div>
         </div>
         <div class="w-1 ml-auto mr-2 md:hidden">
@@ -70,12 +84,15 @@
     <main >
         <section>
             <div class="col-10 md:col-6 mx-auto">
-                <div class="text-7xl">{{ documentPagesStore.currentDocumentPage.title }}</div>
+                <div class="text-6xl">{{ documentPagesStore.currentDocumentPage.title }}</div>
                 <p style="white-space: pre-wrap;">{{ documentPagesStore.currentDocumentPage?.summary }}</p>
             </div>
         </section>
-        <section v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children">
-            <div class="col-10 md:col-6 mx-auto">
+        <section 
+            v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children"
+            
+        >
+            <div class="col-10 md:col-6 mx-auto" :ref="(el) => sectionRefs[childPage.id] = el">
                 <div class="text-5xl">{{ childPage.title }}</div>
                 <p style="white-space: pre-wrap;">{{ childPage.summary }}</p>
                 <Button :disabled="!childPage.content" label="En savoir plus" @click="zoomContent(childPage)" />
@@ -93,10 +110,20 @@
     <Sidebar 
         v-model:visible="isTableOfContentsSidebarActive" 
         header="Contenu"
-        class="w-11 md:w-8 lg:w-6"
+        class="w-11 md:hidden"
         position="right"
     >
-        CONTENTS
+            <div
+                class="uppercase my-4 text-1-xl"
+            >
+                <a v-ripple @click="scrollToPage(); isTableOfContentsSidebarActive = false;" class="cursor-pointer">Introduction</a>
+            </div>
+            <div
+                class="uppercase my-4 text-1-xl"
+                v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children" 
+            >
+                <a v-ripple @click="scrollToPage(childPage.id); isTableOfContentsSidebarActive = false;" class="cursor-pointer">{{ childPage.title }}</a>
+            </div>
     </Sidebar>
 	<ScrollTop />
 </template>
