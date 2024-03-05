@@ -13,6 +13,8 @@
     import Image from 'primevue/image';
     import Card from 'primevue/card';
 
+    import AppFooter from '@/components/AppFooter.vue';
+    
     /* -----------
     Data init
     ----------- */
@@ -137,6 +139,7 @@
                 </div>
             </div>
         </section>
+        <AppFooter />
     </main>
     <Sidebar 
         v-model:visible="isSidebarActive" 
