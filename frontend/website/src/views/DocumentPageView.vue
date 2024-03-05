@@ -73,7 +73,7 @@
                 class="flex align-items-center justify-content-center uppercase text-center px-4"
                 style="height: 100%; text-wrap: nowrap;"
             >
-                <a v-ripple @click="scrollToPage()" class="cursor-pointer">Introduction</a>
+                <a v-ripple @click="scrollToPage()" class="cursor-pointer">Résumé</a>
             </div>
             <div
                 class="flex align-items-center justify-content-center uppercase border-left-1 text-center px-4 hover:border-bottom-4"
@@ -112,7 +112,7 @@
 
                 <div class="flex grid" :class="{'flex-row-reverse': index % 2 == 0 }">
                     <div 
-                        class="lg:col-4"
+                        class="md:col-6 lg:col-4"
                         v-if="childPage?.cover_image_url"
                     >
                         <Image 
@@ -123,7 +123,7 @@
                     </div> 
 
                     <div 
-                        :class="{'lg:col-8': childPage?.cover_image_url}"
+                        :class="{'md:col-6 lg:col-8': childPage?.cover_image_url}"
                     >
 
                         <p style="white-space: pre-wrap;">{{ childPage?.summary }}</p>
@@ -161,7 +161,7 @@
                         v-ripple 
                         @click="scrollToPage(); isTableOfContentsSidebarActive = false;" 
                         class="cursor-pointer"
-                    >Introduction</a>
+                    >Résumé</a>
                 </div>
             </div>
             <div 
