@@ -120,7 +120,7 @@
                         <Image 
                             :src="childPage?.cover_image_url" 
                             alt="Image" 
-                            imageClass="w-full"
+                            imageClass="w-full border-round"
                         />
                     </div> 
 
@@ -169,7 +169,7 @@
                         <Image 
                             :src="childPage?.cover_image_url" 
                             alt="Image" 
-                            imageClass="w-full"
+                            imageClass="w-full border-round"
                         />
                     </template>
                     <template #title>{{ childPage.title }}</template>
