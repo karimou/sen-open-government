@@ -153,17 +153,6 @@
         position="right"
     >
         <div class="grid">
-            <div class="sm:col-6">
-                <div
-                    class="uppercase my-4 text-1-xl"
-                >
-                    <a 
-                        v-ripple 
-                        @click="scrollToPage(); isTableOfContentsSidebarActive = false;" 
-                        class="cursor-pointer"
-                    >Résumé</a>
-                </div>
-            </div>
             <div 
                 class="sm:col-6"
                 v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children" 
