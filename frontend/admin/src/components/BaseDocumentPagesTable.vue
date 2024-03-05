@@ -139,6 +139,18 @@
                             <Button class="p-button-text p-button-rounded" icon="pi pi-book" @click="displayChildren(data)"></Button>
                         </template>
                     </Column>
+
+                    <Column field="cover_image_url" headerStyle="width: 100px">
+                        <template #body="{ data }">
+                            <Avatar 
+                                class="contained-image"
+                                v-if="data.cover_image_url"
+                                :image="data.cover_image_url"
+                                size="xlarge" 
+                                shape="rectangle" 
+                            />
+                        </template>
+                    </Column>
                     <Column field="title" header="Titre" />
                     <Column field="summary" header="Résumé" headerStyle="width: 500px">
                         <template #body="{ data }">

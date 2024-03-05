@@ -1,1 +1,0 @@
-import{d as n,r as i,$ as a,A as c}from"./index-jfYll-nw.js";const d=n("issues",()=>{const s=i(null),l=async()=>c.issues.listIssues().then(e=>s.value=e),o=a(()=>{var r;let e={};for(let t=0;t<((r=s.value)==null?void 0:r.length);t++){let u=s.value[t];console.log(u),e[u.title]=u}return e});return{issues:s,refreshIssues:l,issuesByTitle:o}});export{d as u};
