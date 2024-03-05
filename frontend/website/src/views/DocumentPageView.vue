@@ -127,14 +127,14 @@
                     >
 
                         <p style="white-space: pre-wrap;">{{ childPage?.summary }}</p>
+                        <Button 
+                            text 
+                            v-if="childPage?.content" 
+                            label="En savoir plus" 
+                            @click="zoomSection(childPage)" 
+                        />
                     </div>
                 </div>
-                <Button 
-                    text 
-                    v-if="childPage?.content" 
-                    label="En savoir plus" 
-                    @click="zoomSection(childPage)" 
-                />
             </div>
         </section>
     </main>
