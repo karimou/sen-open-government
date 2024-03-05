@@ -112,7 +112,7 @@
 
                 <div class="flex grid" :class="{'flex-row-reverse': index % 2 == 0 }">
                     <div 
-                        class="lg:col-6 md:col-4"
+                        class="md:col-6 lg:col-4"
                         v-if="childPage?.cover_image_url"
                     >
                         <Image 
@@ -123,7 +123,7 @@
                     </div> 
 
                     <div 
-                        :class="{'lg:col-6 md:col-8': childPage?.cover_image_url}"
+                        :class="{'md:col-6 lg:col-8': childPage?.cover_image_url}"
                     >
 
                         <p style="white-space: pre-wrap;">{{ childPage?.summary }}</p>
