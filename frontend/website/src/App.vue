@@ -21,7 +21,7 @@
   }
   nav {
     height: 56px;
-    border-bottom: 3px solid #fcb900;
+    border-bottom: 3px solid red;
     background-color: white;
     position: fixed;
     top: 0;
