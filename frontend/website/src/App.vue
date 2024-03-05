@@ -17,10 +17,10 @@
   }
   main {
       position: absolute;
-      top: 76px;
+      top: 56px;
   }
   nav {
-    height: 76px;
+    height: 56px;
     border-bottom: 3px solid #fcb900;
     background-color: white;
     position: fixed;
@@ -36,11 +36,11 @@
   }
   @media screen and (min-width: 1024px) {
     nav {
-      height: 96px;
+      height: 76px;
       /* padding: 10px 18px 10px 52px; */
     }
     main {
-        top: 96px;
+        top: 76px;
     }
   }
   nav .title {
