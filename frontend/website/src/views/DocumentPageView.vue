@@ -144,8 +144,8 @@
     <Sidebar 
         v-model:visible="isSidebarActive" 
         :header="zoomedSection?.title"
-        class="w-11 md:w-8"
-        position="right"
+        class="md:w-8"
+        position="full"
     >
         <p style="white-space: pre-wrap;" v-html="zoomedSection?.content"/>
     </Sidebar>
