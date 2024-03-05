@@ -10,6 +10,7 @@
     import Sidebar from 'primevue/sidebar';
     import Button from 'primevue/button';
     import ScrollTop from 'primevue/scrolltop';
+    import Image from 'primevue/image';
 
     /* -----------
     Data init
@@ -88,7 +89,7 @@
     <main >
         <section>
             <div class="col-10 md:col-6 mx-auto">
-                <div class="text-6xl" :ref="(el) => introRef = el">{{ documentPagesStore.currentDocumentPage.title }}</div>
+                <div class="text-6xl text-center" :ref="(el) => introRef = el">{{ documentPagesStore.currentDocumentPage.title }}</div>
                 <p style="white-space: pre-wrap;">{{ documentPagesStore.currentDocumentPage?.summary }}</p>
                 <Button 
                     text 
@@ -104,10 +105,29 @@
         >
             <div class="col-10 md:col-6 mx-auto" >
                 <div 
-                    class="text-5xl" 
+                    class="text-5xl text-center" 
                     :ref="(el) => sectionRefs[childPage?.id] = el"
                 >{{ childPage.title }}</div>
-                <p style="white-space: pre-wrap;">{{ childPage?.summary }}</p>
+
+                <div class="flex grid" :class="{'flex-row-reverse': index % 2 == 0 }">
+                    <div 
+                        class="lg:col-6"
+                        v-if="childPage?.cover_image_url"
+                    >
+                        <Image 
+                            :src="childPage?.cover_image_url" 
+                            alt="Image" 
+                            imageClass="w-full"
+                        />
+                    </div> 
+
+                    <div 
+                        :class="{'lg:col-6': childPage?.cover_image_url}"
+                    >
+
+                        <p style="white-space: pre-wrap;">{{ childPage?.summary }}</p>
+                    </div>
+                </div>
                 <Button 
                     text 
                     v-if="childPage?.content" 
@@ -131,6 +151,7 @@
         class="w-11 md:hidden"
         position="right"
     >
+        <div class="col-6">
             <div
                 class="uppercase my-4 text-1-xl"
             >
@@ -140,9 +161,13 @@
                     class="cursor-pointer"
                 >Introduction</a>
             </div>
+        </div>
+        <div 
+            class="col-6"
+            v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children" 
+        >
             <div
                 class="uppercase my-4 text-1-xl"
-                v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children" 
             >
                 <a 
                     v-ripple 
@@ -150,6 +175,7 @@
                     class="cursor-pointer"
                 >{{ childPage.title }}</a>
             </div>
+        </div>
     </Sidebar>
 	<ScrollTop />
 </template>
