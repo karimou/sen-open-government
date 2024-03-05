@@ -162,8 +162,8 @@
             >
                 <Card
                     v-ripple 
-                    class="cursor-pointer"
-                    @click="scrollToPage(childPage.id); isTableOfContentsSidebarActive = false;" 
+                    class="cursor-pointer my-2"
+                    @click="scrollToPage(childPage.id); isTableOfContentsSidebarActive = false;"
                 >
                     <template #header>
                         <Image 
