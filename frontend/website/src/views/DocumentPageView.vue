@@ -110,9 +110,9 @@
                     :ref="(el) => sectionRefs[childPage?.id] = el"
                 >{{ childPage.title }}</div>
 
-                <div class="flex grid" :class="{'flex-row-reverse': index % 2 == 0 }">
+                <div class="flex grid align-items-center" :class="{'flex-row-reverse': index % 2 == 0 }">
                     <div 
-                        class="md:col-6 lg:col-4"
+                        class="md:col-6"
                         v-if="childPage?.cover_image_url"
                     >
                         <Image 
@@ -123,7 +123,7 @@
                     </div> 
 
                     <div 
-                        :class="{'md:col-6 lg:col-8': childPage?.cover_image_url}"
+                        :class="{'md:col-6': childPage?.cover_image_url, 'text-right': index % 2 == 0, 'text-left': index % 1 == 0 }"
                     >
 
                         <p style="white-space: pre-wrap;">{{ childPage?.summary }}</p>
