@@ -4,7 +4,7 @@
     import InputText from 'primevue/inputtext';
     import Textarea from 'primevue/textarea';
     import Button from 'primevue/button';
-    import Editor from 'primevue/editor';
+    import BaseQuillEditor from '@/components/BaseQuillEditor.vue';
 
     import Message from 'primevue/message';
     import { inject, onMounted, ref } from 'vue';
@@ -93,10 +93,10 @@
             </div>
             <div class="field">
                 <label for="summary">Contenu</label>
-                <Editor 
+                <BaseQuillEditor 
                     v-model="content"
                     id="content"
-                    editorStyle="height: 320px"
+                    editorHeight="320px"
                 />
             </div>
             <Button type="submit" label="Soumettre" class="w-full" :loading="loading"></Button>

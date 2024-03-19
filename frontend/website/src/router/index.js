@@ -37,7 +37,7 @@ const router = createRouter({
       component: () => import('@/views/ElectionsView.vue')
     },
     {
-      path: '/election/:electionId',
+      path: '/programmes/:electionId',
       name: 'election',
       component: ElectionView,
       beforeEnter: [fetchElection],
@@ -48,29 +48,29 @@ const router = createRouter({
           component: () => import('@/views/ElectionMain.vue')
         },
         {
-          path: 'candidate/:candidateId',
+          path: 'candidat/:candidateId',
           name: 'electionCandidate',
           component: () => import('@/views/ElectionCandidate.vue')
         },
         {
-          path: 'issue/:issueId',
+          path: 'thème/:issueId',
           name: 'electionIssue',
           component: () => import('@/views/ElectionIssue.vue')
         },
         {
-          path: 'comparator/:candidateId1/:candidateId2',
+          path: 'comparateur/:candidateId1/:candidateId2',
           name: 'comparator',
           component: () => import('@/views/ComparatorView.vue')
         },
         {
-          path: 'comparator',
+          path: 'comparateur',
           name: 'comparator',
           component: () => import('@/views/ComparatorView.vue')
         },
       ]
     },
     {
-      path: '/document/:documentPageId',
+      path: '/doc/:documentPageId',
       name: 'documentPage',
       component: DocumentPageView,
       beforeEnter: [fetchDocumentPage],
