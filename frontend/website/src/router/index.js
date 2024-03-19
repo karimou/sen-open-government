@@ -70,7 +70,7 @@ const router = createRouter({
       ]
     },
     {
-      path: '/doc/:documentPageId',
+      path: '/document/:documentPageId',
       name: 'documentPage',
       component: DocumentPageView,
       beforeEnter: [fetchDocumentPage],
