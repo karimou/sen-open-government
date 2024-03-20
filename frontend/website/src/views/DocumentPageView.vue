@@ -165,11 +165,21 @@
         class="md:w-8 w-full px-0"
     >
         <template #container="{ closeCallback }">
+            <div class="px-4 pt-1 flex justify-content-end">
+                <Button 
+                    text 
+                    @click="closeCallback" 
+                    icon="pi pi-times" 
+                    class="h-2rem w-2rem " 
+                    severity="contrast" rounded
+                />
+            </div>
             <div 
                 ref="zoomedSectionSidebar"
                 style="overflow: auto;"
                 v-scroll="onZoomedSectionSidebarScroll"
             >
+            
                 <div 
                     v-if="zoomedSection?.cover_image_url"
                     alt="Image" 
