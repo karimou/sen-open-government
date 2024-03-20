@@ -14,6 +14,7 @@
     import Card from 'primevue/card';
 
     import AppFooter from '@/components/AppFooter.vue';
+    import { useParallax } from '@vueuse/core';
     
     /* -----------
     Data init
@@ -60,6 +61,10 @@
         }
     });
 
+    const zommedSectionCoverUrl = ref(null)
+    const { tilt, roll, source } = useParallax(zommedSectionCoverUrl)
+
+
 
 
 </script>
@@ -89,10 +94,10 @@
             <Button size="large" text icon="pi pi-bars" @click="displayTableOfContents()"/>
         </div>
     </nav>
-    <main >
+    <main style="max-width: 1090px;">
         <section>
-            <div class="col-11 md:col-8 mx-auto">
-                <div class="text-6xl text-center" :ref="(el) => introRef = el">{{ documentPagesStore.currentDocumentPage.title }}</div>
+            <div class="col-11 md:col-8 mx-auto text-center">
+                <div class="text-6xl" :ref="(el) => introRef = el">{{ documentPagesStore.currentDocumentPage.title }}</div>
                 <p style="white-space: pre-wrap;">{{ documentPagesStore.currentDocumentPage?.summary }}</p>
                 <Button 
                     text 
@@ -131,10 +136,10 @@
                         <p style="white-space: pre-wrap;">{{ childPage?.summary }}</p>
                         <Button 
                             text 
-                            v-if="childPage?.content" 
                             label="En savoir plus" 
                             @click="zoomSection(childPage)" 
                         />
+                        <!-- v-if="childPage?.content" -->
                     </div>
                 </div>
             </div>
@@ -144,8 +149,17 @@
     <Sidebar 
         v-model:visible="isSidebarActive" 
         :header="zoomedSection?.title"
-        class="md:w-8 w-full"
+        class="md:w-8 w-full px-0"
     >
+        <Image 
+            v-if="zoomedSection?.cover_image_url"
+            ref="zommedSectionCoverUrl"
+            :src="zoomedSection?.cover_image_url" 
+            alt="Image" 
+            imageClass="w-full border-round"
+            imageStyle="object-fit: cover;"
+            height="300"
+        />
         <p style="white-space: pre-wrap;" v-html="zoomedSection?.content"/>
     </Sidebar>
     <Sidebar 
@@ -165,6 +179,7 @@
                 >
                     <template #header>
                         <Image 
+                            v-if="childPage?.cover_image_url"
                             :src="childPage?.cover_image_url" 
                             alt="Image" 
                             imageClass="w-full border-round"
