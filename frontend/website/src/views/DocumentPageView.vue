@@ -91,7 +91,7 @@
         <div class="hidden md:flex overflow-scroll w-11 h-full align-items-center">
             <div
                 class="flex align-items-center justify-content-center uppercase text-center px-4"
-                style="height: 100%; text-wrap: nowrap;"
+                style="height: 100%; text-wrap: nowrap; color: #777"
             >
                 <a v-ripple @click="scrollToPage()" class="cursor-pointer">Résumé</a>
             </div>
