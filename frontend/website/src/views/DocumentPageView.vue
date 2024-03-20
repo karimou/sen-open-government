@@ -165,13 +165,13 @@
         class="md:w-8 w-full px-0"
     >
         <template #container="{ closeCallback }">
-            <div class="px-4 pt-1 flex justify-content-end">
+            <div >
                 <Button 
-                    text 
+                    style="position: absolute; right: 20px; top: 10px"
                     @click="closeCallback" 
                     icon="pi pi-times" 
                     class="h-2rem w-2rem " 
-                    severity="contrast" rounded
+                    severity="danger" rounded
                 />
             </div>
             <div 
