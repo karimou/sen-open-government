@@ -97,8 +97,9 @@
             </div>
             <div
                 class="flex align-items-center justify-content-center uppercase border-left-1 text-center px-4 hover:border-bottom-4"
-                style="height: 60%; text-wrap: nowrap;"
+                style="height: 50%; text-wrap: nowrap; color: #777"
                 v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children" 
+
             >
                 <a v-ripple @click="scrollToPage(childPage.id)" class="cursor-pointer">{{ childPage.title }}</a>
             </div>
