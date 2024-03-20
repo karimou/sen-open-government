@@ -3,7 +3,7 @@
     import { RouterLink } from 'vue-router';
 
     import { useDocumentPagesStore } from '@/stores/documentpages';
-    import { ref, onMounted, watch } from 'vue';
+    import { ref, onMounted, watch, computed, reactive } from 'vue';
 
     import logoDs from '@/assets/logo-DS.png';
 
@@ -14,7 +14,7 @@
     import Card from 'primevue/card';
 
     import AppFooter from '@/components/AppFooter.vue';
-    import { useParallax } from '@vueuse/core';
+    import { useScroll } from '@vueuse/core';
     
     /* -----------
     Data init
@@ -23,7 +23,6 @@
 
     onMounted(() => {
         document.title = documentPagesStore.currentDocumentPage?.title;
-        
     });
 
     const isSidebarActive = ref(false);
@@ -61,9 +60,18 @@
         }
     });
 
-    const zommedSectionCoverUrl = ref(null)
-    const { tilt, roll, source } = useParallax(zommedSectionCoverUrl)
+    const zoomedSectionSidebar = ref(null);
 
+
+    const { x, y } = useScroll(zoomedSectionSidebar);
+    const backgroundImageStyle = computed(() => ({
+        objectFit: 'cover', 
+        height: '300px', 
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        // backgroundPosition: `50% calc(50% - ${ y.value }px)`
+    }));
 
 
 
@@ -151,16 +159,18 @@
         :header="zoomedSection?.title"
         class="md:w-8 w-full px-0"
     >
-        <Image 
+        <div 
+            ref="zoomedSectionSidebar"
+        >
+        <div 
             v-if="zoomedSection?.cover_image_url"
-            ref="zommedSectionCoverUrl"
-            :src="zoomedSection?.cover_image_url" 
             alt="Image" 
-            imageClass="w-full border-round"
-            imageStyle="object-fit: cover;"
-            height="300"
+            class="w-full border-round"
+            :style="{...backgroundImageStyle, backgroundImage: `url(${ zoomedSection?.cover_image_url })` }"
         />
         <p style="white-space: pre-wrap;" v-html="zoomedSection?.content"/>
+    </div>
+
     </Sidebar>
     <Sidebar 
         v-model:visible="isTableOfContentsSidebarActive" 
