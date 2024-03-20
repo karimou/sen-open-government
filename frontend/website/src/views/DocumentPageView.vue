@@ -14,7 +14,7 @@
     import Card from 'primevue/card';
 
     import AppFooter from '@/components/AppFooter.vue';
-    import { useScroll } from '@vueuse/core';
+    import { vScroll } from '@vueuse/components'
     
     /* -----------
     Data init
@@ -60,17 +60,22 @@
         }
     });
 
+    /* -----------
+    Zoomed section cover - Config & Parallax
+    ----------- */
     const zoomedSectionSidebar = ref(null);
+    const parallaxY = ref(0);
+    const onZoomedSectionSidebarScroll = ({ y }) => {
+        parallaxY.value = y.value;
+    }
 
-
-    const { x, y } = useScroll(zoomedSectionSidebar);
     const backgroundImageStyle = computed(() => ({
         objectFit: 'cover', 
         height: '300px', 
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        // backgroundPosition: `50% calc(50% - ${ y.value }px)`
+        backgroundPosition: `50% calc(50% - ${ Math.min(parallaxY.value, 300) }px)`
     }));
 
 
@@ -159,17 +164,25 @@
         :header="zoomedSection?.title"
         class="md:w-8 w-full px-0"
     >
-        <div 
-            ref="zoomedSectionSidebar"
-        >
-        <div 
-            v-if="zoomedSection?.cover_image_url"
-            alt="Image" 
-            class="w-full border-round"
-            :style="{...backgroundImageStyle, backgroundImage: `url(${ zoomedSection?.cover_image_url })` }"
-        />
-        <p style="white-space: pre-wrap;" v-html="zoomedSection?.content"/>
-    </div>
+        <template #container="{ closeCallback }">
+            <div 
+                ref="zoomedSectionSidebar"
+                style="overflow: auto;"
+                v-scroll="onZoomedSectionSidebarScroll"
+            >
+                <div 
+                    v-if="zoomedSection?.cover_image_url"
+                    alt="Image" 
+                    class="w-full"
+                    :style="{...backgroundImageStyle, backgroundImage: `url(${ zoomedSection?.cover_image_url })` }"
+                />
+                <div class="px-4 mx-auto" style="max-width: 790px;" >
+                    <h2>{{ zoomedSection?.title }}</h2>
+                    <hr/>
+                    <p style="white-space: pre-wrap;" v-html="zoomedSection?.content"/>
+                </div>
+            </div>
+        </template>
 
     </Sidebar>
     <Sidebar 
