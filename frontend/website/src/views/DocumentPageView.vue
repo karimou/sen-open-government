@@ -75,7 +75,7 @@
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        backgroundPosition: `50% calc(50% - ${ Math.min(Number(parallaxY.value / 2), 300) }px)`
+        backgroundPosition: `50% calc(50% - ${ Math.min(Number(parallaxY.value / 2), 150) }px)`
     }));
 
 
