@@ -109,9 +109,9 @@
         </div>
     </nav>
     <main style="max-width: 1090px;">
-        <section>
+        <section class="py-2">
             <div class="col-11 md:col-8 mx-auto text-center">
-                <div class="text-6xl" :ref="(el) => introRef = el">{{ documentPagesStore.currentDocumentPage.title }}</div>
+                <div class="text-6xl mb-4" :ref="(el) => introRef = el">{{ documentPagesStore.currentDocumentPage.title }}</div>
                 <p style="white-space: pre-wrap;">{{ documentPagesStore.currentDocumentPage?.summary }}</p>
                 <Button 
                     text 
@@ -129,7 +129,7 @@
         >
             <div class="col-11 md:col-8 lg-col-7 mx-auto" >
                 <div 
-                    class="text-5xl text-center" 
+                    class="text-5xl text-center mb-4" 
                     :ref="(el) => sectionRefs[childPage?.id] = el"
                 >{{ childPage.title }}</div>
 
