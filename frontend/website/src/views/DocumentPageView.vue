@@ -123,6 +123,8 @@
         </section>
         <section 
             v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children"
+            :style="{ backgroundColor: (index % 2 == 0) ? '#f2f2f5' : '#fff' }"
+            class="py-2"
             
         >
             <div class="col-11 md:col-8 lg-col-7 mx-auto" >
