@@ -199,7 +199,7 @@
                     class="w-full"
                     :style="{...backgroundImageStyle, backgroundImage: `url(${ zoomedSection?.cover_image_url })` }"
                 />
-                <div class="px-4 mx-auto" style="max-width: 790px;" >
+                <div class="px-4 mr-auto" style="max-width: 790px;" >
                     <h2>{{ zoomedSection?.title }}</h2>
                     <hr/>
                     <p style="white-space: pre-wrap;" v-html="zoomedSection?.content"/>
