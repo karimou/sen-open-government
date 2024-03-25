@@ -79,6 +79,13 @@
     }));
 
 
+    const getSectionBackgroundColor = (index) => {  
+        if (index % 4 == 0) return 'rgba(0, 133, 63, 0.2)';
+        if (index % 4 == 1) return '#fff';
+        if (index % 4 == 2) return 'rgba(253, 239, 66, 0.2)';
+        if (index % 4 == 3) return 'rgba(227, 27, 35, 0.2)';
+    }
+
 
 </script>
 <template>
@@ -109,7 +116,10 @@
         </div>
     </nav>
     <main style="max-width: 1090px;">
-        <section class="py-2">
+        <section 
+            :style="{ backgroundColor: getSectionBackgroundColor(0) }"
+            class="py-2"
+        >
             <div class="col-11 md:col-8 mx-auto text-center">
                 <div class="text-6xl mb-4" :ref="(el) => introRef = el">{{ documentPagesStore.currentDocumentPage.title }}</div>
                 <p style="white-space: pre-wrap;">{{ documentPagesStore.currentDocumentPage?.summary }}</p>
@@ -123,7 +133,7 @@
         </section>
         <section 
             v-for="(childPage, index) in  documentPagesStore.currentDocumentPage?.children"
-            :style="{ backgroundColor: (index % 2 == 0) ? '#f2f2f5' : '#fff' }"
+            :style="{ backgroundColor: getSectionBackgroundColor(index + 1) }"
             class="py-2"
             
         >
