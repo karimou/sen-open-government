@@ -85,6 +85,7 @@
         if (index % 4 == 2) return 'rgba(253, 239, 66, 0.2)';
         if (index % 4 == 3) return 'rgba(227, 27, 35, 0.2)';
     };
+    
 
 
 </script>
@@ -117,7 +118,7 @@
     </nav>
     <main style="max-width: 1090px;">
         <section 
-            :style="{ backgroundColor: getSectionBackgroundColor(0) }"
+            style="background-color: rgba(0, 133, 63); color: white"
             class="py-2"
         >
             <div class="col-11 md:col-8 mx-auto text-center" style="max-width: 748px;">
