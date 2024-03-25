@@ -80,10 +80,10 @@
 
 
     const getSectionBackgroundColor = (index) => {  
-        if (index % 4 == 0) return 'rgba(0, 133, 63, 0.2)';
-        if (index % 4 == 1) return '#fff';
-        if (index % 4 == 2) return 'rgba(253, 239, 66, 0.2)';
-        if (index % 4 == 3) return 'rgba(227, 27, 35, 0.2)';
+        if (index % 2 == 0) return 'rgba(0, 133, 63, 0.2)';
+        if (index % 2 == 1) return '#fff';
+        // if (index % 4 == 2) return 'rgba(253, 239, 66, 0.2)';
+        // if (index % 4 == 3) return 'rgba(227, 27, 35, 0.2)';
     };
     
 
